@@ -179,11 +179,131 @@ AI評価は、過去の特定日について無料では再現できない。そ
 直近の実行結果(2026-07-22、5年・30銘柄): トレード1574件、勝率44.41%、プロフィットファクター1.23、
 期待値+0.76%/トレード。地合いによって結果は変動するため、定期的に再実行して確認することを推奨。
 
+## Version 2: Feature Store(Phase 1 — データ基盤のみ、モデル学習はまだ)
+
+Version 1の監査結果(スコアベースの採用ルールに逆選択があり、優位性が確認できない)を受けて、
+スコアの微調整ではなく、**特徴量と将来ラベルを大量蓄積し、後から統計・機械学習でランキングモデルを
+構築するためのデータ基盤**を作る方針に転換した。Phase 1は「基盤が正しく動くこと」の証明が目的で、
+モデル学習はまだ行わない。
+
+### 実行方法
+
+```bash
+python scripts/build_feature_store.py --symbols AAPL,MSFT,NVDA,TSLA,AMD --years 1
+python -m unittest tests.test_feature_store -v
+```
+
+結果は `data/feature_store.db`(`features`・`labels`・`data_quality_log` の3テーブル)と
+`reports/feature_store_quality_YYYY-MM-DD.md` に保存される(DB本体はgit管理対象外)。
+
+### データ構造
+
+- 主キー: `(ticker, signal_date)`
+- **`features`テーブル**: signal_date時点で実際に知り得た情報だけを格納(識別情報・流動性・
+  トレンド・モメンタム・ブレイクアウト・ボラティリティ・ローソク足・市場環境・セクター相対強度・
+  Version1の`technical_score_v1`とその構成条件)。未来のデータは一切参照しない。
+  **候補条件を満たさなかった日も含め、対象銘柄・対象期間の全営業日分を保存する**
+  (`universe_included_flag`/`candidate_flag`/`candidate_reason`/`universe_version`列で
+  「全営業日データ」「候補ユニバースに入った日」を後から正確に区別・抽出できるようにしている)。
+- **`labels`テーブル**: 完全に別工程(`feature_store/labels.py`)で生成する将来の結果。
+  `future_return_*` / `future_max_return_*` / `future_min_return_*` / `hit_plus_*pct_*d` /
+  `days_to_plus_*pct` / 主要ラベル`target_15pct_within_10d`・`target_trade_success`。
+  全ラベルは「シグナル翌営業日の始値」を基準に統一している。
+  - `target_15pct_within_10d`: 翌営業日始値を基準に、10営業日以内に高値が+15%以上へ到達したら1
+  - `target_trade_success`: 翌営業日始値エントリー・スリッページ0.2%・手数料0.1%・
+    損切りEntry−ATR14×1.5・利確Entry×1.15・最大保有10営業日という、Version1の
+    `backtest.engine.price_trade_at_signal`と全く同じロジックを再利用し、損切り到達前に
+    利確到達すれば1(同日中に両方到達した場合は損切り優先の保守的判定)
+  - 将来ウィンドウのデータが十分に無い場合は0/1で確定させずNoneを返す
+    (「未到達」と「データ不足で判定不能」を区別するため)。加えて、保有期間
+    (max_holding_days)を使い切る前にデータそのものが尽きた場合(上場廃止・データ末尾を想定)も、
+    `backtest.engine.price_trade_at_signal`が返す`exit_reason=="data_end"`を見て
+    `target_trade_success`/`hit_stop_atr_1_5_before_plus_15`をNoneのまま確定させない
+    (`holding_period_limit`=正当な期間満了、とは区別する)。境界値は
+    `tests/test_label_boundaries.py`でユニットテスト済み(ちょうど10営業日目到達・11営業日目
+    到達・同日stop/target・データ末尾・ATR算出不能・直近未確定・分割ギャップ検知)。
+
+### 証明実行の結果(5銘柄・1年、2026-07-22実行)
+
+`python scripts/build_feature_store.py --symbols AAPL,MSFT,NVDA,TSLA,AMD --years 1` を実行した
+結果、`features`/`labels`とも1255件。**この1255件は「5銘柄 × 対象期間(2025-06-27〜2026-06-27)の
+全営業日」であり、候補条件で絞り込んだ結果ではない**(全営業日を保存する設計に変更済み)。
+ただし対象の5銘柄(AAPL/MSFT/NVDA/TSLA/AMD)は株価・時価総額・平均出来高のいずれも一次スクリーニング
+条件を常に大きく上回る大型株のため、今回はたまたま1255件全てが`candidate_flag=1`(候補日)にもなった
+(全営業日件数と候補日件数が偶然一致している)。Phase 2で時価総額の小さい銘柄や新規上場銘柄を含めると、
+`candidate_flag=0`の非候補日レコードが実際に現れる想定。
+
+データ品質チェックは全項目PASS。欠損率は3区分に分けて確認した。
+
+- **予期しない欠損(ウォームアップ済みのはずが欠損)**: 全20列で0.0%
+- **ウォームアップ期間中の欠損**: 0件(下記の遡り取得により、保存対象期間内では発生しなかった)
+- **仕様上常にNULLの列(品質問題ではない)**: `bid_ask_spread`/`turnover_ratio`/`beta`/`ma20`が
+  いずれも100.0%(採用していない/無料データ源では取得不能なため意図的に常にNULL。0埋めはしていない。
+  それぞれ`bid_ask_spread_available`/`turnover_ratio_available`/`beta_available`列が0であることでも
+  「取得不能」であることを明示している)
+
+### ウォームアップ期間の確保
+
+MA200等の長期指標を正しく計算するため、`scripts/build_feature_store.py`は保存対象期間の開始日より
+**420暦日(≒287営業日、実測でAAPL: 287営業日)前**から価格データを取得しており、要件の
+「開始日より最低250〜300営業日前」を満たす。指標計算はpandasの`rolling(window, min_periods=window)`
+方式のみを使用しており、ウォームアップ不足分は0埋め・後方補完・未来方向からの補完のいずれもせず
+NaN(→NULL)のまま残る。
+
+なお、`analysis.technical`のRSI(本番pipeline用)はウォームアップ不足分を中立値50でfillnaする仕様
+(意図的な設計)だが、これをfeature storeでそのまま使うと「本当にRSI=50」なのか「データ不足で計算不能」
+なのかを区別できず欠損チェックもすり抜けてしまう。そのため`feature_store/features.py`では同じRSI計算を
+fillnaなしで独自に再計算しており(`rsi_7`/`rsi_14`)、ウォームアップ期間中はNULLのまま残る。
+
+### 価格データの調整方法
+
+過去株価は`api/yfinance_client.py`(`yf.Ticker(symbol).history(..., auto_adjust=False)`)で取得している。
+
+- **株式分割調整: あり**。`auto_adjust=False`でも、yfinanceはOHLC・出来高を株式分割に対して
+  自動的に調整して返す(2024-06-10のNVDA 10:1分割を実データで検証済み。分割日前後で不自然な
+  ギャップが生じないことを確認した)。
+- **配当調整: なし**。`auto_adjust=False`のため、返される`Close`は配当落ち調整前の生の終値であり、
+  `Adj Close`列は使用していない。
+- **OHLC・出来高は同一の取得元・同一の調整方式**(分割調整のみ・配当調整なし)で統一されており、
+  一部の列だけAdjusted Closeを使うといった不整合はない。
+- **featuresとlabelsは完全に同じ調整方式を使う**: 両モジュールとも同一の価格取得結果(同じDataFrame)
+  を参照しており、`labels.py`が独自に別の価格ソースを取得することはない。
+
+分割・調整方式に起因する異常(未調整の分割混入等)は、品質チェックの`suspicious_split_gap`
+(前日比±40%超のギャップ検知)で継続的に監視する。
+
+### market_regime の分類ルール(`feature_store/market_regime.py`に実装、固定・明示)
+
+```
+spy_above_ma200 かつ spy_above_ma50:
+    spy_return_5d > +2.0% → "strong_bull"、それ以外 → "bull"
+spy_above_ma200 が偽 かつ spy_above_ma50 が偽:
+    spy_return_5d < -2.0% → "strong_bear"、それ以外 → "bear"
+どちらでもない(200日線と50日線で判定が割れている過渡期): "neutral"
+```
+
+### 既知の制約・近似(Phase 2以降の課題)
+
+- **候補ユニバースは近似**: FMP無料プランでは過去のある日の値動き上位ランキングを取得できないため、
+  `feature_store/universe.py`では「あらかじめ決めた銘柄リストの中から、その日時点の一次スクリーニング
+  条件(株価5ドル以上・時価総額1億ドル以上・平均出来高50万株以上)を満たすものを候補とする」近似を
+  使っている(`candidate_source = "approx_universe"`)。上場廃止銘柄も含められないため生存者バイアスが残る。
+- **セクター分類は現在時点のものを過去に遡って適用**: yfinanceの`Ticker.info['sector']`は現在の分類しか
+  取得できないため、真のpoint-in-timeセクター分類ではない。
+- **`bid_ask_spread`・`turnover_ratio`・`beta`は無料データ源では算出困難なため常にNULL**
+  (0埋めではなくNULL。`bid_ask_spread_available`/`turnover_ratio_available`/`beta_available`列で
+  「仕様上取得不能」であることを明示。`ma20`も本ツールでは未採用のため常にNULL)。
+- Phase 1は5銘柄・1年分の証明実行のみ(かつ全て一次スクリーニング条件を常に満たす大型株のため、
+  全営業日レコード=候補日レコードとなっている)。Phase 2で銘柄数・期間の拡張、単変量分析、
+  Version1スコアとの比較分析を行う予定(未着手)。
+
 ## 今後のロードマップ
 
 - [x] バックテストエンジン(テクニカル条件のみの簡易版。過去5年・勝率・PF・最大DD・Sharpe Ratio等)
+- [x] Version 2 Phase 1: point-in-time feature store基盤(5銘柄・1年で証明済み)
+- [ ] Version 2 Phase 2: 全銘柄・複数年への拡張、単変量分析、Version1スコアとの比較分析
+- [ ] Version 2 Phase 3〜5: ロジスティック回帰→Random Forest→LightGBM/XGBoost、バックテスト接続
 - [ ] Discord / LINE / Slack通知、メール配信
 - [ ] TradingViewチャート画像表示・リンク生成
 - [ ] ポートフォリオ管理・売買履歴管理
-- [ ] スコア自動学習による最適化
 - [ ] 条件ごとのバックテスト比較

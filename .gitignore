@@ -1,5 +1,8 @@
 .env
 data/
+data/feature_store.db
+data/feature_store.db-shm
+data/feature_store.db-wal
 logs/
 __pycache__/
 *.pyc

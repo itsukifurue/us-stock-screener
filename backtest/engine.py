@@ -81,6 +81,7 @@ def price_trade_at_signal(
     exit_idx: Optional[int] = None
     exit_price_raw: Optional[float] = None
     outcome: Optional[str] = None
+    exit_reason: Optional[str] = None
 
     j = scan_start
     while j <= limit:
@@ -90,25 +91,32 @@ def price_trade_at_signal(
 
         if hit_stop and hit_target:
             if same_day_priority == "target_first":
-                exit_idx, exit_price_raw, outcome = j, take_profit, "win"
+                exit_idx, exit_price_raw, outcome, exit_reason = j, take_profit, "win", "take_profit"
             elif same_day_priority == "nearest_open":
                 day_open = float(day["open"])
                 if abs(day_open - stop_loss) <= abs(take_profit - day_open):
-                    exit_idx, exit_price_raw, outcome = j, stop_loss, "loss"
+                    exit_idx, exit_price_raw, outcome, exit_reason = j, stop_loss, "loss", "stop_loss"
                 else:
-                    exit_idx, exit_price_raw, outcome = j, take_profit, "win"
+                    exit_idx, exit_price_raw, outcome, exit_reason = j, take_profit, "win", "take_profit"
             else:
-                exit_idx, exit_price_raw, outcome = j, stop_loss, "loss"
+                exit_idx, exit_price_raw, outcome, exit_reason = j, stop_loss, "loss", "stop_loss"
             break
         if hit_stop:
-            exit_idx, exit_price_raw, outcome = j, stop_loss, "loss"
+            exit_idx, exit_price_raw, outcome, exit_reason = j, stop_loss, "loss", "stop_loss"
             break
         if hit_target:
-            exit_idx, exit_price_raw, outcome = j, take_profit, "win"
+            exit_idx, exit_price_raw, outcome, exit_reason = j, take_profit, "win", "take_profit"
             break
         j += 1
 
     if exit_idx is None:
+        # ループがstop/targetどちらにもヒットせず終端まで到達した。
+        # 「max_holding_daysを使い切った正当な期間満了」なのか、
+        # 「その前にデータが尽きた(上場廃止・データ末尾)」のかを区別する
+        # (後者は本来は結果不明であり、呼び出し側で確定的なwin/loss扱いにしないための情報)。
+        full_window_days = max_holding_days if entry_mode == "next_open" else max_holding_days + 1
+        window_complete = (entry_idx + full_window_days - 1) <= (n - 1)
+        exit_reason = "holding_period_limit" if window_complete else "data_end"
         exit_idx = limit
         exit_price_raw = float(df.iloc[limit]["close"])
         outcome = "win" if exit_price_raw > entry_price else "loss"
@@ -133,6 +141,7 @@ def price_trade_at_signal(
         "pnl_pct": round(pnl_pct, 4),
         "holding_days": int(holding_days),
         "outcome": outcome,
+        "exit_reason": exit_reason,  # "stop_loss" / "take_profit" / "holding_period_limit" / "data_end"
     }
 
 
