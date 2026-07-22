@@ -112,11 +112,25 @@ report/
   消費するのは most-actives・biggest-gainers取得(2) + Top10×2(profile/財務)(最大20)程度で、
   1日あたり合計20〜25リクエスト程度に収まる見込み(250/日の予算に対してかなり余裕がある)。
 
-## 毎営業日オープン前の自動実行(次のステップ)
+## 毎営業日オープン前の自動実行
 
-MVPでは手動実行(`python main.py`)までを対象としています。自動化する場合は、Windows
-タスクスケジューラで平日朝(米国市場オープン前、日本時間で夜間〜早朝)に
-`.venv\Scripts\python.exe main.py` を実行するタスクを登録してください。
+Windowsタスクスケジューラに `run_daily.ps1`(main.py実行 → 変更があればGitHubへ自動push)を
+平日21:00(日本時間、米国市場オープン22:30〜23:30より前)に実行するよう登録済み。
+
+```powershell
+schtasks /create /tn "USStockScreener" /tr "powershell.exe -ExecutionPolicy Bypass -File `"C:\Users\elfe\OneDrive\Desktop\us-stock-screener\run_daily.ps1`"" /sc weekly /d MON,TUE,WED,THU,FRI /st 21:00 /f
+```
+
+このタスクは「パソコンの電源が入っていてログイン済み」の間しか動かない(スリープ/シャットダウン中は実行されない)。
+
+## Webダッシュボード(他のパソコンから閲覧)
+
+`app.py`(Streamlit)が `reports/*.json` を読み込んでパスワード保護つきで表示する。
+GitHubにpushされた最新のレポートを、Streamlit Community Cloud経由でどのパソコンからでも閲覧できる。
+
+- リポジトリ: `https://github.com/itsukifurue/us-stock-screener`(公開リポジトリ。秘密情報は`.env`のみでgit管理外)
+- パスワードは Streamlit Cloud側の「Secrets」に `APP_PASSWORD = "..."` として設定(コードには含まれない)
+- `run_daily.ps1` が新しいレポートをpushすると、Streamlit Cloudが自動で再デプロイして最新内容を表示する
 
 ## 今後のロードマップ
 
@@ -126,4 +140,3 @@ MVPでは手動実行(`python main.py`)までを対象としています。自�
 - [ ] ポートフォリオ管理・売買履歴管理
 - [ ] スコア自動学習による最適化
 - [ ] 条件ごとのバックテスト比較
-- [ ] Windowsタスクスケジューラ登録(毎営業日オープン前の自動実行)
