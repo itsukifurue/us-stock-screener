@@ -111,17 +111,21 @@ report/
 - **FMP日次リクエスト消費量は少ない**: 過去株価がyfinance(無料・無制限)に移ったため、FMPを
   消費するのは most-actives・biggest-gainers取得(2) + Top10×2(profile/財務)(最大20)程度で、
   1日あたり合計20〜25リクエスト程度に収まる見込み(250/日の予算に対してかなり余裕がある)。
+- **GitHub Actions実行時はSQLiteキャッシュが毎回リセットされる**: Actionsは毎回まっさらな
+  checkoutから始まる(`data/`はgitignore対象で永続化していない)ため、差分キャッシュの恩恵は
+  ローカル実行時のみ。Actions上では毎日候補銘柄分の過去株価をyfinanceからフルで取得し直す形に
+  なるが、yfinanceは無料・実質無制限なので実害はない。
 
-## 毎営業日オープン前の自動実行
+## 毎営業日オープン前の自動実行(GitHub Actions)
 
-Windowsタスクスケジューラに `run_daily.ps1`(main.py実行 → 変更があればGitHubへ自動push)を
-平日21:00(日本時間、米国市場オープン22:30〜23:30より前)に実行するよう登録済み。
+`.github/workflows/daily.yml` が平日12:00 UTC(日本時間21:00、米国市場オープン22:30〜23:30より前)に
+GitHub側のサーバーで自動実行する。**このパソコンの電源やログイン状態に関係なく動く。**
+`FMP_API_KEY`・`ANTHROPIC_API_KEY` はリポジトリの Settings → Secrets and variables → Actions に
+登録済み(コードには含まれない)。手動実行やログ確認は https://github.com/itsukifurue/us-stock-screener/actions から。
 
-```powershell
-schtasks /create /tn "USStockScreener" /tr "powershell.exe -ExecutionPolicy Bypass -File `"C:\Users\elfe\OneDrive\Desktop\us-stock-screener\run_daily.ps1`"" /sc weekly /d MON,TUE,WED,THU,FRI /st 21:00 /f
-```
-
-このタスクは「パソコンの電源が入っていてログイン済み」の間しか動かない(スリープ/シャットダウン中は実行されない)。
+以前はWindowsタスクスケジューラ + `run_daily.ps1` を使っていたが、パソコンの電源が必要という制約が
+あったためGitHub Actionsに移行し、ローカルのタスク登録は削除済み。`run_daily.ps1` はローカルで
+手動実行しつつ結果をpushしたい場合のために残してある(必須ではない)。
 
 ## Webダッシュボード(他のパソコンから閲覧)
 
