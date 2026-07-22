@@ -96,7 +96,7 @@ CREATE TABLE IF NOT EXISTS financials_cache (
     PRIMARY KEY (symbol, period, statement_type)
 );
 
--- バックテスト結果(次フェーズで実装・今回はテーブルのみ用意)
+-- バックテストの個別トレード記録
 CREATE TABLE IF NOT EXISTS backtest_results (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     symbol TEXT NOT NULL,
@@ -108,4 +108,24 @@ CREATE TABLE IF NOT EXISTS backtest_results (
     holding_days INTEGER,
     outcome TEXT,
     run_date TEXT
+);
+
+-- バックテストの集計結果(実行1回につき1行)
+CREATE TABLE IF NOT EXISTS backtest_summary (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    run_date TEXT NOT NULL,
+    start_date TEXT,
+    end_date TEXT,
+    num_symbols INTEGER,
+    num_trades INTEGER,
+    win_rate REAL,
+    avg_gain_pct REAL,
+    avg_loss_pct REAL,
+    profit_factor REAL,
+    max_drawdown_pct REAL,
+    avg_holding_days REAL,
+    sharpe_ratio REAL,
+    expected_value_pct REAL,
+    min_technical_score REAL,
+    max_holding_days INTEGER
 );

@@ -136,9 +136,31 @@ GitHubにpushされた最新のレポートを、Streamlit Community Cloud経由
 - パスワードは Streamlit Cloud側の「Secrets」に `APP_PASSWORD = "..."` として設定(コードには含まれない)
 - `run_daily.ps1` が新しいレポートをpushすると、Streamlit Cloudが自動で再デプロイして最新内容を表示する
 
+## バックテスト
+
+```bash
+python scripts/run_backtest.py
+```
+
+`backtest/watchlist.py` の固定銘柄リスト(30銘柄)について、過去`config.BACKTEST_YEARS`年分(既定5年)を
+yfinanceで取得し、テクニカルスコアが`config.BACKTEST_MIN_TECHNICAL_SCORE`点以上になった日にエントリー、
+ATRベースの損切り/利確(本番stage3と同じ式)に触れるか`config.BACKTEST_MAX_HOLDING_DAYS`日(既定10営業日)
+経過したら手仕舞い、という単純なルールでシミュレーションする。
+
+**重要な制約**: 本番パイプラインが使う「当日の値動き上位ランキング」による銘柄選定と、Claudeによる
+AI評価は、過去の特定日について無料では再現できない。そのためバックテストは**テクニカル条件のみ**を
+検証するものであり、本番の実績をそのまま表すものではない。
+
+結果は `data/screener.db` の `backtest_results`(個別トレード)・`backtest_summary`(集計)テーブルと、
+`reports/backtest_YYYY-MM-DD.md` に保存される。最大ドローダウンは「1銘柄に集中投資していた場合の
+最悪ケース」の簡易値(詳細はレポート内の注記を参照)。
+
+直近の実行結果(2026-07-22、5年・30銘柄): トレード1574件、勝率44.41%、プロフィットファクター1.23、
+期待値+0.76%/トレード。地合いによって結果は変動するため、定期的に再実行して確認することを推奨。
+
 ## 今後のロードマップ
 
-- [ ] バックテストエンジン(過去5年、勝率・PF・最大DD・Sharpe Ratio等)→ `backtest_results` テーブルは作成済み
+- [x] バックテストエンジン(テクニカル条件のみの簡易版。過去5年・勝率・PF・最大DD・Sharpe Ratio等)
 - [ ] Discord / LINE / Slack通知、メール配信
 - [ ] TradingViewチャート画像表示・リンク生成
 - [ ] ポートフォリオ管理・売買履歴管理

@@ -1,4 +1,9 @@
-"""テクニカル指標の計算。pandasのrolling/ewmで自前実装する(外部TAライブラリ不使用)。"""
+"""テクニカル指標の計算。pandasのrolling/ewmで自前実装する(外部TAライブラリ不使用)。
+
+compute_indicator_frame() は全期間分をベクトル化(rolling)で一気に計算する。
+- 本番パイプライン(最新日だけ知りたい)は compute_indicators() を使う
+- バックテスト(過去の各日について知りたい)は compute_indicator_frame() + row_to_indicators() を使う
+"""
 from __future__ import annotations
 
 from typing import Optional
@@ -59,10 +64,11 @@ def _bollinger(close: pd.Series, period: int = 20, num_std: float = 2.0):
     return upper, mid, lower
 
 
-def compute_indicators(price_history: list[dict], min_rows: int = 30) -> Optional[dict]:
+def compute_indicator_frame(price_history: list[dict], min_rows: int = 30) -> Optional[pd.DataFrame]:
     """price_history: [{date, open, high, low, close, volume}, ...] (順不同で可、内部で日付昇順に整列)
 
-    データが min_rows 未満の場合は None を返す(指標計算に不十分なため)。
+    各日についてテクニカル指標を計算した列を追加したDataFrameを返す。
+    データが min_rows 未満の場合は None を返す。
     """
     if len(price_history) < min_rows:
         return None
@@ -86,41 +92,54 @@ def compute_indicators(price_history: list[dict], min_rows: int = 30) -> Optiona
     df["bb_upper"] = bb_upper
     df["bb_mid"] = bb_mid
     df["bb_lower"] = bb_lower
-    df["rolling_high_20"] = close.rolling(20, min_periods=20).max()
-    lookback_52w = min(len(df), 252)
-    high_52w = df["high"].tail(lookback_52w).max()
 
-    latest = df.iloc[-1]
-    prev20_high_excl_today = close.iloc[-20:-1].max() if len(df) >= 21 else np.nan
+    df["volume_ratio"] = volume / df["avg_volume20"]
 
-    current_close = float(latest["close"])
-    avg_volume20 = float(latest["avg_volume20"]) if pd.notna(latest["avg_volume20"]) else None
-    current_volume = float(latest["volume"])
+    # 「当日を含まない直近19日の最高値」を当日終値が上回っていれば20日高値更新
+    prev19_high = close.shift(1).rolling(19, min_periods=19).max()
+    df["new_20d_high"] = close > prev19_high
 
+    # 52週(直近252営業日、無ければあるだけ)の高値と、そこからの距離
+    df["high_52w"] = df["high"].rolling(window=252, min_periods=1).max()
+    df["distance_from_52w_high_pct"] = (close - df["high_52w"]) / df["high_52w"] * 100
+
+    return df
+
+
+def row_to_indicators(df: pd.DataFrame, idx: int) -> dict:
+    """compute_indicator_frame()が返すDataFrameの特定行を、compute_indicators()と同じ形式の辞書にする。"""
+    row = df.iloc[idx]
+    current_close = float(row["close"])
     return {
-        "date": latest["date"].strftime("%Y-%m-%d"),
+        "date": row["date"].strftime("%Y-%m-%d"),
         "current_close": current_close,
-        "current_volume": current_volume,
-        "sma5": _safe_float(latest["sma5"]),
-        "sma15": _safe_float(latest["sma15"]),
-        "sma25": _safe_float(latest["sma25"]),
-        "sma50": _safe_float(latest["sma50"]),
-        "avg_volume20": avg_volume20,
-        "volume_ratio": (current_volume / avg_volume20) if avg_volume20 else None,
-        "rsi14": _safe_float(latest["rsi14"]),
-        "macd": _safe_float(latest["macd"]),
-        "macd_signal": _safe_float(latest["macd_signal"]),
-        "macd_hist": _safe_float(latest["macd_hist"]),
-        "atr14": _safe_float(latest["atr14"]),
-        "bb_upper": _safe_float(latest["bb_upper"]),
-        "bb_mid": _safe_float(latest["bb_mid"]),
-        "bb_lower": _safe_float(latest["bb_lower"]),
-        "high_52w": float(high_52w) if pd.notna(high_52w) else None,
-        "distance_from_52w_high_pct": (
-            (current_close - high_52w) / high_52w * 100 if pd.notna(high_52w) and high_52w else None
-        ),
-        "new_20d_high": bool(pd.notna(prev20_high_excl_today) and current_close > prev20_high_excl_today),
+        "current_volume": float(row["volume"]),
+        "sma5": _safe_float(row["sma5"]),
+        "sma15": _safe_float(row["sma15"]),
+        "sma25": _safe_float(row["sma25"]),
+        "sma50": _safe_float(row["sma50"]),
+        "avg_volume20": _safe_float(row["avg_volume20"]),
+        "volume_ratio": _safe_float(row["volume_ratio"]),
+        "rsi14": _safe_float(row["rsi14"]),
+        "macd": _safe_float(row["macd"]),
+        "macd_signal": _safe_float(row["macd_signal"]),
+        "macd_hist": _safe_float(row["macd_hist"]),
+        "atr14": _safe_float(row["atr14"]),
+        "bb_upper": _safe_float(row["bb_upper"]),
+        "bb_mid": _safe_float(row["bb_mid"]),
+        "bb_lower": _safe_float(row["bb_lower"]),
+        "high_52w": _safe_float(row["high_52w"]),
+        "distance_from_52w_high_pct": _safe_float(row["distance_from_52w_high_pct"]),
+        "new_20d_high": bool(row["new_20d_high"]) if pd.notna(row["new_20d_high"]) else False,
     }
+
+
+def compute_indicators(price_history: list[dict], min_rows: int = 30) -> Optional[dict]:
+    """最新日の指標だけを取得する(本番パイプライン用)。"""
+    df = compute_indicator_frame(price_history, min_rows=min_rows)
+    if df is None:
+        return None
+    return row_to_indicators(df, len(df) - 1)
 
 
 def _safe_float(v) -> Optional[float]:

@@ -254,3 +254,49 @@ class Database:
             (symbol, period, statement_type),
         ).fetchone()
         return json.loads(row["data_json"]) if row else None
+
+    # ---------- backtest ----------
+    def insert_backtest_trades(self, run_date: str, trades: Iterable[dict]) -> None:
+        trades = list(trades)
+        if not trades:
+            return
+        with self.cursor() as cur:
+            cur.executemany(
+                """
+                INSERT INTO backtest_results (
+                    symbol, entry_date, entry_price, exit_date, exit_price, pnl_pct, holding_days, outcome, run_date
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                """,
+                [
+                    (
+                        t["symbol"], t["entry_date"], t["entry_price"], t["exit_date"],
+                        t["exit_price"], t["pnl_pct"], t["holding_days"], t["outcome"], run_date,
+                    )
+                    for t in trades
+                ],
+            )
+
+    def insert_backtest_summary(self, summary: dict) -> None:
+        with self.cursor() as cur:
+            cur.execute(
+                """
+                INSERT INTO backtest_summary (
+                    run_date, start_date, end_date, num_symbols, num_trades, win_rate,
+                    avg_gain_pct, avg_loss_pct, profit_factor, max_drawdown_pct,
+                    avg_holding_days, sharpe_ratio, expected_value_pct,
+                    min_technical_score, max_holding_days
+                ) VALUES (
+                    :run_date, :start_date, :end_date, :num_symbols, :num_trades, :win_rate,
+                    :avg_gain_pct, :avg_loss_pct, :profit_factor, :max_drawdown_pct,
+                    :avg_holding_days, :sharpe_ratio, :expected_value_pct,
+                    :min_technical_score, :max_holding_days
+                )
+                """,
+                summary,
+            )
+
+    def get_latest_backtest_summary(self) -> Optional[dict]:
+        row = self.conn.execute(
+            "SELECT * FROM backtest_summary ORDER BY id DESC LIMIT 1"
+        ).fetchone()
+        return dict(row) if row else None
