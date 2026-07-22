@@ -1,0 +1,54 @@
+{
+  "run_date": "2026-07-22",
+  "top": [
+    {
+      "symbol": "FWRD",
+      "company_name": "Forward Air Corporation",
+      "current_price": 16.209999084472656,
+      "entry_price": 16.209999084472656,
+      "stop_loss": 14.47,
+      "take_profit_1": 17.37,
+      "take_profit_2": 18.64,
+      "expected_return_pct": 15.0,
+      "win_rate": 86,
+      "expected_value": 1.85,
+      "ai_comment": "テクニカル指標は強気を示しているが、ニュースや決算情報が無く、急騰の背景が不明瞭である。出来高急増を伴う上昇は一時的な可能性もあり、慎重な判断が求められる。",
+      "news_summary": "特筆すべきニュースなし。",
+      "risk_factors": "材料不明の急騰は反動安のリスクがあり、長期下落トレンドからの戻りに過ぎない可能性がある。",
+      "total_score": 86
+    },
+    {
+      "symbol": "F",
+      "company_name": "Ford Motor Company",
+      "current_price": 14.270000457763672,
+      "entry_price": 14.270000457763672,
+      "stop_loss": 13.64,
+      "take_profit_1": 14.69,
+      "take_profit_2": 16.41,
+      "expected_return_pct": 15.0,
+      "win_rate": 74,
+      "expected_value": 1.42,
+      "ai_comment": "テクニカル面では短期上昇トレンドが継続しており、決算も堅調でファンダメンタルズの下支えはある。しかし材料不足と出来高の弱さから、2週間で+15%という急騰シナリオの実現性は高くないと判断する。",
+      "news_summary": "特筆すべきニュースなし。",
+      "risk_factors": "出来高不足による上値の重さ、52週高値までの距離、マクロ・セクター要因(金利・関税・EV競争)によるボラティリティ拡大リスク。",
+      "total_score": 74
+    },
+    {
+      "symbol": "UTZ",
+      "company_name": "Utz Brands, Inc.",
+      "current_price": 14.0600004196167,
+      "entry_price": 14.0600004196167,
+      "stop_loss": 12.87,
+      "take_profit_1": 14.86,
+      "take_profit_2": 16.17,
+      "expected_return_pct": 15.0,
+      "win_rate": 71,
+      "expected_value": 1.15,
+      "ai_comment": "テクニカル上は強い上昇トレンドと出来高急増が見られるが、材料不明でRSIが極端な過熱水準にあるため、短期的な反落リスクが高い。押し目待ちが望ましく、現水準での新規買いは慎重を要する。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "過熱したRSIと移動平均からの大幅乖離による反落リスク、材料不明の急騰による持続性の欠如。",
+      "total_score": 71
+    }
+  ],
+  "disclaimer": "※ 勝率・期待値は現時点ではバックテストエンジン未実装のため、総合スコアから導いた暫定値です。投資判断は自己責任で行ってください。本レポートは投資助言ではありません。"
+}

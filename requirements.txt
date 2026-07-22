@@ -1,0 +1,7 @@
+requests>=2.31
+python-dotenv>=1.0
+pandas>=2.2
+numpy>=1.26
+anthropic>=0.40
+yfinance>=0.2
+streamlit>=1.38

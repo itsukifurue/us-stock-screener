@@ -1,0 +1,129 @@
+# 米国株AIスクリーニングツール (MVP)
+
+米国株市場全体から、2週間以内に+15%の上昇が期待できる銘柄を毎日スクリーニングし、
+テクニカル分析 + Claude(Anthropic API)によるAI分析でTop3銘柄をレポートするツール。
+
+FMP(Financial Modeling Prep)無料プラン(250リクエスト/日)を前提に、
+「一次スクリーニング→絞り込み→詳細分析」の二段階方式でAPI消費を抑える設計。
+過去株価のみyfinance(Yahoo Finance、無料・APIキー不要)を使う(理由は下記「設計上の注意点」参照)。
+
+## セットアップ
+
+1. Python 3.11以上を推奨(このリポジトリは仮想環境 `.venv` を同梱していないので各自作成する)
+
+```bash
+python -m venv .venv
+.venv\Scripts\activate
+pip install -r requirements.txt
+```
+
+2. `.env.example` を `.env` にコピーし、FMPとAnthropicのAPIキーを設定する
+
+```bash
+copy .env.example .env
+```
+
+`.env` の中身:
+
+```
+FMP_API_KEY=あなたのFMP APIキー
+FMP_BASE_URL=https://financialmodelingprep.com/stable
+ANTHROPIC_API_KEY=あなたのAnthropic APIキー
+ANTHROPIC_MODEL=claude-sonnet-5
+MAX_DAILY_REQUESTS=230
+SCREENER_CANDIDATE_LIMIT=100
+```
+
+3. API疎通確認(実際にAPIを叩いて6エンドポイント+Anthropicが動くか確認する)
+
+```bash
+python scripts/test_api_connection.py
+```
+
+`[NG]` が出た場合は `api/fmp_client.py` の `ENDPOINTS` 辞書のパスを、実際に動くパスに修正する
+(FMPは公式ドキュメントサイトが自動アクセスをブロックしており、事前に完全な検証ができなかったため)。
+
+4. ロジックのみ確認したい場合(APIを一切呼ばない)
+
+```bash
+python main.py --dry-run
+```
+
+5. 本番実行
+
+```bash
+python main.py
+```
+
+`reports/YYYY-MM-DD.md` と `reports/YYYY-MM-DD.json` にTop3銘柄のレポートが出力される。
+
+## アーキテクチャ
+
+```
+main.py                        # オーケストレーション + CLI
+config.py                      # しきい値・配点・API予算の一元管理
+db/
+  schema.sql, database.py      # SQLite(銘柄・過去株価・スコア・分析結果を蓄積)
+api/
+  fmp_client.py                # FMP APIクライアント(予算ガード付き)
+  yfinance_client.py           # Yahoo Financeから過去株価を取得(無料・APIキー不要)
+  claude_client.py             # Anthropic APIクライアント(JSON構造化分析)
+analysis/
+  technical.py                 # SMA/RSI/MACD/ATR/ボリンジャー等(pandasで自前実装)
+  scoring.py                   # テクニカルスコア+AIスコアの合算
+pipeline/
+  stage1_screener.py           # 値動き上位ランキング(most-actives/biggest-gainers) → 候補銘柄
+  stage2_enrichment.py         # 過去株価取得(差分キャッシュ)→テクニカル計算→出来高フィルタ→Top10
+  stage3_ai_ranking.py         # プロフィール/財務取得→ETF/時価総額/国フィルタ→Claude分析→Top3
+report/
+  report_generator.py          # Markdown/JSON日次レポート
+```
+
+## 設計上の注意点(MVP時点の既知の制約)
+
+- **無料プランではCompany Screener/News系が使えない(実キーで確認済み、2026-07-21)**:
+  `company-screener`・`stock-list`・`news/*` は無料プランだと402(Restricted Endpoint)になる。
+  そのため候補銘柄の入口は要件定義書のCompany Screenerではなく、無料プランで動作確認済みの
+  `most-actives`(出来高上位)・`biggest-gainers`(値上がり上位)ランキングに変更している。
+  これらのレスポンスには出来高・時価総額が含まれないため、一次スクリーニング条件は
+  パイプライン全体に分散して適用する: 株価フィルタ=stage1、出来高フィルタ=stage2(過去株価から
+  算出したavg_volume20を使用)、ETF/時価総額/国フィルタ=stage3(プロフィール取得時)。
+  ニュースが一切取得できないため、Claude分析はプロフィール・財務・テクニカル情報のみで行う
+  (`news_positive`はほぼ常にfalseになる)。将来的に有料プランへ切り替えた場合に備えて
+  `api/fmp_client.py`には`screen_stocks()`/`news()`メソッドをそのまま残してある。
+- **過去株価はFMPではなくyfinanceを使う**: `historical-price-eod/full`はエンドポイント自体は
+  200を返すが、実際には**銘柄ごとに**402(Special Endpoint)で拒否されることが判明した。
+  most-actives/biggest-gainersで集めた候補56銘柄で検証したところ、AAPL・NVDA・Tなど有名な
+  大企業株以外の44銘柄(MU・WBDのような中堅株を含む)が拒否され、実質「小型株を含めて
+  スイングトレード候補を探す」という目的を果たせなかった。そのため過去株価だけ
+  `api/yfinance_client.py`(Yahoo Finance、無料・APIキー不要、レート制限以外の制約なし)に
+  切り替えている。企業概要・財務・候補銘柄生成は引き続きFMPを使う(小型株でも動作確認済み)。
+  `api/fmp_client.py`の`historical_prices()`は有料プランに切り替えた場合の参考実装として
+  残してあるだけで、現在のパイプラインからは呼ばれない。
+- **勝率・期待値は暫定値**: バックテストエンジンが未実装のため、`analysis_results` の
+  `win_rate` / `expected_value` は総合スコアから導いたヒューリスティックです。次フェーズで
+  `backtest_results` テーブルを使った本物の統計値に置き換える設計にしてあります。
+- **スコア配点**: 要件定義書の配点(出来高急増+20など)をそのまま採用していますが、
+  合計すると120点になり「100点満点」という記載と数値上は一致しません。全条件達成の
+  ボーナスを許容する設計とみなし、`config.SCORE_MAX`(100点)で最終スコアをキャップしています。
+- **API予算ガード**: `db.api_usage` テーブルで当日のFMPリクエスト数を記録し、
+  `MAX_DAILY_REQUESTS` に達すると以降の呼び出しを中断してその時点までの結果でレポートを出します。
+- **FMP日次リクエスト消費量は少ない**: 過去株価がyfinance(無料・無制限)に移ったため、FMPを
+  消費するのは most-actives・biggest-gainers取得(2) + Top10×2(profile/財務)(最大20)程度で、
+  1日あたり合計20〜25リクエスト程度に収まる見込み(250/日の予算に対してかなり余裕がある)。
+
+## 毎営業日オープン前の自動実行(次のステップ)
+
+MVPでは手動実行(`python main.py`)までを対象としています。自動化する場合は、Windows
+タスクスケジューラで平日朝(米国市場オープン前、日本時間で夜間〜早朝)に
+`.venv\Scripts\python.exe main.py` を実行するタスクを登録してください。
+
+## 今後のロードマップ
+
+- [ ] バックテストエンジン(過去5年、勝率・PF・最大DD・Sharpe Ratio等)→ `backtest_results` テーブルは作成済み
+- [ ] Discord / LINE / Slack通知、メール配信
+- [ ] TradingViewチャート画像表示・リンク生成
+- [ ] ポートフォリオ管理・売買履歴管理
+- [ ] スコア自動学習による最適化
+- [ ] 条件ごとのバックテスト比較
+- [ ] Windowsタスクスケジューラ登録(毎営業日オープン前の自動実行)
