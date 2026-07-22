@@ -11,12 +11,19 @@
   ポートフォリオ側では約定価格をそのまま使うだけで、スリッページを二重に反映することはない。
 - 1日の処理順序: ①本日エグジットするポジションを決済して現金化 → ②本日エントリーする
   シグナルを空きスロットに割り当て → ③日次NAVを記録。
-  そのため「本日決済されたスロット」は同日中に新規エントリーへ再利用され得る
-  (証券会社の受渡日(T+2等)は考慮しない簡易モデル)。
+- cash_reuse_timing="same_day"(既定): 決済で得た現金は同日中の新規エントリーに使える。
+  cash_reuse_timing="next_day"(保守的・本番基準): 決済で得た現金は翌営業日から使える
+  (日足データでは同日中の決済→再エントリーの順序が本当に成立するか厳密には分からないため、
+  こちらをより保守的な既定として推奨する)。
 - 1銘柄について同時に複数ポジションを持つことはない(backtest.engine側の制約による)。
+- ranking_key: 同日に空き枠を上回るシグナルが出た場合、どの順番で採用するか。
+  "score"(既定): テクニカルスコア降順。 "volume_ratio": 出来高倍率降順。
+  "breakout_pct": 20日高値からの突破率降順。 "random": ランダム(seed指定可)。
+  "insertion_order": 入力tradesリストの並び順のまま(現行の処理順、恣意的な基準の混入有無を確認する用)。
 """
 from __future__ import annotations
 
+import random
 from collections import defaultdict
 from datetime import datetime
 from typing import Optional
@@ -25,6 +32,12 @@ import pandas as pd
 
 import config
 
+RANK_KEY_FUNCS = {
+    "score": lambda t: -(t.get("signal_score") or 0),
+    "volume_ratio": lambda t: -(t.get("signal_volume_ratio") or 0),
+    "breakout_pct": lambda t: -(t.get("signal_breakout_pct") or -999),
+}
+
 
 def simulate_portfolio(
     trades: list[dict],
@@ -32,6 +45,9 @@ def simulate_portfolio(
     max_concurrent: int = 3,
     initial_capital: float = 1.0,
     commission_pct: Optional[float] = None,
+    cash_reuse_timing: str = "same_day",
+    ranking_key: str = "score",
+    random_seed: int = 42,
 ) -> dict:
     """最大 max_concurrent 銘柄までの同時保有を許容したポートフォリオシミュレーション。
 
@@ -40,24 +56,38 @@ def simulate_portfolio(
     price_frames: {symbol: date/close列を持つDataFrame}(日次mark-to-market用)。
     commission_pct: Noneの場合 config.BACKTEST_COMMISSION_PCT を使う。
 
-    戻り値: {"nav_series", "cash_series", "dates", "trades_taken", "trades_skipped",
-             "num_years", "log", "per_symbol_taken"}
+    戻り値: nav_series, cash_series, dates, trades_taken, trades_skipped(内訳含む),
+             num_years, log, per_symbol_taken, admitted_trades(採用されたトレード本体のリスト),
+             daily_occupied_symbols(日毎の保有銘柄集合), same_day_multi_loss_days(同日2件以上
+             損失決済が発生した日数)
     """
     if commission_pct is None:
         commission_pct = config.BACKTEST_COMMISSION_PCT
     comm = commission_pct / 100
 
+    empty_result = {
+        "nav_series": [initial_capital], "cash_series": [initial_capital], "dates": [],
+        "trades_taken": 0, "trades_skipped": 0, "trades_skipped_no_slot": 0, "trades_skipped_cash": 0,
+        "max_concurrent_used": 0, "avg_capital_utilization_pct": 0.0, "num_years": 0.0,
+        "log": [], "per_symbol_taken": {}, "admitted_trades": [], "daily_occupied_symbols": [],
+        "same_day_multi_loss_days": 0,
+    }
     if not trades:
-        return {
-            "nav_series": [initial_capital], "cash_series": [initial_capital], "dates": [],
-            "trades_taken": 0, "trades_skipped": 0, "num_years": 0.0, "log": [], "per_symbol_taken": {},
-        }
+        return empty_result
 
     trades_by_entry_date: dict[str, list[dict]] = defaultdict(list)
     for t in trades:
         trades_by_entry_date[t["entry_date"]].append(t)
+
+    rng = random.Random(random_seed)
     for day_trades in trades_by_entry_date.values():
-        day_trades.sort(key=lambda t: -t["signal_score"])  # 枠が足りない時はスコアが高い方を優先
+        if ranking_key == "random":
+            rng.shuffle(day_trades)
+        elif ranking_key == "insertion_order":
+            pass  # 元のリストの並びのまま(何もしない)
+        else:
+            key_fn = RANK_KEY_FUNCS.get(ranking_key, RANK_KEY_FUNCS["score"])
+            day_trades.sort(key=key_fn)
 
     all_dates = sorted({d.strftime("%Y-%m-%d") for df in price_frames.values() for d in df["date"]})
 
@@ -67,18 +97,22 @@ def simulate_portfolio(
     }
 
     cash = initial_capital
-    slots: list[Optional[dict]] = [None] * max_concurrent  # 各要素: {"symbol","shares","trade","last_price"}
+    pending_cash = 0.0  # cash_reuse_timing="next_day"の場合、当日の決済代金を一時的に保留する
+    slots: list[Optional[dict]] = [None] * max_concurrent  # {"symbol","shares","trade","last_price"}
 
     taken = 0
     skipped = 0
     skipped_no_slot = 0
     skipped_cash = 0
     max_concurrent_used = 0
+    same_day_multi_loss_days = 0
     per_symbol_taken: dict[str, int] = defaultdict(int)
     nav_history: list[float] = []
     cash_history: list[float] = []
     date_history: list[str] = []
     utilization_history: list[float] = []
+    daily_occupied_symbols: list[tuple[str, set]] = []
+    admitted_trades: list[dict] = []
     log: list[dict] = []
 
     def positions_value(today: str) -> float:
@@ -91,25 +125,37 @@ def simulate_portfolio(
             total += slot["shares"] * price
         return total
 
-    def close_slot(idx: int, today: str) -> None:
-        nonlocal cash
+    def close_slot(idx: int, today: str) -> str:
+        nonlocal cash, pending_cash
         slot = slots[idx]
         exit_price = slot["trade"]["exit_price"]  # スリッページ込みの約定価格(engine側で反映済み)
         proceeds = slot["shares"] * exit_price
         fee = proceeds * comm
-        cash += proceeds - fee
+        net = proceeds - fee
+        if cash_reuse_timing == "next_day":
+            pending_cash += net
+        else:
+            cash += net
         log.append(
             {"date": today, "action": "exit", "symbol": slot["symbol"],
              "shares": slot["shares"], "exit_price": exit_price,
              "proceeds": proceeds, "commission_fee": fee, "cash_after": cash}
         )
+        outcome = slot["trade"]["outcome"]
         slots[idx] = None
+        return outcome
 
     for today in all_dates:
+        # 0. 前日の決済代金を今日から使えるようにする(next_dayモードのみ)
+        if cash_reuse_timing == "next_day" and pending_cash > 0:
+            cash += pending_cash
+            pending_cash = 0.0
+
         # ① 本日エグジットするポジションを決済する
+        exit_outcomes_today: list[str] = []
         for idx, slot in enumerate(slots):
             if slot is not None and slot["trade"]["exit_date"] == today:
-                close_slot(idx, today)
+                exit_outcomes_today.append(close_slot(idx, today))
 
         # ② 本日エントリーするシグナルを空きスロットに割り当てる
         for t in trades_by_entry_date.get(today, []):
@@ -119,7 +165,9 @@ def simulate_portfolio(
                 skipped_no_slot += 1
                 continue
 
-            nav_now = cash + positions_value(today)
+            # 配分目標は真の総資産(保留中現金も含む)基準にするが、実際に投資できるのは
+            # 今すぐ使える現金(cash)の範囲内のみ(pending_cashは翌営業日まで使えない)。
+            nav_now = cash + pending_cash + positions_value(today)
             target_size = nav_now / max_concurrent
             invest_amount = min(cash, target_size)  # レバレッジなし: 現金の範囲内でのみ投資
             if invest_amount <= 0:
@@ -136,6 +184,7 @@ def simulate_portfolio(
             slots[free_slot] = {"symbol": t["symbol"], "shares": shares, "trade": t, "last_price": entry_price}
             taken += 1
             per_symbol_taken[t["symbol"]] += 1
+            admitted_trades.append(t)
             log.append(
                 {"date": today, "action": "entry", "symbol": t["symbol"],
                  "shares": shares, "entry_price": entry_price,
@@ -146,17 +195,23 @@ def simulate_portfolio(
             # ①のエグジット処理は既にこの日は通過済みなので、ここで即座に決済しないと
             # スロットが永久に埋まったままになってしまう(実際に発生し重大なバグだった)。
             if t["exit_date"] == today:
-                close_slot(free_slot, today)
+                exit_outcomes_today.append(close_slot(free_slot, today))
 
-        # ③ 本日時点のNAVを記録する(NAV = 現金 + Σ 保有株数×当日終値)
+        if sum(1 for o in exit_outcomes_today if o == "loss") >= 2:
+            same_day_multi_loss_days += 1
+
+        # ③ 本日時点のNAVを記録する(NAV = 現金 + 保留中現金 + Σ 保有株数×当日終値)
+        # pending_cash(next_dayモードで翌営業日まで新規投資に使えない決済代金)は、
+        # 新規エントリーの原資としては使えなくても資産としては存在するため、NAVには含める。
         pv = positions_value(today)
-        nav_today = cash + pv
+        nav_today = cash + pending_cash + pv
         nav_history.append(nav_today)
         cash_history.append(cash)
         date_history.append(today)
         utilization_history.append((pv / nav_today) if nav_today > 0 else 0.0)
-        occupied = sum(1 for s in slots if s is not None)
-        max_concurrent_used = max(max_concurrent_used, occupied)
+        occupied_symbols = {s["symbol"] for s in slots if s is not None}
+        daily_occupied_symbols.append((today, occupied_symbols))
+        max_concurrent_used = max(max_concurrent_used, len(occupied_symbols))
 
     if date_history:
         start = datetime.strptime(date_history[0], "%Y-%m-%d").date()
@@ -180,4 +235,7 @@ def simulate_portfolio(
         "num_years": num_years,
         "log": log,
         "per_symbol_taken": dict(per_symbol_taken),
+        "admitted_trades": admitted_trades,
+        "daily_occupied_symbols": daily_occupied_symbols,
+        "same_day_multi_loss_days": same_day_multi_loss_days,
     }

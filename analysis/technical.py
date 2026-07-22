@@ -98,6 +98,7 @@ def compute_indicator_frame(price_history: list[dict], min_rows: int = 30) -> Op
     # 「当日を含まない直近19日の最高値」を当日終値が上回っていれば20日高値更新
     prev19_high = close.shift(1).rolling(19, min_periods=19).max()
     df["new_20d_high"] = close > prev19_high
+    df["breakout_pct"] = (close - prev19_high) / prev19_high * 100  # 20日高値からの突破率(マイナスも許容)
 
     # 52週(直近252営業日、無ければあるだけ)の高値と、そこからの距離
     df["high_52w"] = df["high"].rolling(window=252, min_periods=1).max()
@@ -131,6 +132,7 @@ def row_to_indicators(df: pd.DataFrame, idx: int) -> dict:
         "high_52w": _safe_float(row["high_52w"]),
         "distance_from_52w_high_pct": _safe_float(row["distance_from_52w_high_pct"]),
         "new_20d_high": bool(row["new_20d_high"]) if pd.notna(row["new_20d_high"]) else False,
+        "breakout_pct": _safe_float(row["breakout_pct"]),
     }
 
 

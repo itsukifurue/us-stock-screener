@@ -5,6 +5,68 @@ import math
 from collections import defaultdict
 
 
+def compute_detailed_stats(trades: list[dict], weight: float = 1.0) -> dict:
+    """トレード一覧から詳細統計を計算する。
+
+    weight: 各トレードに割り当てる資金比率(例: 1/3集中投資なら1/3)。1.0なら
+    「各トレードに全額投資した場合の単純なリターン」として扱う。
+    """
+    if not trades:
+        return {
+            "num_trades": 0, "win_rate": 0.0, "profit_factor": None,
+            "arithmetic_mean_pct": 0.0, "median_pct": 0.0, "geometric_mean_pct": 0.0,
+            "std_pct": 0.0, "expected_value_pct": 0.0, "avg_gain_pct": 0.0, "avg_loss_pct": 0.0,
+            "max_gain_pct": 0.0, "max_loss_pct": 0.0,
+        }
+
+    returns = [(t["pnl_pct"] / 100) * weight for t in trades]  # 比率(例: 0.05 = +5%)
+    pnl_pcts = [r * 100 for r in returns]
+
+    n = len(returns)
+    wins = [r for r in returns if r > 0]
+    losses = [r for r in returns if r <= 0]
+    win_rate = len(wins) / n * 100
+
+    gross_profit = sum(wins)
+    gross_loss = abs(sum(losses))
+    if gross_loss > 0:
+        profit_factor = gross_profit / gross_loss
+    elif gross_profit > 0:
+        profit_factor = None
+    else:
+        profit_factor = 0.0
+
+    arithmetic_mean = sum(returns) / n
+    sorted_r = sorted(returns)
+    median = sorted_r[n // 2] if n % 2 == 1 else (sorted_r[n // 2 - 1] + sorted_r[n // 2]) / 2
+
+    # 幾何平均: log(1+r)の平均をexpで戻す(1+r<=0の異常値は評価対象から除く)
+    log_terms = [math.log(1 + r) for r in returns if 1 + r > 0]
+    geometric_mean = (math.exp(sum(log_terms) / len(log_terms)) - 1) if log_terms else float("nan")
+
+    variance = sum((r - arithmetic_mean) ** 2 for r in returns) / n
+    std = math.sqrt(variance)
+
+    avg_gain = (sum(wins) / len(wins) * 100) if wins else 0.0
+    avg_loss = (sum(losses) / len(losses) * 100) if losses else 0.0
+    expected_value = (win_rate / 100) * avg_gain + (1 - win_rate / 100) * avg_loss
+
+    return {
+        "num_trades": n,
+        "win_rate": round(win_rate, 2),
+        "profit_factor": round(profit_factor, 3) if profit_factor is not None else None,
+        "arithmetic_mean_pct": round(arithmetic_mean * 100, 4),
+        "median_pct": round(median * 100, 4),
+        "geometric_mean_pct": round(geometric_mean * 100, 4) if not math.isnan(geometric_mean) else None,
+        "std_pct": round(std * 100, 4),
+        "expected_value_pct": round(expected_value, 4),
+        "avg_gain_pct": round(avg_gain, 4),
+        "avg_loss_pct": round(avg_loss, 4),
+        "max_gain_pct": round(max(pnl_pcts), 4),
+        "max_loss_pct": round(min(pnl_pcts), 4),
+    }
+
+
 def compute_metrics(trades: list[dict]) -> dict:
     if not trades:
         return {
