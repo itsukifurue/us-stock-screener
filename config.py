@@ -72,3 +72,13 @@ NEWS_CACHE_HOURS = 20  # 1日1回の実行を想定し、ほぼ「当日は再�
 BACKTEST_YEARS = 5
 BACKTEST_MIN_TECHNICAL_SCORE = 45  # テクニカルスコア(75点満点)がこの値以上でシグナル発生とみなす
 BACKTEST_MAX_HOLDING_DAYS = 10     # 最大保有日数(取引日ベース、約2週間)
+
+# ---------- バックテスト: 現実的コスト・高度分析設定 ----------
+# 「現行」= entry_mode close, slippage/commission 0(これまでの簡易バックテストと同じ)
+# 「現実的」= 翌営業日始値エントリー + スリッページ + 手数料
+BACKTEST_REALISTIC_ENTRY_MODE = "next_open"  # シグナル当日ではなく翌営業日の始値でエントリー
+BACKTEST_SLIPPAGE_PCT = 0.2      # 売買時の不利なずれ(%)。買いは高く、売りは安く約定すると仮定
+BACKTEST_COMMISSION_PCT = 0.1    # 1回の売買あたりの手数料(%、往復で0.2%相当)。証券会社により調整
+BACKTEST_TOP_PROFIT_EXCLUDE_N = 5      # 利益上位何銘柄を除外して頑健性を検証するか
+BACKTEST_MAX_CONCURRENT_POSITIONS = 3  # ポートフォリオシミュレーションでの同時保有上限(資金10万円想定)
+BACKTEST_SCORE_BANDS = [(45, 54), (55, 64), (65, 74), (75, 75)]  # スコア帯別集計の区切り

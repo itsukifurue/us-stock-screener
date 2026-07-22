@@ -79,3 +79,67 @@ def compute_metrics(trades: list[dict]) -> dict:
         "sharpe_ratio": round(sharpe_ratio, 2),
         "expected_value_pct": round(expected_value_pct, 2),
     }
+
+
+def compute_concentration(trades: list[dict], top_n: int = 5) -> dict:
+    """利益が上位何銘柄にどれだけ集中しているかを計算する。"""
+    by_symbol: dict[str, float] = defaultdict(float)
+    for t in trades:
+        by_symbol[t["symbol"]] += t["pnl_pct"]
+
+    ranked = sorted(by_symbol.items(), key=lambda x: -x[1])
+    positive_total = sum(v for v in by_symbol.values() if v > 0)
+    top_symbols = ranked[:top_n]
+    top_positive_sum = sum(v for _, v in top_symbols if v > 0)
+    share_pct = (top_positive_sum / positive_total * 100) if positive_total > 0 else 0.0
+
+    return {
+        "top_n": top_n,
+        "top_n_symbols": [s for s, _ in top_symbols],
+        "top_n_profit_share_pct": round(share_pct, 1),
+        "num_losing_symbols": sum(1 for v in by_symbol.values() if v < 0),
+        "num_symbols": len(by_symbol),
+    }
+
+
+def compute_portfolio_metrics(nav_series: list[float], num_years: float, trading_days_per_year: int = 252) -> dict:
+    """日次NAV(資産評価額)系列からCAGR・日次Sharpe・Sortino・最大ドローダウンを計算する。
+
+    nav_series: 先頭を初期資金(通常1.0)とした日次の資産評価額のリスト。
+    num_years: シミュレーション対象期間の実年数(カレンダーベース、CAGR計算に使用)。
+    """
+    if len(nav_series) < 2 or num_years <= 0:
+        return {"cagr_pct": 0.0, "daily_sharpe": 0.0, "sortino": 0.0, "max_drawdown_pct": 0.0}
+
+    returns = [(nav_series[k] / nav_series[k - 1] - 1) for k in range(1, len(nav_series)) if nav_series[k - 1] > 0]
+
+    total_return = nav_series[-1] / nav_series[0]
+    cagr_pct = ((total_return ** (1 / num_years)) - 1) * 100 if total_return > 0 else -100.0
+
+    if returns:
+        mean_r = sum(returns) / len(returns)
+        var_r = sum((r - mean_r) ** 2 for r in returns) / len(returns)
+        std_r = math.sqrt(var_r)
+        daily_sharpe = (mean_r / std_r * math.sqrt(trading_days_per_year)) if std_r > 0 else 0.0
+
+        downside = [r for r in returns if r < 0]
+        downside_var = sum(r ** 2 for r in downside) / len(returns) if downside else 0.0
+        downside_std = math.sqrt(downside_var)
+        sortino = (mean_r / downside_std * math.sqrt(trading_days_per_year)) if downside_std > 0 else 0.0
+    else:
+        daily_sharpe = 0.0
+        sortino = 0.0
+
+    peak = nav_series[0]
+    max_dd = 0.0
+    for v in nav_series:
+        peak = max(peak, v)
+        if peak > 0:
+            max_dd = max(max_dd, (peak - v) / peak * 100)
+
+    return {
+        "cagr_pct": round(cagr_pct, 2),
+        "daily_sharpe": round(daily_sharpe, 2),
+        "sortino": round(sortino, 2),
+        "max_drawdown_pct": round(max_dd, 2),
+    }

@@ -5,13 +5,18 @@
 """
 from __future__ import annotations
 
+from typing import Optional
+
 import config
 
 VOLUME_SURGE_THRESHOLD = 2.0  # 平均出来高の何倍で「急増」とみなすか
 
 
-def score_technical(indicators: dict) -> dict:
+def score_technical(indicators: dict, excluded_conditions: Optional[set] = None) -> dict:
     """stage2で利用可能な情報(価格・出来高)のみから算出できる項目をスコアリングする。
+
+    excluded_conditions: 指定した条件名の配点を0にする(バックテストのアブレーション用)。
+    通常の本番パイプラインではNoneのまま(全条件を評価する)。
 
     戻り値: {"breakdown": {...}, "subtotal": float}
     """
@@ -31,6 +36,10 @@ def score_technical(indicators: dict) -> dict:
 
     rsi14 = indicators.get("rsi14")
     breakdown["rsi_50_70"] = w["rsi_50_70"] if (rsi14 is not None and 50 <= rsi14 <= 70) else 0
+
+    if excluded_conditions:
+        for key in excluded_conditions:
+            breakdown[key] = 0
 
     subtotal = sum(breakdown.values())
     return {"breakdown": breakdown, "subtotal": subtotal}
