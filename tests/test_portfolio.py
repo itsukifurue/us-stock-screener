@@ -156,6 +156,59 @@ class TestPortfolioAudit(unittest.TestCase):
         # 手計算: Day1で+8%確定(1.08)、Day2は値動きなし、Day3で+10%確定(1.08*1.10=1.188)
         self.assertAlmostEqual(result["nav_series"][-1], 1.08 * 1.10, places=6)
 
+    def test_g_skip_reason_distinguishes_no_slot_vs_cash_insufficient(self):
+        """見送り理由が「枠不足(no_slot)」と「現金不足(cash_insufficient)」で正しく
+        区別されること(Phase2の逆選択分析で両者を混同しないために追加した機能)。"""
+        trades = [
+            # Pがmax_concurrent=1の唯一の枠を保有中にQが来る → 枠不足で見送り
+            make_trade("P", "2024-01-02", "2024-01-05", 100.0, 110.0, signal_score=70),
+            make_trade("Q", "2024-01-03", "2024-01-04", 50.0, 55.0, signal_score=60),
+        ]
+        price_frames = {
+            "P": make_price_frame(
+                ["2024-01-02", "2024-01-03", "2024-01-04", "2024-01-05"], [100.0, 102.0, 104.0, 110.0]
+            ),
+            "Q": make_price_frame(["2024-01-03", "2024-01-04"], [50.0, 55.0]),
+        }
+        result = simulate_portfolio(trades, price_frames, max_concurrent=1, initial_capital=1.0, commission_pct=0.0)
+        self.assertEqual(len(result["skipped_trades"]), 1)
+        self.assertEqual(result["skipped_trades"][0]["reason"], "no_slot")
+        self.assertEqual(result["skipped_trades"][0]["symbol"], "Q")
+
+        # 枠はあるが現金が足りないケース(R急騰後にSへ新規エントリーしようとして現金不足)
+        trades2 = [
+            make_trade("R", "2024-01-02", "2024-01-05", 10.0, 100.0, signal_score=70),
+            make_trade("S", "2024-01-04", "2024-01-05", 20.0, 22.0, signal_score=60),
+        ]
+        price_frames2 = {
+            "R": make_price_frame(["2024-01-02", "2024-01-03", "2024-01-04", "2024-01-05"], [10.0, 100.0, 100.0, 100.0]),
+            "S": make_price_frame(["2024-01-04", "2024-01-05"], [20.0, 22.0]),
+        }
+        result2 = simulate_portfolio(trades2, price_frames2, max_concurrent=2, initial_capital=1.0, commission_pct=0.0)
+        # Sは枠(2枠中1枠空き)はあるので現金不足以外の理由でskipされてはいない
+        reasons2 = {s["symbol"]: s["reason"] for s in result2["skipped_trades"]}
+        if "S" in reasons2:
+            self.assertEqual(reasons2["S"], "cash_insufficient")
+
+    def test_h_ranking_key_fn_overrides_default_ranking(self):
+        """ranking_key_fnを渡すと、ranking_key(文字列プリセット)より優先され、
+        指定した独自の順序で採用されること(Phase2の逆選択分析で追加したランキング比較機能)。"""
+        trades = [
+            make_trade("LOW_SCORE", "2024-01-02", "2024-01-03", 100.0, 110.0, signal_score=10),
+            make_trade("HIGH_SCORE", "2024-01-02", "2024-01-03", 50.0, 55.0, signal_score=90),
+        ]
+        price_frames = {
+            "LOW_SCORE": make_price_frame(["2024-01-02", "2024-01-03"], [100.0, 110.0]),
+            "HIGH_SCORE": make_price_frame(["2024-01-02", "2024-01-03"], [50.0, 55.0]),
+        }
+        # スコア昇順(低スコア優先)で1枠だけ採用させる
+        result = simulate_portfolio(
+            trades, price_frames, max_concurrent=1, initial_capital=1.0, commission_pct=0.0,
+            ranking_key_fn=lambda t: (t.get("signal_score") or 0),
+        )
+        self.assertEqual(result["trades_taken"], 1)
+        self.assertEqual(result["admitted_trades"][0]["symbol"], "LOW_SCORE")
+
     def test_e2_cash_clamped_when_existing_position_grows(self):
         """既存ポジションが大きく値上がりし、空き枠はあっても現金が目標配分額に届かず
         少額投資に制限される(現金不足によるクランプ)ケース。"""

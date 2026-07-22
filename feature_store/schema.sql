@@ -110,6 +110,7 @@ CREATE TABLE IF NOT EXISTS labels (
     -- 主要ラベル2: 現実的な取引ルール(翌日始値エントリー・コスト込み・ATR損切り/利確)で
     -- 損切り到達前に利確到達したか(同日両到達は損切り優先の保守的判定)
     target_trade_success INTEGER,
+    target_trade_pnl_pct REAL,  -- 上記トレードの実損益%(スリッページ・手数料込み)。PF/期待値の実測計算用
 
     label_computed_at TEXT,
     label_version TEXT,
@@ -125,4 +126,77 @@ CREATE TABLE IF NOT EXISTS data_quality_log (
     status TEXT,          -- 'pass' / 'fail' / 'warning'
     affected_count INTEGER,
     details TEXT
+);
+
+-- ================= Phase 2: 2層ユニバース設計 =================
+
+-- ビルド実行1回分のメタ情報(再現性のため対象銘柄・期間・バージョンを記録する)
+CREATE TABLE IF NOT EXISTS build_runs (
+    build_run_id TEXT PRIMARY KEY,
+    run_at TEXT,
+    symbols TEXT,             -- カンマ区切り
+    start_date TEXT,
+    end_date TEXT,
+    universe_version TEXT,
+    feature_version TEXT,
+    label_version TEXT,
+    train_start TEXT, train_end TEXT,
+    val_start TEXT, val_end TEXT,
+    test_start TEXT, test_end TEXT,
+    notes TEXT
+);
+
+-- 各ビルドで対象とした銘柄と、その銘柄がデータ取得できた実際の期間(上場日/データ開始日の制約を含む)
+CREATE TABLE IF NOT EXISTS universe_membership (
+    ticker TEXT NOT NULL,
+    build_run_id TEXT NOT NULL,
+    first_available_date TEXT,   -- データソース上で取得できた最初の日付(上場日の近似)
+    last_available_date TEXT,
+    sector TEXT,
+    exchange TEXT,
+    data_fetch_status TEXT,      -- 'ok' / 'failed' / 'insufficient_history'
+    PRIMARY KEY (ticker, build_run_id)
+);
+
+-- Daily universe layer: 対象銘柄・対象期間の全営業日(候補にならなかった日も含む)の軽量スナップショット。
+-- featuresテーブル(全指標入り)より軽量にし、将来Step2/3で対象銘柄数が増えた際にも
+-- 全銘柄×全営業日を安価に把握できるようにする。
+CREATE TABLE IF NOT EXISTS daily_universe (
+    ticker TEXT NOT NULL,
+    date TEXT NOT NULL,
+    build_run_id TEXT NOT NULL,
+    close REAL,
+    volume REAL,
+    dollar_volume REAL,
+    universe_included_flag INTEGER,
+    candidate_flag INTEGER,
+    candidate_reason TEXT,
+    universe_version TEXT,
+    PRIMARY KEY (ticker, date, build_run_id)
+);
+
+-- Candidate snapshot layer: その営業日に「一次スクリーニング条件(price/market_cap/avg_volume)」を
+-- 満たした銘柄=universe candidate のみを対象とする(注意: これはVersion1のシグナル条件
+-- technical_score_v1>=45 を満たしたという意味ではない。一次スクリーニング条件を満たした
+-- universe candidateの中に、スコア未達で一度もシグナル化されないものも大量に含まれる)。
+-- Version1の採用ルール(スコア上位・最大同時保有数)を後から適用した結果も一緒に保存し、
+-- 「候補全体」「実際に採用された候補」「枠不足/資金不足で見送られた候補」を正確に比較できるようにする。
+CREATE TABLE IF NOT EXISTS candidate_snapshots (
+    ticker TEXT NOT NULL,
+    signal_date TEXT NOT NULL,
+    build_run_id TEXT NOT NULL,
+    candidate_source TEXT,
+    candidate_rank REAL,             -- その日のuniverse candidate内でのtechnical_score_v1順位(1が最良)
+    candidate_reason TEXT,
+    technical_score_v1 REAL,
+    signaled_flag INTEGER,           -- technical_score_v1>=45でVersion1シグナルとして信号化されたか
+    selected_by_v1_flag INTEGER,     -- Version1の採用ルール(ポートフォリオシミュレーター)で実際に採用されたか
+    selected_rank_v1 REAL,           -- 信号化された候補内での、採用ルールのランキングキー(score)順位
+    selection_capacity INTEGER,      -- その日のmax_concurrent(空き枠数の目安、Version1既定は3)
+    rejected_due_to_capacity_flag INTEGER,  -- 信号化されたが枠不足or資金不足で見送られたか(理由の合算)
+    rejected_reason TEXT,             -- 見送り理由の内訳: NULL(見送りなし)/'no_slot'(3枠が全て埋まっていた)/
+                                       -- 'cash_insufficient'(枠はあったが投資可能な現金が無かった)
+    feature_version TEXT,
+    universe_version TEXT,
+    PRIMARY KEY (ticker, signal_date, build_run_id)
 );

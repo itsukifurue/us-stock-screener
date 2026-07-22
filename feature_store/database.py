@@ -111,7 +111,7 @@ class FeatureStoreDB:
                    l.hit_plus_5pct_10d, l.hit_plus_10pct_10d, l.hit_plus_15pct_10d, l.hit_plus_15pct_15d,
                    l.hit_stop_atr_1_5_before_plus_15,
                    l.days_to_plus_5pct, l.days_to_plus_10pct, l.days_to_plus_15pct,
-                   l.target_15pct_within_10d, l.target_trade_success
+                   l.target_15pct_within_10d, l.target_trade_success, l.target_trade_pnl_pct
             FROM features f
             LEFT JOIN labels l ON f.ticker = l.ticker AND f.signal_date = l.signal_date
             ORDER BY f.signal_date, f.ticker
@@ -131,5 +131,60 @@ class FeatureStoreDB:
     def get_quality_log(self, limit: int = 100) -> list[dict]:
         rows = self.conn.execute(
             "SELECT * FROM data_quality_log ORDER BY id DESC LIMIT ?", (limit,)
+        ).fetchall()
+        return [dict(r) for r in rows]
+
+    # ---------- Phase2共通ヘルパー(汎用upsert。テーブルごとの主キー列を渡す) ----------
+    def _upsert(self, table: str, row: dict, key_columns: tuple[str, ...]) -> None:
+        columns = list(row.keys())
+        placeholders = ", ".join(f":{c}" for c in columns)
+        col_list = ", ".join(columns)
+        update_clause = ", ".join(f"{c}=excluded.{c}" for c in columns if c not in key_columns)
+        with self.cursor() as cur:
+            cur.execute(
+                f"""
+                INSERT INTO {table} ({col_list}) VALUES ({placeholders})
+                ON CONFLICT({", ".join(key_columns)}) DO UPDATE SET {update_clause}
+                """,
+                row,
+            )
+
+    # ---------- build_runs ----------
+    def upsert_build_run(self, build_run: dict) -> None:
+        self._upsert("build_runs", build_run, ("build_run_id",))
+
+    # ---------- universe_membership ----------
+    def upsert_universe_membership(self, row: dict) -> None:
+        self._upsert("universe_membership", row, ("ticker", "build_run_id"))
+
+    def upsert_universe_membership_bulk(self, rows: list[dict]) -> None:
+        for r in rows:
+            self.upsert_universe_membership(r)
+
+    # ---------- daily_universe ----------
+    def upsert_daily_universe(self, row: dict) -> None:
+        self._upsert("daily_universe", row, ("ticker", "date", "build_run_id"))
+
+    def upsert_daily_universe_bulk(self, rows: list[dict]) -> None:
+        for r in rows:
+            self.upsert_daily_universe(r)
+
+    def count_daily_universe(self) -> int:
+        return self.conn.execute("SELECT COUNT(*) FROM daily_universe").fetchone()[0]
+
+    # ---------- candidate_snapshots ----------
+    def upsert_candidate_snapshot(self, row: dict) -> None:
+        self._upsert("candidate_snapshots", row, ("ticker", "signal_date", "build_run_id"))
+
+    def upsert_candidate_snapshots_bulk(self, rows: list[dict]) -> None:
+        for r in rows:
+            self.upsert_candidate_snapshot(r)
+
+    def count_candidate_snapshots(self) -> int:
+        return self.conn.execute("SELECT COUNT(*) FROM candidate_snapshots").fetchone()[0]
+
+    def get_all_candidate_snapshots(self) -> list[dict]:
+        rows = self.conn.execute(
+            "SELECT * FROM candidate_snapshots ORDER BY signal_date, ticker"
         ).fetchall()
         return [dict(r) for r in rows]

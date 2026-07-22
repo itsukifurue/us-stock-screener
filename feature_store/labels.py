@@ -116,8 +116,10 @@ def compute_labels_for_signal(
         entry_mode="next_open", slippage_pct=0.2, commission_pct=0.1, same_day_priority="stop_first",
     )
     target_trade_success = None
+    target_trade_pnl_pct = None
     if trade_10d is not None and trade_10d.get("exit_reason") != "data_end":
         target_trade_success = 1 if trade_10d["outcome"] == "win" else 0
+        target_trade_pnl_pct = trade_10d["pnl_pct"]  # PF/期待値の実測計算用(スリッページ・手数料込み)
 
     trade_15d = price_trade_at_signal(
         symbol, df, signal_idx, indicators, signal_score, max_holding_days=15,
@@ -151,6 +153,7 @@ def compute_labels_for_signal(
         "days_to_plus_15pct": days_to_plus_15pct,
         "target_15pct_within_10d": target_15pct_within_10d,
         "target_trade_success": target_trade_success,
+        "target_trade_pnl_pct": target_trade_pnl_pct,
         "label_computed_at": datetime.now(timezone.utc).isoformat(),
         "label_version": LABEL_VERSION,
     }

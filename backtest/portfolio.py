@@ -26,7 +26,7 @@ from __future__ import annotations
 import random
 from collections import defaultdict
 from datetime import datetime
-from typing import Optional
+from typing import Callable, Optional
 
 import pandas as pd
 
@@ -48,6 +48,7 @@ def simulate_portfolio(
     cash_reuse_timing: str = "same_day",
     ranking_key: str = "score",
     random_seed: int = 42,
+    ranking_key_fn: Optional[Callable[[dict], float]] = None,
 ) -> dict:
     """最大 max_concurrent 銘柄までの同時保有を許容したポートフォリオシミュレーション。
 
@@ -70,7 +71,7 @@ def simulate_portfolio(
         "trades_taken": 0, "trades_skipped": 0, "trades_skipped_no_slot": 0, "trades_skipped_cash": 0,
         "max_concurrent_used": 0, "avg_capital_utilization_pct": 0.0, "num_years": 0.0,
         "log": [], "per_symbol_taken": {}, "admitted_trades": [], "daily_occupied_symbols": [],
-        "same_day_multi_loss_days": 0,
+        "same_day_multi_loss_days": 0, "skipped_trades": [],
     }
     if not trades:
         return empty_result
@@ -81,7 +82,9 @@ def simulate_portfolio(
 
     rng = random.Random(random_seed)
     for day_trades in trades_by_entry_date.values():
-        if ranking_key == "random":
+        if ranking_key_fn is not None:
+            day_trades.sort(key=ranking_key_fn)
+        elif ranking_key == "random":
             rng.shuffle(day_trades)
         elif ranking_key == "insertion_order":
             pass  # 元のリストの並びのまま(何もしない)
@@ -113,6 +116,7 @@ def simulate_portfolio(
     utilization_history: list[float] = []
     daily_occupied_symbols: list[tuple[str, set]] = []
     admitted_trades: list[dict] = []
+    skipped_trades: list[dict] = []  # 個別トレードごとの見送り理由(capacity分析用の追加情報)
     log: list[dict] = []
 
     def positions_value(today: str) -> float:
@@ -163,6 +167,7 @@ def simulate_portfolio(
             if free_slot is None:
                 skipped += 1
                 skipped_no_slot += 1
+                skipped_trades.append({"symbol": t["symbol"], "signal_date": t["signal_date"], "reason": "no_slot"})
                 continue
 
             # 配分目標は真の総資産(保留中現金も含む)基準にするが、実際に投資できるのは
@@ -173,6 +178,7 @@ def simulate_portfolio(
             if invest_amount <= 0:
                 skipped += 1
                 skipped_cash += 1
+                skipped_trades.append({"symbol": t["symbol"], "signal_date": t["signal_date"], "reason": "cash_insufficient"})
                 continue
 
             entry_price = t["entry_price"]  # スリッページ込みの約定価格(engine側で反映済み)
@@ -238,4 +244,5 @@ def simulate_portfolio(
         "admitted_trades": admitted_trades,
         "daily_occupied_symbols": daily_occupied_symbols,
         "same_day_multi_loss_days": same_day_multi_loss_days,
+        "skipped_trades": skipped_trades,
     }
