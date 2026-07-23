@@ -1,0 +1,38 @@
+{
+  "run_date": "2026-07-23",
+  "top": [
+    {
+      "symbol": "NVDA",
+      "company_name": "NVIDIA Corporation",
+      "current_price": 208.9550018310547,
+      "entry_price": 208.9550018310547,
+      "stop_loss": 198.2,
+      "take_profit_1": 216.12,
+      "take_profit_2": 240.3,
+      "expected_return_pct": 15.0,
+      "win_rate": 61,
+      "expected_value": 14.93,
+      "ai_comment": "NVIDIAは引き続き堅調な業績とAI関連需要の恩恵を受けていますが、直近ニュースが無く材料面での後押しが弱い状況です。テクニカルは緩やかな上昇トレンドながら出来高が伴っておらず、2週間で+15%の急騰を狙うにはやや力不足と判断されます。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "出来高が平均を大きく下回り上昇の勢いを欠く点、及び52週高値からの乖離が大きく上値抵抗が意識されやすい点がリスク。",
+      "total_score": 61
+    },
+    {
+      "symbol": "OII",
+      "company_name": "Oceaneering International, Inc.",
+      "current_price": 50.709999084472656,
+      "entry_price": 50.709999084472656,
+      "stop_loss": 47.89,
+      "take_profit_1": 52.59,
+      "take_profit_2": 58.32,
+      "expected_return_pct": 15.0,
+      "win_rate": 51,
+      "expected_value": 2.5,
+      "ai_comment": "テクニカル的には強いトレンドを示していますが、RSIの極端な過熱と薄商いが懸念材料です。ニュースや決算材料が無い中でのさらなる急騰は考えにくく、短期的な調整局面に入る可能性が高いと見られます。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "RSI過熱による反落リスクと出来高不足による上昇持続性の欠如が主なリスク要因です。",
+      "total_score": 51
+    }
+  ],
+  "disclaimer": "※ 勝率・期待値は現時点ではバックテストエンジン未実装のため、総合スコアから導いた暫定値です。投資判断は自己責任で行ってください。本レポートは投資助言ではありません。"
+}
