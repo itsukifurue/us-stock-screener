@@ -4,6 +4,7 @@ data/feature_store.db
 data/feature_store.db-shm
 data/feature_store.db-wal
 data/phase2_price_histories.pkl
+data/price_cache/
 logs/
 __pycache__/
 *.pyc

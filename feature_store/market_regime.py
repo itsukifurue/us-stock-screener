@@ -14,8 +14,6 @@ from typing import Optional
 
 import pandas as pd
 
-from api.yfinance_client import fetch_historical_prices
-
 MARKET_TICKERS = ["SPY", "QQQ", "IWM", "^VIX"]
 
 
@@ -52,11 +50,14 @@ def _build_frame(price_history: list[dict]) -> Optional[pd.DataFrame]:
 class MarketContext:
     """SPY/QQQ/IWM/VIXの日次データを事前ロードし、日付指定で市場環境特徴量を返す。"""
 
-    def __init__(self, start_date: str, end_date: str):
+    def __init__(self, start_date: str, end_date: str, market_data_provider=None):
+        from feature_store.providers import default_market_data_provider
+
+        provider = market_data_provider or default_market_data_provider()
         lookback_start = (date.fromisoformat(start_date) - timedelta(days=400)).isoformat()
         self.frames: dict[str, Optional[pd.DataFrame]] = {}
         for ticker in MARKET_TICKERS:
-            history = fetch_historical_prices(ticker, lookback_start, end_date)
+            history = provider.fetch_historical_prices(ticker, lookback_start, end_date)
             self.frames[ticker] = _build_frame(history)
 
     def _row_for(self, ticker: str, target_date: str) -> Optional[pd.Series]:

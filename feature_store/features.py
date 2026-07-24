@@ -18,6 +18,7 @@ from typing import Optional
 import numpy as np
 import pandas as pd
 
+import config
 from analysis.scoring import score_technical
 from analysis.technical import compute_indicator_frame, row_to_indicators
 
@@ -182,6 +183,12 @@ def build_feature_row(
 
     universe_included_flag/candidate_flag/candidate_reason/universe_version は
     呼び出し側(feature_store.universe等)で判定した結果をそのまま渡す想定。
+
+    Phase2 Step2: eligible_flagはcandidate_flagと同値(3層候補定義の用語統一のため追加)。
+    signal_v1_flag/signal_reasonはtechnical_score_v1から直接判定できるためここで計算する。
+    cross_section_rank・横断percentile系列は同日の他銘柄が揃わないと計算できないため、
+    呼び出し側(オーケストレーションスクリプト)で全行生成後にpost-processで埋める
+    (Noneのまま返す)。
     """
     row = df.iloc[idx]
     indicators = row_to_indicators(df, idx)
@@ -214,6 +221,21 @@ def build_feature_row(
         "candidate_flag": candidate_flag,
         "candidate_reason": candidate_reason,
         "universe_version": universe_version,
+
+        # Phase2 Step2: 3層候補定義(daily_universe/eligible_universe/signal_candidates)
+        "eligible_flag": candidate_flag,  # candidate_flagと同値(Step2の用語に合わせた別名)
+        "signal_v1_flag": 1 if tech["subtotal"] >= config.BACKTEST_MIN_TECHNICAL_SCORE else 0,
+        "signal_reason": (
+            f"score>={config.BACKTEST_MIN_TECHNICAL_SCORE}"
+            if tech["subtotal"] >= config.BACKTEST_MIN_TECHNICAL_SCORE
+            else f"score<{config.BACKTEST_MIN_TECHNICAL_SCORE}({round(tech['subtotal'], 1)})"
+        ),
+        "cross_section_rank": None,  # post-processで埋める
+        "return_1d_pctrank": None, "return_5d_pctrank": None, "volume_ratio_5d_pctrank": None,
+        "atr_pct_pctrank": None, "rsi_14_pctrank": None, "breakout_close_20d_pct_pctrank": None,
+        "dollar_volume_pctrank": None, "market_cap_pctrank": None,
+        "sector_return_5d_pctrank": None, "sector_volume_ratio_5d_pctrank": None,
+        "cross_section_universe_size": None, "sector_universe_size": None,
 
         "volume": _safe(row.get("volume")),
         "avg_volume_5d": _safe(row.get("avg_volume_5d")),
@@ -295,3 +317,69 @@ def build_feature_row(
         "rsi_condition": 1 if breakdown.get("rsi_50_70") else 0,
     }
     return feature
+
+
+# 横断percentile特徴量の計算対象(市場全体)。(features列名, percentile列名)のペア。
+_CROSS_SECTION_FEATURE_PAIRS = [
+    ("return_1d", "return_1d_pctrank"),
+    ("return_5d", "return_5d_pctrank"),
+    ("volume_ratio_5d", "volume_ratio_5d_pctrank"),
+    ("atr_pct", "atr_pct_pctrank"),
+    ("rsi_14", "rsi_14_pctrank"),
+    ("breakout_close_20d_pct", "breakout_close_20d_pct_pctrank"),
+    ("dollar_volume", "dollar_volume_pctrank"),
+    ("market_cap", "market_cap_pctrank"),
+]
+# セクター内percentile特徴量。
+_SECTOR_SECTION_FEATURE_PAIRS = [
+    ("return_5d", "sector_return_5d_pctrank"),
+    ("volume_ratio_5d", "sector_volume_ratio_5d_pctrank"),
+]
+
+
+def compute_cross_sectional_percentiles(day_features: list[dict], eligible_only: bool = True) -> None:
+    """同一signal_dateのfeature行リストを受け取り、その日時点で実在する銘柄だけを使って
+    percentile順位(0〜1)を計算し、各dictへ書き戻す(破壊的更新)。
+
+    重要: 呼び出し側は必ず「同一signal_dateの行だけ」を渡すこと。複数日をまとめて渡すと
+    日をまたいだ(未来日を含む)ランキングになってしまい、リークの原因になる。
+    eligible_only=True の場合、eligible_flag(=candidate_flag)が1の行だけを母集団にする
+    (一次スクリーニングを満たさない銘柄をpercentile計算対象から除外する)。
+    """
+    pool = [f for f in day_features if (not eligible_only or f.get("eligible_flag") == 1)]
+    n = len(pool)
+    if n == 0:
+        return
+
+    for src_col, dst_col in _CROSS_SECTION_FEATURE_PAIRS:
+        values = [(f, f.get(src_col)) for f in pool if f.get(src_col) is not None]
+        if not values:
+            continue
+        s = pd.Series([v for _, v in values])
+        ranks = s.rank(pct=True)
+        for (f, _), r in zip(values, ranks):
+            f[dst_col] = round(float(r), 4)
+    for f in pool:
+        f["cross_section_universe_size"] = n
+
+    by_sector: dict[Optional[str], list[dict]] = {}
+    for f in pool:
+        by_sector.setdefault(f.get("sector"), []).append(f)
+    for sector, group in by_sector.items():
+        m = len(group)
+        for src_col, dst_col in _SECTOR_SECTION_FEATURE_PAIRS:
+            values = [(f, f.get(src_col)) for f in group if f.get(src_col) is not None]
+            if not values:
+                continue
+            s = pd.Series([v for _, v in values])
+            ranks = s.rank(pct=True)
+            for (f, _), r in zip(values, ranks):
+                f[dst_col] = round(float(r), 4)
+        for f in group:
+            f["sector_universe_size"] = m
+
+    # cross_section_rank(technical_score_v1の順位、比較参考用。既存sector_rankと同じ考え方)
+    scored = [(f, f.get("technical_score_v1")) for f in pool if f.get("technical_score_v1") is not None]
+    ranked = sorted(scored, key=lambda pair: -pair[1])
+    for rank, (f, _) in enumerate(ranked, start=1):
+        f["cross_section_rank"] = rank

@@ -12,8 +12,6 @@ from typing import Optional
 
 import pandas as pd
 
-from api.yfinance_client import fetch_historical_prices
-
 SECTOR_ETF_MAP = {
     "Technology": "XLK",
     "Financial Services": "XLF",
@@ -39,14 +37,17 @@ def get_sector_etf(sector: Optional[str]) -> Optional[str]:
 class SectorContext:
     """セクターETFの日次データを事前ロードし、日付指定でリターンを返す。"""
 
-    def __init__(self, start_date: str, end_date: str, sectors: list[str]):
+    def __init__(self, start_date: str, end_date: str, sectors: list[str], market_data_provider=None):
         from datetime import date, timedelta
 
+        from feature_store.providers import default_market_data_provider
+
+        provider = market_data_provider or default_market_data_provider()
         lookback_start = (date.fromisoformat(start_date) - timedelta(days=60)).isoformat()
         self.frames: dict[str, Optional[pd.DataFrame]] = {}
         etfs_needed = {get_sector_etf(s) for s in sectors if get_sector_etf(s)}
         for etf in etfs_needed:
-            history = fetch_historical_prices(etf, lookback_start, end_date)
+            history = provider.fetch_historical_prices(etf, lookback_start, end_date)
             self.frames[etf] = self._build_frame(history)
 
     @staticmethod

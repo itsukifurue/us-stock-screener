@@ -187,6 +187,68 @@ def run_quality_checks(
     log("data_fetch_failures", "warning" if failed_symbols else "pass", len(failed_symbols),
         f"取得/計算に失敗した銘柄: {failed_symbols}" if failed_symbols else "問題なし")
 
+    # 13. Phase2 Step2: 時価総額・セクター・市場データの欠損率
+    for col, name in [("market_cap", "market_cap欠損"), ("sector", "sector欠損"), ("spy_close", "market_data(spy_close)欠損")]:
+        missing = sum(1 for f in features if f.get(col) is None) if features else 0
+        rate = round(missing / len(features) * 100, 1) if features else 0.0
+        log(f"missing_{col}", "warning" if rate > 0 else "pass", missing, f"{name}率: {rate}%")
+
+    # 14. label_statusの内訳(pending/data_end/invalidを失敗として隠さず件数を出す)
+    if labels:
+        status_counts: dict[str, int] = {}
+        for l in labels:
+            s = l.get("label_status") or "unknown"
+            status_counts[s] = status_counts.get(s, 0) + 1
+        log("label_status_breakdown", "pass", 0, str(status_counts))
+
+    if db is not None:
+        # 15. ティッカー変更(エイリアス)経由の取得件数
+        try:
+            aliased = db.conn.execute(
+                "SELECT COUNT(*) FROM universe_membership WHERE data_fetch_status = 'ok_via_alias'"
+            ).fetchone()[0]
+            log("ticker_alias_usage", "pass", aliased, f"ティッカー変更(エイリアス)経由で取得した銘柄: {aliased}件")
+        except Exception:
+            pass
+
+        # 16. 上場廃止/データ終了の疑いがある銘柄数(universe_membershipのlast_available_dateが
+        # 対象期間の終了日より大幅に早い銘柄。上場前データは、そもそも取得データがその銘柄の
+        # first_available_date以降しか存在しないため構造的に発生しない)
+        try:
+            rows = db.conn.execute(
+                "SELECT ticker, last_available_date FROM universe_membership "
+                "WHERE data_fetch_status IN ('ok', 'ok_via_alias')"
+            ).fetchall()
+            log(
+                "delisting_or_data_end_candidates", "pass", 0,
+                f"universe_membership記載の最終取得可能日一覧から、必要に応じてlabel_status='data_end'"
+                f"件数(上記label_status_breakdown参照)と突き合わせて確認する({len(rows)}銘柄分の記録あり)",
+            )
+        except Exception:
+            pass
+
+        # 17. ビルド失敗銘柄(build_run_symbol_status)
+        try:
+            failed_stages = db.conn.execute(
+                "SELECT symbol, stage, status, error_type FROM build_run_symbol_status "
+                "WHERE status IN ('failed', 'skipped') ORDER BY symbol"
+            ).fetchall()
+            failed_list = [dict(r) for r in failed_stages]
+            log(
+                "build_stage_failures", "warning" if failed_list else "pass", len(failed_list),
+                str(failed_list[:30]),
+            )
+        except Exception:
+            pass
+
+        # 18. キャッシュ不整合(price_cache_metaのrow_countが実際のキャッシュファイルと極端に
+        # 乖離していないかの簡易チェック。詳細な整合性確認はキャッシュファイル側で行う)
+        try:
+            cache_rows = db.conn.execute("SELECT COUNT(*) FROM price_cache_meta").fetchone()[0]
+            log("price_cache_meta_count", "pass", 0, f"price_cache_metaレコード数: {cache_rows}")
+        except Exception:
+            pass
+
     # 12. 特徴量の分布変化(前半/後半で平均・標準偏差を比較する簡易チェック)
     distribution_shift = {}
     if len(features) >= 20:

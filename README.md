@@ -361,6 +361,88 @@ Version1の採用ルール(technical_score_v1>=45で信号化 → スコア降�
 拡張)より前に、この技術スコア自体の設計を見直すか、少なくとも「現状のスコアには実質的な
 銘柄選択能力が無い」という前提でVersion2の設計を進めるべきという示唆が強い。
 
+### Version1スコア(technical_score_v1)の最終結論(2026-07-22、ユーザー確認済み)
+
+上記監査結果を受け、`technical_score_v1`について以下を確定する。
+
+- **銘柄選択(ランキング)の主ルールとしては採用しない**。同一候補集合に対するランダム選択
+  1000回試行の分布と比べてCAGRが13.5パーセンタイル(下位)であり、実質的にランダム選択より
+  劣る結果だった。
+- **市場環境によって有効性が大きく変動する**(Train期間内だけで半年ごとのPFが0.365〜1.363の
+  間で変動)ため、固定配点ルールとしての安定した優位性は認められない。
+- **Version2からは削除せず、比較対象となる1つの特徴量として保存する**(`features.technical_score_v1`
+  列はそのまま維持し、`eligible_flag`/`signal_v1_flag`等と組み合わせて後日のモデル評価の
+  ベースライン特徴量として使う)。
+- 今後の候補順位付けは、`technical_score_v1`のような固定配点ルールではなく、
+  **時系列検証(Train/Validation/Testを厳密に分離)された予測モデル**で行う方針とする。
+- 手作業でのスコア改善(配点変更・条件追加・閾値最適化・逆順採用等)は、Train/Validationの
+  結果を見ながら調整すると別の形の過学習を生むため、Phase 2の時点では行わない。
+
+## Version 2: Phase 2 Step2(233銘柄への拡張 + Feature Freeze)
+
+Step1の46銘柄から、Train/Validation/Testの日付境界(2021-06-28〜2026-06-27、Train
+2021-06-28〜2024-06-27 / Validation 2024-06-27〜2025-06-27 / Test 2025-06-27〜2026-06-27)を
+**一切変更せず**、233銘柄へ拡張した(`feature_store/universe_source.py`)。
+
+### 銘柄選定
+
+FMP無料プランでは指数構成銘柄APIが使えないため(Phase1で確認済み)、著名指数・主要セクターETFの
+構成銘柄として広く知られている銘柄を手動でカテゴリ分けした静的リスト(大型株・中型株・赤字成長株・
+2023〜2025年IPO/スピンオフ等、11カテゴリ)を使用した。**現在時点で存在が確認できる銘柄だけを
+過去へ遡って使うことによる生存者バイアスが残る**(指数除外・買収・非公開化された銘柄は
+含まれない)。選定パイプラインはuniverse source→正規化→ETF除外→重複除去の4段階に分離し、
+除外理由一覧を`reports/feature_store_phase2_step2_quality_*.md`に保存している。
+
+### 主な追加機能
+
+- **Provider統一**: `feature_store/providers.py`の`CachingMarketDataProvider`が、ディスクキャッシュ
+  (`data/price_cache/*.pkl`、Git管理外)・指数バックオフ付きリトライ・差分取得・
+  `price_cache_meta`テーブルへのメタデータ記録を担う。`market_regime.py`/`sector.py`も
+  yfinance直接呼び出しをやめ、このProvider経由に統一した。
+- **ティッカー変更管理**: `ticker_aliases`テーブル(SQ→XYZ[Block Inc、2025年改称]を登録済み)。
+  新旧価格系列は自動接続せず、別系列として扱う(継続性未検証のため)。
+- **3層候補定義**: `features`テーブル上のフラグ(`eligible_flag`=一次スクリーニング通過、
+  `signal_v1_flag`=technical_score_v1>=45、`cross_section_rank`)で表現(物理的な別テーブル分割は
+  行わない)。
+- **市場横断percentile特徴量**: `return_1d/5d`・`volume_ratio_5d`・`atr_pct`・`rsi_14`・
+  `breakout_close_20d_pct`・`dollar_volume`・`market_cap`の市場全体percentile、および
+  `return_5d`・`volume_ratio_5d`のセクター内percentileを追加。いずれも**その営業日に実在する
+  eligible_universeの銘柄だけ**を使って計算し(`feature_store.features.compute_cross_sectional_percentiles`)、
+  未来日・全期間ランキングは一切使わない。
+- **ラベル拡張**: `target_5pct_within_10d`/`target_10pct_within_10d`/`days_to_target`/`exit_reason`/
+  `label_status`(`confirmed`/`pending`/`data_end`/`invalid`)を追加。`pending`・`data_end`は
+  失敗(0)として扱わない。
+- **再開可能ビルド**: `build_run_symbol_status`テーブルで銘柄×工程単位の進捗を記録し、
+  再実行時は完了済み(`compute_features_labels`が`completed`)の銘柄をスキップする
+  (実際に検証済み: 完了済み3銘柄を含む再実行で、当該3銘柄の特徴量再計算がスキップされ、
+  `completed_at`タイムスタンプが更新されないことを確認)。
+
+### 完了時の実績(2026-07-24)
+
+- 対象233銘柄中230銘柄が取得成功(直接229件+ティッカー変更経由1件[SQ→XYZ])、3銘柄
+  (MRO・WBA・K)が取得失敗(いずれも2024〜2025年の買収・非公開化による実際の上場廃止)。
+- features/labels: 282,755件(230銘柄×対象期間)、daily_universe: 337,120件(Step1分含む累計)、
+  candidate_snapshots: 327,450件(同累計)。
+- データ品質チェック: 総合warning(出来高0が1件、分割疑いギャップ10件、取得失敗3銘柄 — いずれも
+  fail無し)。market_cap/sector/市場データの欠損率は0%。label_statusは対象期間内で全件`confirmed`。
+- Train/Validationの分位分析を230銘柄規模で再実行し、Step1(46銘柄)と同じ「全スコア帯でPF<1」
+  という結果を確認(技術スコアに銘柄選択能力が無いという結論を、より大きな母集団でも再現)。
+
+### Feature Freeze: Version2 Feature Set v1(2026-07-24付けで確定)
+
+上記の完了確認をもって、**Version2の特徴量仕様を「Feature Set v1」として固定する**。以後は
+Phase3のモデル比較を通す前提として、原則この特徴量セットへの追加を行わない。
+
+- `feature_store/feature_metadata.py` / `feature_metadata`テーブルに、`features`テーブルの
+  全131列について説明・単位・計算式・Provider・NULL可否・導入Versionを記録した(1:1で
+  全列をカバーしていることを確認済み)。
+- `technical_score_v1`はランキング用途では不採用だが、比較用特徴量としてFeature Set v1に
+  含めたまま残す。
+- Phase3のモデル比較は Logistic Regression → Random Forest → LightGBM の順で行う。
+  Logistic Regressionの段階で係数・オッズ比・AUC・PR-AUC・Calibration・Permutation Importance
+  まで確認してからRandom Forestへ進み、SHAPはLightGBMの性能確認後に実施する(いずれもPhase3で
+  実施、本セッションでは未着手)。
+
 ## 今後のロードマップ
 
 - [x] バックテストエンジン(テクニカル条件のみの簡易版。過去5年・勝率・PF・最大DD・Sharpe Ratio等)

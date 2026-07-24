@@ -20,6 +20,8 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
+import pandas as pd
+
 import config
 from analysis.technical import row_to_indicators
 from feature_store.features import compute_feature_frame
@@ -184,6 +186,36 @@ class TestLabelBoundaries(unittest.TestCase):
         self.assertIsNone(label["hit_plus_15pct_10d"], "直近データなのにhit_plus_15pct_10dが確定してしまっている")
         self.assertIsNone(label["target_15pct_within_10d"], "直近データなのにtarget_15pct_within_10dが確定してしまっている")
         self.assertIsNone(label["target_trade_success"], "直近データなのにtarget_trade_successが確定してしまっている")
+        self.assertEqual(label["label_status"], "pending", "as_of_date未指定時は安全側でpendingになるべき")
+
+    def test_label_status_confirmed_when_full_window_available(self):
+        """将来ウィンドウが十分にある通常のシグナルはlabel_status='confirmed'であるべき。"""
+        history = _copy_history(make_synthetic_history(n=260, seed=107))
+        df = compute_feature_frame(history, min_rows=200)
+        self.assertIsNotNone(df)
+        label = compute_labels_for_signal(df, SIGNAL_IDX, "TEST")
+        self.assertIsNotNone(label)
+        self.assertEqual(label["label_status"], "confirmed")
+        self.assertIn(label["target_15pct_within_10d"], (0, 1))
+
+    def test_label_status_pending_vs_data_end_via_as_of_date(self):
+        """as_of_dateを指定した場合、直近すぎるだけ(pending)と、データが大きく手前で
+        終わっている(data_end、上場廃止等を想定)を正しく区別できること。"""
+        history = _copy_history(make_synthetic_history(n=260, seed=108))
+        df = compute_feature_frame(history, min_rows=200)
+        self.assertIsNotNone(df)
+        recent_idx = len(df) - 3
+        last_date = df.iloc[-1]["date"].strftime("%Y-%m-%d")
+
+        # as_of_dateがデータの最終日とほぼ同じ(=単に直近すぎるだけ) → pending
+        label_pending = compute_labels_for_signal(df, recent_idx, "TEST", as_of_date=last_date)
+        self.assertEqual(label_pending["label_status"], "pending")
+
+        # as_of_dateがデータの最終日よりずっと後(=その後データが更新されていない=上場廃止等) → data_end
+        far_future = (df.iloc[-1]["date"] + pd.Timedelta(days=60)).strftime("%Y-%m-%d")
+        label_data_end = compute_labels_for_signal(df, recent_idx, "TEST", as_of_date=far_future)
+        self.assertEqual(label_data_end["label_status"], "data_end")
+        self.assertIsNone(label_data_end["target_15pct_within_10d"], "data_endなのに0/1へ確定してしまっている")
 
     def test_unadjusted_split_like_gap_is_flagged_by_quality_check(self):
         """株式分割が未調整のまま混入した場合を模した大きなギャップを、品質チェックが検知すること。"""

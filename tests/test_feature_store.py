@@ -99,11 +99,16 @@ class TestFeatureStoreLeakage(unittest.TestCase):
                 )
 
     def test_labels_require_future_data_only(self):
-        """ラベルはシグナル日より後のデータが無ければNoneを返す(データ末尾付近で確認)。"""
+        """翌営業日データが無い場合、0/1で確定した値を一切返さず、label_status='invalid'の
+        行を返すこと(Phase2 Step2からNoneではなく常に辞書を返す契約に変更)。"""
         history = make_synthetic_history(300)
         df = compute_feature_frame(history, min_rows=200)
         label_at_end = compute_labels_for_signal(df, len(df) - 1, "TEST")
-        self.assertIsNone(label_at_end, "翌営業日データが無いのにラベルが計算されてしまっている")
+        self.assertIsNotNone(label_at_end)
+        self.assertEqual(label_at_end["label_status"], "invalid")
+        self.assertIsNone(label_at_end["target_15pct_within_10d"])
+        self.assertIsNone(label_at_end["target_trade_success"])
+        self.assertIsNone(label_at_end["future_return_1d"], "翌営業日データが無いのにラベルが計算されてしまっている")
 
     def test_labels_undetermined_vs_not_reached_distinction(self):
         """将来データが全く無いケースでラベルが確定してしまわないか(境界值テスト)。"""

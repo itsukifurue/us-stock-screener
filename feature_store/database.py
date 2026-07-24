@@ -1,12 +1,17 @@
 """Version2 point-in-time feature store用のSQLiteラッパー。"""
 from __future__ import annotations
 
+import re
 import sqlite3
 from contextlib import contextmanager
 from datetime import datetime, timezone
 from pathlib import Path
 
 SCHEMA_PATH = Path(__file__).parent / "schema.sql"
+
+_CREATE_TABLE_RE = re.compile(r"CREATE TABLE IF NOT EXISTS\s+(\w+)\s*\((.*?)\n\);", re.DOTALL)
+_COLUMN_LINE_RE = re.compile(r"^\s*(\w+)\s+(TEXT|REAL|INTEGER)\b")
+_SQL_KEYWORDS = {"PRIMARY", "FOREIGN", "UNIQUE", "CHECK", "CONSTRAINT"}
 
 
 class FeatureStoreDB:
@@ -16,10 +21,39 @@ class FeatureStoreDB:
         self.conn = sqlite3.connect(self.db_path)
         self.conn.row_factory = sqlite3.Row
         self._init_schema()
+        self._migrate_missing_columns()
 
     def _init_schema(self) -> None:
         with open(SCHEMA_PATH, "r", encoding="utf-8") as f:
             self.conn.executescript(f.read())
+        self.conn.commit()
+
+    def _migrate_missing_columns(self) -> None:
+        """schema.sqlに定義されているが、既存DBファイルには無い列を追加する軽量マイグレーション
+        (CREATE TABLE IF NOT EXISTSは既存テーブルへ新列を追加してくれないため)。
+        テーブル自体の新規追加は_init_schemaのCREATE TABLE IF NOT EXISTSで既に処理済み。
+        """
+        with open(SCHEMA_PATH, "r", encoding="utf-8") as f:
+            schema_sql = f.read()
+
+        for match in _CREATE_TABLE_RE.finditer(schema_sql):
+            table_name, body = match.group(1), match.group(2)
+            body = re.sub(r"--[^\n]*", "", body)  # 行コメントを除去してからカンマ分割する
+            existing_cols = {
+                row[1] for row in self.conn.execute(f"PRAGMA table_info({table_name})").fetchall()
+            }
+            if not existing_cols:
+                continue  # テーブルがまだ存在しない(通常は起こらないが念のため)
+
+            for line in body.split(","):
+                line = line.strip()
+                col_match = _COLUMN_LINE_RE.match(line)
+                if not col_match:
+                    continue
+                col_name, col_type = col_match.group(1), col_match.group(2)
+                if col_name.upper() in _SQL_KEYWORDS or col_name in existing_cols:
+                    continue
+                self.conn.execute(f"ALTER TABLE {table_name} ADD COLUMN {col_name} {col_type}")
         self.conn.commit()
 
     def close(self) -> None:
@@ -188,3 +222,72 @@ class FeatureStoreDB:
             "SELECT * FROM candidate_snapshots ORDER BY signal_date, ticker"
         ).fetchall()
         return [dict(r) for r in rows]
+
+    # ---------- ticker_aliases ----------
+    def upsert_ticker_alias(self, row: dict) -> None:
+        self._upsert("ticker_aliases", row, ("old_ticker", "new_ticker"))
+
+    def get_ticker_alias_for(self, old_ticker: str) -> dict | None:
+        row = self.conn.execute(
+            "SELECT * FROM ticker_aliases WHERE old_ticker = ? ORDER BY effective_date DESC LIMIT 1",
+            (old_ticker,),
+        ).fetchone()
+        return dict(row) if row else None
+
+    def get_all_ticker_aliases(self) -> list[dict]:
+        rows = self.conn.execute("SELECT * FROM ticker_aliases ORDER BY old_ticker").fetchall()
+        return [dict(r) for r in rows]
+
+    # ---------- build_run_symbol_status(再開可能ビルド用) ----------
+    def set_symbol_stage_status(
+        self, build_run_id: str, symbol: str, stage: str, status: str,
+        started_at: str | None = None, completed_at: str | None = None,
+        rows_written: int | None = None, error_type: str | None = None,
+        error_message: str | None = None, retry_count: int = 0,
+    ) -> None:
+        self._upsert(
+            "build_run_symbol_status",
+            {
+                "build_run_id": build_run_id, "symbol": symbol, "stage": stage, "status": status,
+                "started_at": started_at, "completed_at": completed_at, "rows_written": rows_written,
+                "error_type": error_type, "error_message": error_message, "retry_count": retry_count,
+            },
+            ("build_run_id", "symbol", "stage"),
+        )
+
+    def get_symbol_stage_status(self, build_run_id: str, symbol: str, stage: str) -> dict | None:
+        row = self.conn.execute(
+            "SELECT * FROM build_run_symbol_status WHERE build_run_id=? AND symbol=? AND stage=?",
+            (build_run_id, symbol, stage),
+        ).fetchone()
+        return dict(row) if row else None
+
+    def get_all_symbol_stage_status(self, build_run_id: str) -> list[dict]:
+        rows = self.conn.execute(
+            "SELECT * FROM build_run_symbol_status WHERE build_run_id=? ORDER BY symbol, stage",
+            (build_run_id,),
+        ).fetchall()
+        return [dict(r) for r in rows]
+
+    # ---------- feature_metadata(Feature Freeze対応) ----------
+    def upsert_feature_metadata(self, row: dict) -> None:
+        self._upsert("feature_metadata", row, ("feature_name",))
+
+    def upsert_feature_metadata_bulk(self, rows: list[dict]) -> None:
+        for r in rows:
+            self.upsert_feature_metadata(r)
+
+    def get_all_feature_metadata(self) -> list[dict]:
+        rows = self.conn.execute("SELECT * FROM feature_metadata ORDER BY feature_name").fetchall()
+        return [dict(r) for r in rows]
+
+    # ---------- price_cache_meta ----------
+    def upsert_price_cache_meta(self, row: dict) -> None:
+        self._upsert("price_cache_meta", row, ("symbol", "provider", "cache_version"))
+
+    def get_price_cache_meta(self, symbol: str, provider: str, cache_version: str) -> dict | None:
+        row = self.conn.execute(
+            "SELECT * FROM price_cache_meta WHERE symbol=? AND provider=? AND cache_version=?",
+            (symbol, provider, cache_version),
+        ).fetchone()
+        return dict(row) if row else None

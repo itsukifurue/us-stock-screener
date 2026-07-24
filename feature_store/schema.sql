@@ -80,10 +80,35 @@ CREATE TABLE IF NOT EXISTS features (
     stock_vs_sector_5d REAL, stock_vs_sector_20d REAL,
     sector_rank REAL,            -- その日の候補ユニバース内でのセクター相対強度順位(0〜1に正規化)
 
-    -- 既存ルール情報(Version1のスコアとの比較用、要件通り破棄せず保存)
+    -- 既存ルール情報(Version1のスコアとの比較用。Step2以降は銘柄選択の主ルールとしては
+    -- 使わず、比較対象の1特徴量として保存するのみ。要件通り破棄しない)
     technical_score_v1 REAL,
     volume_condition INTEGER, ma_condition INTEGER, ma25_condition INTEGER,
     breakout_condition INTEGER, rsi_condition INTEGER,
+
+    -- Phase2 Step2: 3層候補定義(daily_universe/eligible_universe/signal_candidates)を
+    -- featuresテーブル上のフラグとして表現する(物理的に別テーブルへ分割はしない)。
+    -- eligible_flag は既存の candidate_flag と同じ値(一次スクリーニング条件通過)を指すが、
+    -- Step2の用語に合わせて列名を追加した(candidate_flagは後方互換のため残す)。
+    eligible_flag INTEGER,            -- 一次スクリーニング条件(price/market_cap/avg_volume)通過(=candidate_flagと同値)
+    signal_v1_flag INTEGER,           -- technical_score_v1>=45(Version1のシグナル条件)を満たすか
+    signal_reason TEXT,               -- 例: "score>=45" / "score<45(35.0)"
+    cross_section_rank REAL,          -- その日のeligible_universe内でのtechnical_score_v1順位(1が最良、比較参考用)
+
+    -- Phase2 Step2: 市場横断percentile特徴量(その営業日に実在するeligible_universeの銘柄だけを
+    -- 使って計算する。未来日・全期間ランキングは一切使わない。0=最低、1=最高)
+    return_1d_pctrank REAL,
+    return_5d_pctrank REAL,
+    volume_ratio_5d_pctrank REAL,
+    atr_pct_pctrank REAL,
+    rsi_14_pctrank REAL,
+    breakout_close_20d_pct_pctrank REAL,
+    dollar_volume_pctrank REAL,
+    market_cap_pctrank REAL,
+    sector_return_5d_pctrank REAL,       -- 同一セクター内でのreturn_5dのpercentile
+    sector_volume_ratio_5d_pctrank REAL, -- 同一セクター内でのvolume_ratio_5dのpercentile
+    cross_section_universe_size INTEGER, -- 上記percentile計算時のランキング対象銘柄数(市場全体)
+    sector_universe_size INTEGER,        -- セクター内percentile計算時のランキング対象銘柄数
 
     PRIMARY KEY (ticker, signal_date)
 );
@@ -111,6 +136,20 @@ CREATE TABLE IF NOT EXISTS labels (
     -- 損切り到達前に利確到達したか(同日両到達は損切り優先の保守的判定)
     target_trade_success INTEGER,
     target_trade_pnl_pct REAL,  -- 上記トレードの実損益%(スリッページ・手数料込み)。PF/期待値の実測計算用
+
+    -- Phase2 Step2追加: target_15pct_within_10dと同じ定義の別閾値版(hit_plus_*pct_10dの別名。
+    -- Phase3での命名一貫性のために明示的な列として持たせる)
+    target_5pct_within_10d INTEGER,
+    target_10pct_within_10d INTEGER,
+    days_to_target INTEGER,     -- target_15pct_within_10d到達までの営業日数(未到達/未確定はNULL)
+    exit_reason TEXT,           -- target_trade_success算出に使ったトレードのexit_reason
+                                 -- ('stop_loss'/'take_profit'/'holding_period_limit'/'data_end'/NULL)
+
+    -- label_status: 'confirmed'(将来ウィンドウが十分にあり確定)/'pending'(直近すぎてまだ確定できない、
+    -- データが増えれば将来確定し得る)/'data_end'(銘柄側のデータがそこで終了しており今後も確定しない
+    -- 可能性が高い=上場廃止等)/'invalid'(翌営業日データが無い等、構造的に計算不能)。
+    -- pending/data_endを失敗(0)として扱ってはならない。
+    label_status TEXT,
 
     label_computed_at TEXT,
     label_version TEXT,
@@ -199,4 +238,66 @@ CREATE TABLE IF NOT EXISTS candidate_snapshots (
     feature_version TEXT,
     universe_version TEXT,
     PRIMARY KEY (ticker, signal_date, build_run_id)
+);
+
+-- ================= Phase 2 Step2 =================
+
+-- ティッカー変更管理(例: SQ→XYZ)。取得失敗を単純な"failed"で終わらせず、
+-- 既知の改称であることを記録する。価格系列の自動接続は行わない(危険なため)。
+CREATE TABLE IF NOT EXISTS ticker_aliases (
+    old_ticker TEXT NOT NULL,
+    new_ticker TEXT NOT NULL,
+    effective_date TEXT,        -- 改称が発生したとされる日付(判明している場合)
+    company_name TEXT,
+    reason TEXT,                 -- 例: "ticker_rename" / "merger" / "spinoff"
+    source TEXT,                 -- 情報源(例: "manual_research_2026-07-22")
+    manual_override_flag INTEGER,  -- 1なら手動で確認・登録した情報(自動検出ではない)
+    price_series_spliced_flag INTEGER,  -- 1なら新旧の価格系列を接続済み、0なら別系列のまま
+    notes TEXT,
+    PRIMARY KEY (old_ticker, new_ticker)
+);
+
+-- ビルドの再開可能性: 銘柄×工程(stage)単位で進捗を記録する。
+-- 再実行時はstatus='completed'の(build_run_id, symbol, stage)をスキップし、
+-- pending/failedのみ処理することで、途中停止からの再開を可能にする。
+CREATE TABLE IF NOT EXISTS build_run_symbol_status (
+    build_run_id TEXT NOT NULL,
+    symbol TEXT NOT NULL,
+    stage TEXT NOT NULL,        -- 'fetch_price' / 'compute_features' / 'compute_labels' / 'save_db'
+    status TEXT NOT NULL,       -- 'pending' / 'running' / 'completed' / 'failed' / 'skipped'
+    started_at TEXT,
+    completed_at TEXT,
+    rows_written INTEGER,
+    error_type TEXT,
+    error_message TEXT,
+    retry_count INTEGER DEFAULT 0,
+    PRIMARY KEY (build_run_id, symbol, stage)
+);
+
+-- 特徴量メタデータ(Version2 Feature Set v1のFeature Freeze対象。Phase3でのモデル比較時に
+-- 各特徴量の意味・単位・計算式・取得元・NULL可否・導入バージョンを参照できるようにする)。
+CREATE TABLE IF NOT EXISTS feature_metadata (
+    feature_name TEXT PRIMARY KEY,
+    description TEXT,
+    unit TEXT,
+    formula TEXT,
+    provider TEXT,
+    nullable INTEGER,        -- 1: NULLになり得る(ウォームアップ不足・仕様上取得不能等) / 0: 常に値を持つ
+    introduced_version TEXT  -- 例: "phase1" / "phase2_step1" / "phase2_step2"
+);
+
+-- 価格キャッシュのメタデータ(実データは data/price_cache/ 配下に銘柄別ファイルで保存し、
+-- Gitには含めない。ここにはメタ情報のみを記録する)。
+CREATE TABLE IF NOT EXISTS price_cache_meta (
+    symbol TEXT NOT NULL,
+    provider TEXT NOT NULL,
+    cache_version TEXT NOT NULL,   -- キャッシュのバージョン。形式変更時はこれを上げて新旧混在を防ぐ
+    fetch_start TEXT,
+    fetch_end TEXT,
+    fetched_at TEXT,
+    row_count INTEGER,
+    adjustment_mode TEXT,          -- 例: "split_adjusted_no_dividend"(api/yfinance_clientの仕様固定)
+    data_hash TEXT,                 -- キャッシュファイル内容のハッシュ(整合性確認用)
+    provider_version TEXT,
+    PRIMARY KEY (symbol, provider, cache_version)
 );
