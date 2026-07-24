@@ -1,0 +1,54 @@
+{
+  "run_date": "2026-07-24",
+  "top": [
+    {
+      "symbol": "THC",
+      "company_name": "Tenet Healthcare Corporation",
+      "current_price": 244.8350067138672,
+      "entry_price": 244.8350067138672,
+      "stop_loss": 228.81,
+      "take_profit_1": 255.52,
+      "take_profit_2": 281.56,
+      "expected_return_pct": 15.0,
+      "win_rate": 66,
+      "expected_value": 18.79,
+      "ai_comment": "テクニカル的には強い上昇トレンドにあるが、既に高値圏かつ過熱気味であるため、2週間で+15%を狙うにはやや割高感がある。押し目形成後のエントリーの方がリスクリワードが良好と考えられる。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "RSIの過熱感、出来高不足によるトレンド持続力の弱さ、52週高値圏での反落リスクが主なリスク要因である。",
+      "total_score": 66
+    },
+    {
+      "symbol": "T",
+      "company_name": "AT&T Inc.",
+      "current_price": 23.46500015258789,
+      "entry_price": 23.46500015258789,
+      "stop_loss": 22.45,
+      "take_profit_1": 24.14,
+      "take_profit_2": 26.98,
+      "expected_return_pct": 15.0,
+      "win_rate": 61,
+      "expected_value": 1.75,
+      "ai_comment": "テクニカルには短期上昇トレンドが続いていますが、RSIの極端な過熱と低出来高から持続性に疑問が残ります。決算自体は良好であるものの、株価が既に織り込み済みである可能性が高く、2週間での急騰は期待しにくい状況です。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "RSI過熱、出来高不足、52週高値からの距離が大きく上値の重さも懸念される点がリスク要因です。",
+      "total_score": 61
+    },
+    {
+      "symbol": "CLF",
+      "company_name": "Cleveland-Cliffs Inc.",
+      "current_price": 11.802300453186035,
+      "entry_price": 11.802300453186035,
+      "stop_loss": 10.94,
+      "take_profit_1": 12.38,
+      "take_profit_2": 13.57,
+      "expected_return_pct": 15.0,
+      "win_rate": 54,
+      "expected_value": 0.56,
+      "ai_comment": "テクニカルは短期的に強いものの、過熱感と材料不足が重なっており、持続的な上昇には懐疑的です。鉄鋼セクターのファンダメンタルズ材料が出るまでは慎重姿勢が妥当と考えます。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "RSI過熱・出来高不足・材料不在による反落リスクが主な懸念材料です。",
+      "total_score": 54
+    }
+  ],
+  "disclaimer": "※ 勝率・期待値は現時点ではバックテストエンジン未実装のため、総合スコアから導いた暫定値です。投資判断は自己責任で行ってください。本レポートは投資助言ではありません。"
+}
