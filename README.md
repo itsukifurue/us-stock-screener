@@ -443,6 +443,54 @@ Phase3のモデル比較を通す前提として、原則この特徴量セッ�
   まで確認してからRandom Forestへ進み、SHAPはLightGBMの性能確認後に実施する(いずれもPhase3で
   実施、本セッションでは未着手)。
 
+### Phase3A着手前の最終確認: ラベル確定性の独立検証(2026-07-24)
+
+Phase3Aのモデル学習に入る前に、`label_status='confirmed'`となっている全282,755件について、
+「必要な将来営業日数(10営業日)が実際の価格データ内に存在するか」を`scripts/verify_label_confirmation.py`
+で独立に再検証した(ビルド時のロジックを信用するだけでなく、実際にキャッシュされた価格データを
+再度読み込んで機械的に突き合わせる)。
+
+- 特徴量保存対象の最終signal_date(`end_date`): **2026-06-27**
+- ラベル計算用価格データの最終取得日(全銘柄中の最大値): **2026-07-23**
+- 上記の差(約26暦日)が、最大保有10営業日のラベルを確定させるために確保しているバッファ
+  (`LABEL_HORIZON_BUFFER_DAYS=25`)に対応する。
+- 全282,755件が`confirmed`になっている理由: 保存対象期間(`end_date`まで)を「今日」から
+  常に25暦日以上手前に設定しているため、保存される全signal_dateについて10営業日分の
+  将来価格データが実際の取得時点で必ず存在する設計になっている。
+- 検証結果: **282,755件全件について不整合0件**(ティッカー変更銘柄SQ→XYZのマッピングを
+  考慮した上で、全件の将来データ実在を確認)。
+
+この確認により問題が見つからなかったため、**Phase 2のコード・特徴量仕様(Feature Set v1)は
+変更していない**。
+
+## Phase 3A: ロジスティック回帰ベースライン検証(2026-07-25)
+
+固定済みのVersion2 Feature Set v1を使い、`modeling/`パッケージ(data.py/splits.py/preprocessing.py/
+baselines.py/evaluate.py)と`scripts/run_phase3a_logistic_baseline.py`でロジスティック回帰
+(Dummy/L2/L1/ElasticNet)の診断的検証を行った。目的変数`target_trade_success`(主)・
+`target_15pct_within_10d`(副)を別パイプラインで評価。Train内部walk-forward(5fold、embargo10
+営業日)→Validation最終評価→係数/オッズ比/fold間符号安定性→Permutation Importance→確率校正
+(Platt/Isotonic)→上位K%・日次上位N銘柄の経済成績→ベースライン比較(Version1スコア順・
+ランダム1000回・return_5d順・breakout順)→cooldown(5/10営業日)比較→universe B(signal_v1
+サブセットのみ)比較、の順に実施。Test期間はSQL段階で除外し2回とも封印チェックPASS。
+実行時間は約1時間(スクリーニングにElasticNet/sagaの時間予算縮小フォールバックは発動せず)。
+
+**主要結果**: 両目的変数ともDummy/ランダム順位を明確に上回った(target_trade_success:
+Validation PR-AUC 0.547 vs Dummy 0.437、上位5%予測でtarget陽性率71.9%・PF3.6、ランダム
+1000回試行の100パーセンタイル。target_15pct_within_10d: PR-AUC 0.320 vs Dummy 0.062)。
+一方で、上位係数は市場全体特徴量(spy_close/ma200/spy_ma200_slope等)に偏っており銘柄固有の
+選別力より市場環境の影響が大きい可能性、`target_15pct_within_10d`の主要係数がatr_pct
+(値動きの大きさ)に強く依存し方向性ではなくボラティリティによる機械的な到達である疑いが
+あること、日次上位1〜5銘柄選抜の経済成績(PF≈1.0〜1.4)はプール全体の上位K%(PF 3〜6.5)
+より大幅に弱いこと、fold間で符号が反転する特徴量が131件中54〜56件と多いことを明記する。
+`technical_score_v1`の係数はほぼゼロ(順位付け能力なしとするStep1/Step2の監査結果と整合)。
+詳細は`reports/phase3a_logistic_baseline_2026-07-25.md`、実験の再現情報は
+`model_experiments`/`model_metrics`/`model_coefficients`テーブルを参照。
+
+**判定: A(有望)としてRandom Forestでの非線形性検証に進む価値がある**が、上記の市場環境依存・
+ATR機械的依存・日次選抜の弱さという留保をつけた上での判定であり、ユーザー確認後にPhase 3B
+(Random Forest)へ進む。本セッションではRandom Forest/LightGBM/SHAP/Test評価には進んでいない。
+
 ## 今後のロードマップ
 
 - [x] バックテストエンジン(テクニカル条件のみの簡易版。過去5年・勝率・PF・最大DD・Sharpe Ratio等)

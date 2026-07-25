@@ -281,6 +281,32 @@ class FeatureStoreDB:
         rows = self.conn.execute("SELECT * FROM feature_metadata ORDER BY feature_name").fetchall()
         return [dict(r) for r in rows]
 
+    # ---------- Phase3A: model_experiments/model_metrics/model_coefficients ----------
+    def upsert_model_experiment(self, row: dict) -> None:
+        self._upsert("model_experiments", row, ("experiment_id",))
+
+    def insert_model_metric(self, experiment_id: str, split_name: str, metric_name: str, metric_value, metric_detail: str | None = None) -> None:
+        with self.cursor() as cur:
+            cur.execute(
+                "INSERT INTO model_metrics (experiment_id, split_name, metric_name, metric_value, metric_detail) VALUES (?, ?, ?, ?, ?)",
+                (experiment_id, split_name, metric_name, metric_value, metric_detail),
+            )
+
+    def insert_model_coefficient(self, experiment_id: str, fold_name: str, feature_name: str, coefficient: float, odds_ratio: float, abs_rank: int) -> None:
+        with self.cursor() as cur:
+            cur.execute(
+                "INSERT INTO model_coefficients (experiment_id, fold_name, feature_name, coefficient, odds_ratio, abs_rank) VALUES (?, ?, ?, ?, ?, ?)",
+                (experiment_id, fold_name, feature_name, coefficient, odds_ratio, abs_rank),
+            )
+
+    def get_model_metrics(self, experiment_id: str) -> list[dict]:
+        rows = self.conn.execute("SELECT * FROM model_metrics WHERE experiment_id = ?", (experiment_id,)).fetchall()
+        return [dict(r) for r in rows]
+
+    def get_model_coefficients(self, experiment_id: str) -> list[dict]:
+        rows = self.conn.execute("SELECT * FROM model_coefficients WHERE experiment_id = ?", (experiment_id,)).fetchall()
+        return [dict(r) for r in rows]
+
     # ---------- price_cache_meta ----------
     def upsert_price_cache_meta(self, row: dict) -> None:
         self._upsert("price_cache_meta", row, ("symbol", "provider", "cache_version"))

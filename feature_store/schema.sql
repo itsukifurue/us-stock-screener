@@ -286,6 +286,52 @@ CREATE TABLE IF NOT EXISTS feature_metadata (
     introduced_version TEXT  -- 例: "phase1" / "phase2_step1" / "phase2_step2"
 );
 
+-- ================= Phase 3A: モデル実験の再現性記録 =================
+
+CREATE TABLE IF NOT EXISTS model_experiments (
+    experiment_id TEXT PRIMARY KEY,
+    run_at TEXT,
+    git_commit TEXT,
+    feature_set_version TEXT,        -- 例: "v1"(Version2 Feature Set v1)
+    universe_variant TEXT,            -- "A_eligible_universe" / "B_signal_v1_subset"
+    target_variable TEXT,             -- "target_trade_success" / "target_15pct_within_10d"
+    start_date TEXT, end_date TEXT,
+    train_start TEXT, train_end TEXT, val_start TEXT, val_end TEXT, test_start TEXT, test_end TEXT,
+    n_train INTEGER, n_val INTEGER,
+    n_features INTEGER,
+    feature_whitelist TEXT,           -- JSON配列(モデルへ渡した全列名)
+    preprocessing_summary TEXT,       -- JSON(補完方式・カテゴリ処理・スケーリング等)
+    model_type TEXT,                  -- "dummy" / "logreg_l2" / "logreg_l1" / "logreg_elasticnet"
+    model_params TEXT,                -- JSON(C, l1_ratio, class_weight等)
+    embargo_days INTEGER,
+    n_folds INTEGER,
+    random_seed INTEGER,
+    library_versions TEXT,            -- JSON(sklearn/pandas/numpy等のバージョン)
+    cooldown_days INTEGER,            -- 0=cooldownなし(全eligible営業日)、5/10=適用あり
+    notes TEXT
+);
+
+CREATE TABLE IF NOT EXISTS model_metrics (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    experiment_id TEXT NOT NULL,
+    split_name TEXT,          -- "fold1".."foldN" / "validation"
+    metric_name TEXT,         -- "roc_auc" / "pr_auc" / "log_loss" / "brier" / "precision" / ...
+    metric_value REAL,
+    metric_detail TEXT,       -- JSON(top-K別内訳等、単一値に収まらない場合)
+    FOREIGN KEY (experiment_id) REFERENCES model_experiments(experiment_id)
+);
+
+CREATE TABLE IF NOT EXISTS model_coefficients (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    experiment_id TEXT NOT NULL,
+    fold_name TEXT,           -- "fold1".."foldN" / "validation"(最終学習)
+    feature_name TEXT,
+    coefficient REAL,
+    odds_ratio REAL,
+    abs_rank INTEGER,
+    FOREIGN KEY (experiment_id) REFERENCES model_experiments(experiment_id)
+);
+
 -- 価格キャッシュのメタデータ(実データは data/price_cache/ 配下に銘柄別ファイルで保存し、
 -- Gitには含めない。ここにはメタ情報のみを記録する)。
 CREATE TABLE IF NOT EXISTS price_cache_meta (

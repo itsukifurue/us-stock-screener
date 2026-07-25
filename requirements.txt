@@ -5,3 +5,5 @@ numpy>=1.26
 anthropic>=0.40
 yfinance>=0.2
 streamlit>=1.38
+scikit-learn>=1.5
+psutil>=6.0
