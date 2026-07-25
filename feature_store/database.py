@@ -307,6 +307,59 @@ class FeatureStoreDB:
         rows = self.conn.execute("SELECT * FROM model_coefficients WHERE experiment_id = ?", (experiment_id,)).fetchall()
         return [dict(r) for r in rows]
 
+    # ---------- Phase3A.5: 診断分析の記録 ----------
+    def upsert_phase3a5_experiment(self, row: dict) -> None:
+        self._upsert("phase3a5_experiments", row, ("experiment_id",))
+
+    def insert_phase3a5_metric(self, experiment_id: str, analysis_name: str, split_name: str, metric_name: str, metric_value, metric_detail: str | None = None) -> None:
+        with self.cursor() as cur:
+            cur.execute(
+                "INSERT INTO phase3a5_metrics (experiment_id, analysis_name, split_name, metric_name, metric_value, metric_detail) VALUES (?, ?, ?, ?, ?, ?)",
+                (experiment_id, analysis_name, split_name, metric_name, metric_value, metric_detail),
+            )
+
+    def insert_phase3a5_daily_ic(self, experiment_id: str, signal_date: str, n_candidates: int, spearman_ic) -> None:
+        with self.cursor() as cur:
+            cur.execute(
+                "INSERT INTO phase3a5_daily_ic (experiment_id, signal_date, n_candidates, spearman_ic) VALUES (?, ?, ?, ?)",
+                (experiment_id, signal_date, n_candidates, spearman_ic),
+            )
+
+    def insert_phase3a5_regime_metric(self, experiment_id: str, regime_dimension: str, regime_value: str, n: int, metric_detail: str, low_sample_warning: int) -> None:
+        with self.cursor() as cur:
+            cur.execute(
+                "INSERT INTO phase3a5_regime_metrics (experiment_id, regime_dimension, regime_value, n, metric_detail, low_sample_warning) VALUES (?, ?, ?, ?, ?, ?)",
+                (experiment_id, regime_dimension, regime_value, n, metric_detail, low_sample_warning),
+            )
+
+    def insert_phase3a5_atr_bucket_metric(self, experiment_id: str, atr_bucket: str, n: int, metric_detail: str) -> None:
+        with self.cursor() as cur:
+            cur.execute(
+                "INSERT INTO phase3a5_atr_bucket_metrics (experiment_id, atr_bucket, n, metric_detail) VALUES (?, ?, ?, ?)",
+                (experiment_id, atr_bucket, n, metric_detail),
+            )
+
+    def insert_phase3a5_topn_metric(self, experiment_id: str, method_name: str, topn_or_pct: str, n_trades: int, metric_detail: str) -> None:
+        with self.cursor() as cur:
+            cur.execute(
+                "INSERT INTO phase3a5_topn_metrics (experiment_id, method_name, topn_or_pct, n_trades, metric_detail) VALUES (?, ?, ?, ?, ?)",
+                (experiment_id, method_name, topn_or_pct, n_trades, metric_detail),
+            )
+
+    def insert_phase3a5_symbol_metric(self, experiment_id: str, ticker: str, n_selected: int, metric_detail: str) -> None:
+        with self.cursor() as cur:
+            cur.execute(
+                "INSERT INTO phase3a5_symbol_metrics (experiment_id, ticker, n_selected, metric_detail) VALUES (?, ?, ?, ?)",
+                (experiment_id, ticker, n_selected, metric_detail),
+            )
+
+    def insert_phase3a5_sector_metric(self, experiment_id: str, sector: str, model_variant: str, n: int, metric_detail: str) -> None:
+        with self.cursor() as cur:
+            cur.execute(
+                "INSERT INTO phase3a5_sector_metrics (experiment_id, sector, model_variant, n, metric_detail) VALUES (?, ?, ?, ?, ?)",
+                (experiment_id, sector, model_variant, n, metric_detail),
+            )
+
     # ---------- price_cache_meta ----------
     def upsert_price_cache_meta(self, row: dict) -> None:
         self._upsert("price_cache_meta", row, ("symbol", "provider", "cache_version"))

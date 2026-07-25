@@ -332,6 +332,96 @@ CREATE TABLE IF NOT EXISTS model_coefficients (
     FOREIGN KEY (experiment_id) REFERENCES model_experiments(experiment_id)
 );
 
+-- ================= Phase 3A.5: 市場環境・ATR依存の切り分け診断 =================
+
+CREATE TABLE IF NOT EXISTS phase3a5_experiments (
+    experiment_id TEXT PRIMARY KEY,
+    run_at TEXT,
+    git_commit TEXT,
+    feature_set_version TEXT,
+    model_version TEXT,          -- 例: "phase3a_logreg_l2_C0.01"
+    target_variable TEXT,
+    start_date TEXT, end_date TEXT,
+    train_start TEXT, train_end TEXT, val_start TEXT, val_end TEXT, test_start TEXT, test_end TEXT,
+    n_train INTEGER, n_val INTEGER,
+    used_columns TEXT,            -- JSON配列
+    excluded_columns TEXT,        -- JSON配列(市場特徴量除外モデル用)
+    atr_quantile_edges TEXT,      -- JSON(Train基準のATR分位点)
+    probability_thresholds TEXT,  -- JSON(Train基準の確率閾値)
+    random_seed INTEGER,
+    library_versions TEXT,
+    notes TEXT
+);
+
+CREATE TABLE IF NOT EXISTS phase3a5_metrics (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    experiment_id TEXT NOT NULL,
+    analysis_name TEXT,      -- "regime" / "daily_topn" / "atr_bucket" / "threshold" / "topn_threshold" / "time_stability" / ...
+    split_name TEXT,         -- 区分名(例: "bull", "atr_Q3", "2024-01", "top5pct"等)
+    metric_name TEXT,
+    metric_value REAL,
+    metric_detail TEXT,      -- JSON
+    FOREIGN KEY (experiment_id) REFERENCES phase3a5_experiments(experiment_id)
+);
+
+CREATE TABLE IF NOT EXISTS phase3a5_daily_ic (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    experiment_id TEXT NOT NULL,
+    signal_date TEXT,
+    n_candidates INTEGER,
+    spearman_ic REAL,
+    FOREIGN KEY (experiment_id) REFERENCES phase3a5_experiments(experiment_id)
+);
+
+CREATE TABLE IF NOT EXISTS phase3a5_regime_metrics (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    experiment_id TEXT NOT NULL,
+    regime_dimension TEXT,   -- "market_regime" / "spy_vs_ma200" / "spy_ma200_slope"
+    regime_value TEXT,
+    n INTEGER,
+    metric_detail TEXT,      -- JSON(陽性率/ROC-AUC/PR-AUC/Brier/上位K%/日次TopN/PF/EV等をまとめて)
+    low_sample_warning INTEGER,
+    FOREIGN KEY (experiment_id) REFERENCES phase3a5_experiments(experiment_id)
+);
+
+CREATE TABLE IF NOT EXISTS phase3a5_atr_bucket_metrics (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    experiment_id TEXT NOT NULL,
+    atr_bucket TEXT,          -- "Q1".."Q5"
+    n INTEGER,
+    metric_detail TEXT,       -- JSON
+    FOREIGN KEY (experiment_id) REFERENCES phase3a5_experiments(experiment_id)
+);
+
+CREATE TABLE IF NOT EXISTS phase3a5_topn_metrics (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    experiment_id TEXT NOT NULL,
+    method_name TEXT,        -- "model" / "random" / "score_desc" / "score_asc" / "return_5d" / "breakout" / "atr_desc" / ...
+    topn_or_pct TEXT,         -- 例: "top1", "top5pct", "prob>=0.60"
+    n_trades INTEGER,
+    metric_detail TEXT,       -- JSON(陽性率/PF/EV/勝率/最大連敗/月別PF/半期別PF等)
+    FOREIGN KEY (experiment_id) REFERENCES phase3a5_experiments(experiment_id)
+);
+
+CREATE TABLE IF NOT EXISTS phase3a5_symbol_metrics (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    experiment_id TEXT NOT NULL,
+    ticker TEXT,
+    n_selected INTEGER,
+    metric_detail TEXT,       -- JSON(PF/平均PnL/勝率/leave-one-out感応度等)
+    FOREIGN KEY (experiment_id) REFERENCES phase3a5_experiments(experiment_id)
+);
+
+CREATE TABLE IF NOT EXISTS phase3a5_sector_metrics (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    experiment_id TEXT NOT NULL,
+    sector TEXT,
+    model_variant TEXT,      -- "full" / "market_excluded"
+    n INTEGER,
+    metric_detail TEXT,       -- JSON
+    FOREIGN KEY (experiment_id) REFERENCES phase3a5_experiments(experiment_id)
+);
+
 -- 価格キャッシュのメタデータ(実データは data/price_cache/ 配下に銘柄別ファイルで保存し、
 -- Gitには含めない。ここにはメタ情報のみを記録する)。
 CREATE TABLE IF NOT EXISTS price_cache_meta (

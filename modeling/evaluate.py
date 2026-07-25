@@ -15,16 +15,28 @@ from sklearn.metrics import (
 
 
 def classification_metrics(y_true: np.ndarray, y_prob: np.ndarray, threshold: float = 0.5) -> dict:
-    y_pred = (y_prob >= threshold).astype(int)
-    out = {
-        "n": len(y_true),
-        "positive_rate": round(float(np.mean(y_true)), 4),
-        "mean_predicted_prob": round(float(np.mean(y_prob)), 4),
-        "precision": round(float(precision_score(y_true, y_pred, zero_division=0)), 4),
-        "recall": round(float(recall_score(y_true, y_pred, zero_division=0)), 4),
-        "f1": round(float(f1_score(y_true, y_pred, zero_division=0)), 4),
-        "brier": round(float(brier_score_loss(y_true, y_prob)), 4),
-    }
+    """分類指標を計算する。y_probは通常[0,1]の予測確率を想定するが、ATR等の生の特徴量値を
+    順位付けスコアとして流用するベースライン評価でもこの関数を使うため、[0,1]に収まらない
+    場合はprecision/recall/f1/brier/mean_predicted_probを計算不能としてNoneで返す
+    (ROC-AUC/PR-AUCは順位のみに依存するため、[0,1]範囲外でも意味を持つ)。
+    """
+    is_valid_prob = bool(np.all((y_prob >= 0) & (y_prob <= 1)))
+    if is_valid_prob:
+        y_pred = (y_prob >= threshold).astype(int)
+        out = {
+            "n": len(y_true),
+            "positive_rate": round(float(np.mean(y_true)), 4),
+            "mean_predicted_prob": round(float(np.mean(y_prob)), 4),
+            "precision": round(float(precision_score(y_true, y_pred, zero_division=0)), 4),
+            "recall": round(float(recall_score(y_true, y_pred, zero_division=0)), 4),
+            "f1": round(float(f1_score(y_true, y_pred, zero_division=0)), 4),
+            "brier": round(float(brier_score_loss(y_true, y_prob)), 4),
+        }
+    else:
+        out = {
+            "n": len(y_true), "positive_rate": round(float(np.mean(y_true)), 4),
+            "mean_predicted_prob": None, "precision": None, "recall": None, "f1": None, "brier": None,
+        }
     try:
         out["roc_auc"] = round(float(roc_auc_score(y_true, y_prob)), 4)
     except ValueError:
