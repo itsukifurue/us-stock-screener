@@ -1,0 +1,54 @@
+{
+  "run_date": "2026-07-27",
+  "top": [
+    {
+      "symbol": "FBRX",
+      "company_name": "Forte Biosciences, Inc.",
+      "current_price": 76.44499969482422,
+      "entry_price": 76.44499969482422,
+      "stop_loss": 64.93,
+      "take_profit_1": 84.12,
+      "take_profit_2": 87.91,
+      "expected_return_pct": 15.0,
+      "win_rate": 73,
+      "expected_value": 5.26,
+      "ai_comment": "テクニカル的には強いモメンタムを示しているが、RSIの極端な過熱とニュース・決算材料の欠如から、持続性には疑問が残る。短期スイングとしては値幅取りの好機となり得るが、反落タイミングを見極める慎重さが求められる。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "RSI87超えの過熱感、材料不明の急騰、バイオテック特有の高ボラティリティ、出来高急増後の反落リスクが主な懸念点。",
+      "total_score": 73
+    },
+    {
+      "symbol": "IMMR",
+      "company_name": "Immersion Corporation",
+      "current_price": 7.345300197601318,
+      "entry_price": 7.345300197601318,
+      "stop_loss": 6.89,
+      "take_profit_1": 7.65,
+      "take_profit_2": 8.45,
+      "expected_return_pct": 15.0,
+      "win_rate": 66,
+      "expected_value": 0.57,
+      "ai_comment": "テクニカル的には非常に強い上昇トレンドにあり、20日高値更新・52週高値接近という好条件が揃っている。ただし材料が無いままの上昇であるため、押し目や反落のリスクも念頭に置く必要がある。",
+      "news_summary": "特筆すべきニュースなし。",
+      "risk_factors": "RSIの過熱感による反落リスクと材料難によるモメンタム失速の可能性。",
+      "total_score": 66
+    },
+    {
+      "symbol": "OMER",
+      "company_name": "Omeros Corporation",
+      "current_price": 10.920000076293945,
+      "entry_price": 10.920000076293945,
+      "stop_loss": 9.93,
+      "take_profit_1": 11.58,
+      "take_profit_2": 12.56,
+      "expected_return_pct": 15.0,
+      "win_rate": 66,
+      "expected_value": 0.74,
+      "ai_comment": "テクニカル面では短期的な上昇基調が見られるものの、ニュースや決算などのファンダメンタルズ材料が乏しく、2週間で15%上昇を狙うには不確実性が高いと言えます。バイオテック株特有のボラティリティを踏まえ、慎重なポジション管理が推奨されます。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "材料不足による反落リスク、出来高減少による流動性リスク、バイオテック特有の規制・臨床試験リスクが存在する。",
+      "total_score": 66
+    }
+  ],
+  "disclaimer": "※ 勝率・期待値は現時点ではバックテストエンジン未実装のため、総合スコアから導いた暫定値です。投資判断は自己責任で行ってください。本レポートは投資助言ではありません。"
+}
