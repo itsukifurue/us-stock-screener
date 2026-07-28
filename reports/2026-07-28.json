@@ -1,0 +1,54 @@
+{
+  "run_date": "2026-07-28",
+  "top": [
+    {
+      "symbol": "FIRY",
+      "company_name": "Firy Inc.",
+      "current_price": 12.130000114440918,
+      "entry_price": 12.130000114440918,
+      "stop_loss": 10.79,
+      "take_profit_1": 13.02,
+      "take_profit_2": 13.95,
+      "expected_return_pct": 15.0,
+      "win_rate": 85,
+      "expected_value": 1.35,
+      "ai_comment": "テクニカル的には出来高急増と高値更新で強い上昇トレンドが見られるが、材料無き急騰でRSIも過熱気味であるため、短期的な反落リスクを警戒すべき局面と言える。ファンダメンタルズの裏付けが乏しく、投機的な値動きとなっている可能性が高い。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "過熱感の高いRSI、材料不明の急騰、ファンダメンタルズ情報の欠如による不確実性が主なリスク。",
+      "total_score": 85
+    },
+    {
+      "symbol": "PFE",
+      "company_name": "Pfizer Inc.",
+      "current_price": 25.320100784301758,
+      "entry_price": 25.320100784301758,
+      "stop_loss": 24.61,
+      "take_profit_1": 25.79,
+      "take_profit_2": 29.12,
+      "expected_return_pct": 15.0,
+      "win_rate": 74,
+      "expected_value": 2.63,
+      "ai_comment": "PFEはテクニカル的に緩やかな上昇トレンドにあり決算も堅調だが、大型ディフェンシブ株特有の低ボラティリティから2週間で+15%の急騰は考えにくい。ニュース材料も乏しく、短期スイングとしての妙味は限定的と判断する。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "出来高不足による上昇持続力の弱さ、RSI高水準による反落リスク、大型株特有の値動きの鈍さが主なリスク要因である。",
+      "total_score": 74
+    },
+    {
+      "symbol": "KO",
+      "company_name": "The Coca-Cola Company",
+      "current_price": 89.30500030517578,
+      "entry_price": 89.30500030517578,
+      "stop_loss": 86.35,
+      "take_profit_1": 91.28,
+      "take_profit_2": 102.7,
+      "expected_return_pct": 15.0,
+      "win_rate": 71,
+      "expected_value": 8.65,
+      "ai_comment": "KOは安定した業績とテクニカルの強さを示していますが、ディフェンシブ株特有の低ボラティリティにより2週間で+15%を狙うトレードには不向きです。中長期の安定投資には適していますが、短期スイングとしての妙味は限定的です。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "低ボラティリティ銘柄のため短期急騰の可能性が低く、高値圏での反落リスクがある。",
+      "total_score": 71
+    }
+  ],
+  "disclaimer": "※ 勝率・期待値は現時点ではバックテストエンジン未実装のため、総合スコアから導いた暫定値です。投資判断は自己責任で行ってください。本レポートは投資助言ではありません。"
+}
