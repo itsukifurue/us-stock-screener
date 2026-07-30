@@ -1,0 +1,54 @@
+{
+  "run_date": "2026-07-30",
+  "top": [
+    {
+      "symbol": "MKTX",
+      "company_name": "MarketAxess Holdings Inc.",
+      "current_price": 163.02000427246094,
+      "entry_price": 163.02000427246094,
+      "stop_loss": 154.37,
+      "take_profit_1": 168.79,
+      "take_profit_2": 187.47,
+      "expected_return_pct": 15.0,
+      "win_rate": 71,
+      "expected_value": 14.85,
+      "ai_comment": "テクニカル的には強いトレンドが継続していますが、RSIの極端な過熱感から短期的な反落リスクが高い状況です。ニュースや決算情報が無いため、ファンダメンタルズ面での裏付けが確認できず、慎重な判断が必要です。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "過熱指標(RSI91超)による反落リスクと、急騰後のポジション調整リスクが主な懸念事項です。",
+      "total_score": 71
+    },
+    {
+      "symbol": "MSFT",
+      "company_name": "Microsoft Corporation",
+      "current_price": 451.260009765625,
+      "entry_price": 451.260009765625,
+      "stop_loss": 428.2,
+      "take_profit_1": 466.63,
+      "take_profit_2": 518.95,
+      "expected_return_pct": 15.0,
+      "win_rate": 63,
+      "expected_value": 34.11,
+      "ai_comment": "業績は堅調でトレンドも強いが、短期的には過熱感が強く2週間での+15%達成は難易度が高い。中長期的な安定成長株としての魅力はあるが、短期スイングには不向きな位置にある。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "RSI過熱・短期的な調整リスク・大型株特有の上昇余地の限定性が主なリスク要因。",
+      "total_score": 63
+    },
+    {
+      "symbol": "CORT",
+      "company_name": "Corcept Therapeutics Incorporated",
+      "current_price": 117.97000122070312,
+      "entry_price": 117.97000122070312,
+      "stop_loss": 108.71,
+      "take_profit_1": 124.15,
+      "take_profit_2": 135.67,
+      "expected_return_pct": 15.0,
+      "win_rate": 56,
+      "expected_value": 5.83,
+      "ai_comment": "テクニカル面では非常に強いトレンドと52週高値更新が見られますが、ファンダメンタルズ材料が乏しく過熱感も強いため、短期的な反落リスクを抱えています。追加の好材料(決算・ニュース)が出るかが今後2週間の鍵となります。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "RSI過熱、材料不足での急騰後の反落リスク、出来高が伴っていない点に注意。",
+      "total_score": 56
+    }
+  ],
+  "disclaimer": "※ 勝率・期待値は現時点ではバックテストエンジン未実装のため、総合スコアから導いた暫定値です。投資判断は自己責任で行ってください。本レポートは投資助言ではありません。"
+}
