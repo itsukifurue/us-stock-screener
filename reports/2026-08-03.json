@@ -1,0 +1,54 @@
+{
+  "run_date": "2026-08-03",
+  "top": [
+    {
+      "symbol": "ATKR",
+      "company_name": "Atkore Inc.",
+      "current_price": 93.5,
+      "entry_price": 93.5,
+      "stop_loss": 86.76,
+      "take_profit_1": 97.99,
+      "take_profit_2": 107.52,
+      "expected_return_pct": 15.0,
+      "win_rate": 76,
+      "expected_value": 9.04,
+      "ai_comment": "テクニカル的には非常に強いモメンタムを示しているが、材料不明かつ過熱感が強いため、さらなる大幅上昇よりも一旦の調整が入る可能性が高いと考えられる。ポジションを取る場合は短期的な反落リスクを十分考慮する必要がある。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "過熱感の強いRSIと材料不明の急騰による反落リスクが主な懸念材料。",
+      "total_score": 76
+    },
+    {
+      "symbol": "AMZN",
+      "company_name": "Amazon.com, Inc.",
+      "current_price": 285.4649963378906,
+      "entry_price": 285.4649963378906,
+      "stop_loss": 270.42,
+      "take_profit_1": 295.49,
+      "take_profit_2": 328.28,
+      "expected_return_pct": 15.0,
+      "win_rate": 76,
+      "expected_value": 28.93,
+      "ai_comment": "業績は好調でトレンドも強いが、既に52週高値近辺まで買われており短期的な過熱感が強い。2週間で+15%という大幅な上昇には勢いの持続と新規材料が必要で、現状ではやや達成が難しい水準にあると判断する。",
+      "news_summary": "特筆すべきニュースなし。",
+      "risk_factors": "RSI過熱・出来高不足による上値の重さと、高値圏での利益確定売りリスクが主な懸念材料。",
+      "total_score": 76
+    },
+    {
+      "symbol": "FSLR",
+      "company_name": "First Solar, Inc.",
+      "current_price": 241.72500610351562,
+      "entry_price": 241.72500610351562,
+      "stop_loss": 225.82,
+      "take_profit_1": 252.33,
+      "take_profit_2": 277.98,
+      "expected_return_pct": 15.0,
+      "win_rate": 67,
+      "expected_value": 19.04,
+      "ai_comment": "テクニカル指標は強い上昇トレンドを示しており、20日高値更新など短期的な勢いは良好である。しかし、ニュースや決算などのファンダメンタルズ材料が確認できないため、上昇の持続性やカタリストの有無については慎重な判断が必要。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "ニュース・決算情報の欠如による材料不足、短期的な過熱による反落リスク、ソーラー業界特有の政策・規制変動リスク。",
+      "total_score": 67
+    }
+  ],
+  "disclaimer": "※ 勝率・期待値は現時点ではバックテストエンジン未実装のため、総合スコアから導いた暫定値です。投資判断は自己責任で行ってください。本レポートは投資助言ではありません。"
+}
