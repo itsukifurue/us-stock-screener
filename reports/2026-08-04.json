@@ -1,0 +1,54 @@
+{
+  "run_date": "2026-08-04",
+  "top": [
+    {
+      "symbol": "BLZE",
+      "company_name": "Backblaze, Inc.",
+      "current_price": 23.09000015258789,
+      "entry_price": 23.09000015258789,
+      "stop_loss": 20.4,
+      "take_profit_1": 24.88,
+      "take_profit_2": 26.55,
+      "expected_return_pct": 15.0,
+      "win_rate": 76,
+      "expected_value": 1.99,
+      "ai_comment": "テクニカル的には強いモメンタムを示しているものの、ニュースや決算などのファンダメンタルズの後押しがなく、RSIの過熱感から短期的な反落リスクが高い状態です。+15%達成には52週高値更新という明確なブレイクアウトが必要であり、慎重な判断が求められます。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "RSI過熱・ファンダメンタルズ材料の欠如・急騰後の反落リスクが主な懸念材料です。",
+      "total_score": 76
+    },
+    {
+      "symbol": "PLTR",
+      "company_name": "Palantir Technologies Inc.",
+      "current_price": 154.3300018310547,
+      "entry_price": 154.3300018310547,
+      "stop_loss": 142.75,
+      "take_profit_1": 162.05,
+      "take_profit_2": 177.48,
+      "expected_return_pct": 15.0,
+      "win_rate": 76,
+      "expected_value": 14.82,
+      "ai_comment": "PLTRはテクニカル的に強いトレンドを維持しており、直近決算も好調だが、既に大幅に上昇した後であるため新たな上昇余地は限定的と判断される。ニュース材料が無い中でのさらなる急伸は不確実性が高く、短期的なリスク管理が重要となる。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "急騰後の過熱感による反落リスク、ニュースフロー欠如によるカタリスト不足、ATRの高さによる値動きの荒さ",
+      "total_score": 76
+    },
+    {
+      "symbol": "LIFE",
+      "company_name": "Ethos Technologies Inc.",
+      "current_price": 29.09000015258789,
+      "entry_price": 29.09000015258789,
+      "stop_loss": 26.42,
+      "take_profit_1": 30.87,
+      "take_profit_2": 33.45,
+      "expected_return_pct": 15.0,
+      "win_rate": 73,
+      "expected_value": 2.46,
+      "ai_comment": "テクニカルには強いモメンタムが見られるものの、RSIの極端な過熱と52週高値接近により短期的な過熱感が強い。ニュースや決算などのファンダメンタルズ的な裏付けが乏しく、追随的な急騰後の反落に警戒が必要。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "RSI過熱・移動平均線からの大幅な乖離・材料不足による反動売りリスク。",
+      "total_score": 73
+    }
+  ],
+  "disclaimer": "※ 勝率・期待値は現時点ではバックテストエンジン未実装のため、総合スコアから導いた暫定値です。投資判断は自己責任で行ってください。本レポートは投資助言ではありません。"
+}
