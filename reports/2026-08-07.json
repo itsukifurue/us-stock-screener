@@ -1,0 +1,54 @@
+{
+  "run_date": "2026-08-07",
+  "top": [
+    {
+      "symbol": "SOUN",
+      "company_name": "SoundHound AI, Inc.",
+      "current_price": 7.079999923706055,
+      "entry_price": 7.079999923706055,
+      "stop_loss": 6.38,
+      "take_profit_1": 7.55,
+      "take_profit_2": 8.14,
+      "expected_return_pct": 15.0,
+      "win_rate": 87,
+      "expected_value": 0.83,
+      "ai_comment": "テクニカル指標は良好で短期的な上昇モメンタムが見られるものの、ニュースや決算などのファンダメンタル材料が無いため、上昇の持続性には疑問が残る。出来高増加と20日高値更新はポジティブだが、52週高値からの大幅な下落を踏まえると、+15%達成にはさらなる好材料が必要と考えられる。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "材料不足の中でのテクニカル主導の上昇であり、長期下落トレンドからの戻りに過ぎない可能性がある点がリスク。",
+      "total_score": 87
+    },
+    {
+      "symbol": "ASPN",
+      "company_name": "Aspen Aerogels, Inc.",
+      "current_price": 6.889999866485596,
+      "entry_price": 6.889999866485596,
+      "stop_loss": 6.1,
+      "take_profit_1": 7.41,
+      "take_profit_2": 7.92,
+      "expected_return_pct": 15.0,
+      "win_rate": 87,
+      "expected_value": 0.8,
+      "ai_comment": "出来高急増と20日高値更新は短期的な強さを示すが、ニュースや決算の裏付けがなく値動きの持続性は不透明である。過熱感の強いRSIを踏まえ、短期スイングとしては慎重な判断が求められる。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "急騰後の過熱感・材料不明による急落リスク・52週高値からの距離が大きい点に注意が必要。",
+      "total_score": 87
+    },
+    {
+      "symbol": "AEVA",
+      "company_name": "Aeva Technologies, Inc.",
+      "current_price": 25.260000228881836,
+      "entry_price": 25.260000228881836,
+      "stop_loss": 22.18,
+      "take_profit_1": 27.31,
+      "take_profit_2": 29.05,
+      "expected_return_pct": 15.0,
+      "win_rate": 76,
+      "expected_value": 2.14,
+      "ai_comment": "AEVAは強い上昇トレンドと出来高急増を伴い勢いは良好ですが、RSIの過熱感とファンダメンタルズ材料の欠如がリスクとなります。短期的な追随上昇の可能性はあるものの、反落タイミングにも注意が必要です。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "RSI過熱、材料不足によるモメンタム依存、急激な反落の可能性が主なリスク要因です。",
+      "total_score": 76
+    }
+  ],
+  "disclaimer": "※ 勝率・期待値は現時点ではバックテストエンジン未実装のため、総合スコアから導いた暫定値です。投資判断は自己責任で行ってください。本レポートは投資助言ではありません。"
+}
