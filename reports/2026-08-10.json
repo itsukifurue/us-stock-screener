@@ -1,0 +1,54 @@
+{
+  "run_date": "2026-08-10",
+  "top": [
+    {
+      "symbol": "TWLO",
+      "company_name": "Twilio Inc.",
+      "current_price": 241.27999877929688,
+      "entry_price": 241.27999877929688,
+      "stop_loss": 222.04,
+      "take_profit_1": 254.11,
+      "take_profit_2": 277.47,
+      "expected_return_pct": 15.0,
+      "win_rate": 88,
+      "expected_value": 29.54,
+      "ai_comment": "TWLOはテクニカル的に非常に強いブレイクアウトパターンを示しており、出来高急増を伴う20日高値更新は魅力的なシグナルである。ただしRSIの過熱感と情報不足を考慮すると、短期的な調整を挟みながらの上昇となる可能性があり、慎重なエントリータイミングの見極めが重要となる。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "RSI過熱によるテクニカル調整リスクとファンダメンタルズ情報の欠如による不確実性が主なリスク要因。",
+      "total_score": 88
+    },
+    {
+      "symbol": "DV",
+      "company_name": "DoubleVerify Holdings, Inc.",
+      "current_price": 13.210000038146973,
+      "entry_price": 13.210000038146973,
+      "stop_loss": 12.32,
+      "take_profit_1": 13.8,
+      "take_profit_2": 15.19,
+      "expected_return_pct": 15.0,
+      "win_rate": 87,
+      "expected_value": 1.61,
+      "ai_comment": "テクニカル的には強い上昇シグナルが出ているが、ニュースや決算の後押しがなく、出来高急増の要因が不明なため慎重な判断が必要。短期的なトレードチャンスはあるものの、+15%達成には強い追加カタリストが必要と考えられる。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "出来高急増後の反落リスク、ファンダメンタルズ材料の欠如、52週高値までまだ距離がある点が主なリスク。",
+      "total_score": 87
+    },
+    {
+      "symbol": "QNST",
+      "company_name": "QuinStreet, Inc.",
+      "current_price": 21.079999923706055,
+      "entry_price": 21.079999923706055,
+      "stop_loss": 19.53,
+      "take_profit_1": 22.11,
+      "take_profit_2": 24.24,
+      "expected_return_pct": 15.0,
+      "win_rate": 87,
+      "expected_value": 2.55,
+      "ai_comment": "テクニカル的には強い上昇トレンドと出来高急増が確認できるものの、既に52週高値近辺まで到達しており過熱感が強い状態です。ファンダメンタルズの裏付けが乏しいため、短期的な追随買いはリスクが高く、慎重な判断が求められます。",
+      "news_summary": "特筆すべきニュースなし。",
+      "risk_factors": "過熱したRSI、急激な価格上昇後の反落リスク、裏付けとなる決算・ニュース情報の欠如が主なリスク要因です。",
+      "total_score": 87
+    }
+  ],
+  "disclaimer": "※ 勝率・期待値は現時点ではバックテストエンジン未実装のため、総合スコアから導いた暫定値です。投資判断は自己責任で行ってください。本レポートは投資助言ではありません。"
+}
