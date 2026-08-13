@@ -1,0 +1,54 @@
+{
+  "run_date": "2026-08-13",
+  "top": [
+    {
+      "symbol": "CRWV",
+      "company_name": "CoreWeave, Inc. Class A Common Stock",
+      "current_price": 107.7300033569336,
+      "entry_price": 107.7300033569336,
+      "stop_loss": 94.4,
+      "take_profit_1": 116.62,
+      "take_profit_2": 123.89,
+      "expected_return_pct": 15.0,
+      "win_rate": 88,
+      "expected_value": 12.62,
+      "ai_comment": "テクニカル的には強い上昇トレンドと出来高増加が確認され、短期的な続伸期待は持てる。しかし裏付けとなるニュースや決算情報が無いため、モメンタム主導の値動きに依存する高リスクな展開が予想される。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "急騰後の反動売り・出来高減少による勢い失速・ファンダメンタルズ材料の欠如がリスク要因となる。",
+      "total_score": 88
+    },
+    {
+      "symbol": "SMCI",
+      "company_name": "Super Micro Computer, Inc.",
+      "current_price": 37.61000061035156,
+      "entry_price": 37.61000061035156,
+      "stop_loss": 33.91,
+      "take_profit_1": 40.07,
+      "take_profit_2": 43.25,
+      "expected_return_pct": 15.0,
+      "win_rate": 87,
+      "expected_value": 4.43,
+      "ai_comment": "テクニカル指標は強気を示しており短期的な上昇継続の可能性はあるが、ファンダメンタルズ材料が乏しく持続力に不安が残る。出来高急増を伴う20日高値更新はポジティブだが、急激な調整リスクも同時に警戒すべき。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "材料不足での急騰は反落リスクが高く、ボラティリティも大きい点に注意が必要。",
+      "total_score": 87
+    },
+    {
+      "symbol": "QNT",
+      "company_name": "Quantinuum Inc. Class A Common Stock",
+      "current_price": 71.73999786376953,
+      "entry_price": 71.73999786376953,
+      "stop_loss": 63.52,
+      "take_profit_1": 77.22,
+      "take_profit_2": 82.5,
+      "expected_return_pct": 15.0,
+      "win_rate": 87,
+      "expected_value": 8.29,
+      "ai_comment": "テクニカル的には強い上昇トレンドと出来高増加が確認できますが、ニュースや決算などのファンダメンタルズ材料が乏しい点が懸念材料です。過熱感が強いため、短期的な押し目や反落に注意しつつ、モメンタム継続を見極める必要があります。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "材料なしでの急騰後の反動リスクとRSI過熱による調整の可能性が主なリスク要因です。",
+      "total_score": 87
+    }
+  ],
+  "disclaimer": "※ 勝率・期待値は現時点ではバックテストエンジン未実装のため、総合スコアから導いた暫定値です。投資判断は自己責任で行ってください。本レポートは投資助言ではありません。"
+}
