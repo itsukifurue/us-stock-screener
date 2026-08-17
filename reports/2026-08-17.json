@@ -1,0 +1,54 @@
+{
+  "run_date": "2026-08-17",
+  "top": [
+    {
+      "symbol": "UMAC",
+      "company_name": "Unusual Machines, Inc.",
+      "current_price": 34.060001373291016,
+      "entry_price": 34.060001373291016,
+      "stop_loss": 29.61,
+      "take_profit_1": 37.03,
+      "take_profit_2": 39.17,
+      "expected_return_pct": 15.0,
+      "win_rate": 75,
+      "expected_value": 2.72,
+      "ai_comment": "テクニカル的には強い上昇トレンドにあるが、過熱感が強くニュースや決算の後押しが無いため、短期的な反落リスクが高い。エントリーは押し目を待つべきと判断される。",
+      "news_summary": "特筆すべきニュースなし。",
+      "risk_factors": "RSI過熱、材料不足、出来高急増後の反落リスクに注意が必要。",
+      "total_score": 75
+    },
+    {
+      "symbol": "IMXI",
+      "company_name": "International Money Express, Inc.",
+      "current_price": 14.59000015258789,
+      "entry_price": 14.59000015258789,
+      "stop_loss": 13.63,
+      "take_profit_1": 15.23,
+      "take_profit_2": 16.78,
+      "expected_return_pct": 15.0,
+      "win_rate": 72,
+      "expected_value": 1.31,
+      "ai_comment": "出来高急増と20日高値更新という強いテクニカルシグナルは魅力的だが、ファンダメンタルズ情報が皆無であるため、上昇の持続性に不透明感が残る。短期スイングとしては値動きの荒さを利用できる可能性はあるが、リスク管理を重視した慎重なポジション取りが望ましい。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "ニュース・決算情報の欠如による判断材料不足と、短期急騰後の過熱感によるリバウンドリスク。",
+      "total_score": 72
+    },
+    {
+      "symbol": "HTFL",
+      "company_name": "Heartflow, Inc. Common Stock",
+      "current_price": 42.08000183105469,
+      "entry_price": 42.08000183105469,
+      "stop_loss": 38.77,
+      "take_profit_1": 44.29,
+      "take_profit_2": 48.39,
+      "expected_return_pct": 15.0,
+      "win_rate": 71,
+      "expected_value": 3.52,
+      "ai_comment": "テクニカル的には強いモメンタムを示しているが、RSIの極端な過熱と情報不足がリスクとなる。短期的な急落の可能性を考慮し、慎重な姿勢が望ましい。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "RSI過熱・移動平均からの大幅な離れ・ファンダメンタルズの裏付け不足による反落リスク。",
+      "total_score": 71
+    }
+  ],
+  "disclaimer": "※ 勝率・期待値は現時点ではバックテストエンジン未実装のため、総合スコアから導いた暫定値です。投資判断は自己責任で行ってください。本レポートは投資助言ではありません。"
+}
