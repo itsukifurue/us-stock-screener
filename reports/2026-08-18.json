@@ -1,0 +1,54 @@
+{
+  "run_date": "2026-08-18",
+  "top": [
+    {
+      "symbol": "NKE",
+      "company_name": "NIKE, Inc.",
+      "current_price": NaN,
+      "entry_price": NaN,
+      "stop_loss": NaN,
+      "take_profit_1": NaN,
+      "take_profit_2": NaN,
+      "expected_return_pct": NaN,
+      "win_rate": 46,
+      "expected_value": NaN,
+      "ai_comment": "NIKEは大手アパレルブランドとしての地位は安定しているが、今回のデータからは明確な上昇トリガーが確認できない。テクニカル指標の欠損とニュース不足により、短期的な急騰シナリオを支持する材料は乏しく、慎重姿勢が妥当である。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "テクニカルデータの欠損、材料不足によるカタリスト欠如、出来高急増の背景が不明である点がリスク要因となる。",
+      "total_score": 46
+    },
+    {
+      "symbol": "FDMT",
+      "company_name": "4D Molecular Therapeutics, Inc.",
+      "current_price": NaN,
+      "entry_price": NaN,
+      "stop_loss": NaN,
+      "take_profit_1": NaN,
+      "take_profit_2": NaN,
+      "expected_return_pct": NaN,
+      "win_rate": 36,
+      "expected_value": NaN,
+      "ai_comment": "現時点では企業概要以外の具体的な材料が乏しく、出来高急増のみが目立つ状況。テクニカル・ファンダメンタルズともに判断材料が不足しているため、2週間で+15%を狙うには根拠が弱い。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "臨床試験の失敗リスク、資金調達に伴う希薄化リスク、情報不足による不確実性が高い点に注意が必要。",
+      "total_score": 36
+    },
+    {
+      "symbol": "CBRS",
+      "company_name": "Cerebras Systems Inc.",
+      "current_price": NaN,
+      "entry_price": NaN,
+      "stop_loss": NaN,
+      "take_profit_1": NaN,
+      "take_profit_2": NaN,
+      "expected_return_pct": NaN,
+      "win_rate": 36,
+      "expected_value": NaN,
+      "ai_comment": "Cerebrasは注目のAI半導体企業だが、現状は価格・財務・ニュースいずれも十分なデータが得られておらず判断材料が乏しい。テクニカルにも明確なトレンドが確認できず、短期急騰を期待する根拠は薄い。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "テクニカルデータ欠損、財務情報不足、個別材料の不透明感による判断困難がリスク要因。",
+      "total_score": 36
+    }
+  ],
+  "disclaimer": "※ 勝率・期待値は現時点ではバックテストエンジン未実装のため、総合スコアから導いた暫定値です。投資判断は自己責任で行ってください。本レポートは投資助言ではありません。"
+}
