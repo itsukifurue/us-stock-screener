@@ -1,0 +1,54 @@
+{
+  "run_date": "2026-08-20",
+  "top": [
+    {
+      "symbol": "BMNR",
+      "company_name": "Bitmine Immersion Technologies, Inc.",
+      "current_price": 20.239999771118164,
+      "entry_price": 20.239999771118164,
+      "stop_loss": 18.68,
+      "take_profit_1": 21.28,
+      "take_profit_2": 23.28,
+      "expected_return_pct": 15.0,
+      "win_rate": 86,
+      "expected_value": 2.39,
+      "ai_comment": "テクニカル的には短期上昇トレンドと出来高増加が確認でき、暗号資産関連の投機マネーが流入している可能性が高い。ただしファンダメンタルズ情報が乏しく、52週高値からの大幅な位置関係からボラティリティリスクが非常に高い点に注意が必要。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "暗号資産(ETH/BTC)価格の急変動、資金調達による株式希薄化、規制動向、投機的な出来高急増による急落リスクが主な懸念材料。",
+      "total_score": 86
+    },
+    {
+      "symbol": "MSTR",
+      "company_name": "Strategy Inc",
+      "current_price": 104.25,
+      "entry_price": 104.25,
+      "stop_loss": 95.66,
+      "take_profit_1": 109.97,
+      "take_profit_2": 119.89,
+      "expected_return_pct": 15.0,
+      "win_rate": 86,
+      "expected_value": 12.25,
+      "ai_comment": "テクニカル面では20日高値更新と出来高増加が好材料ですが、ファンダメンタルズやニュース材料が乏しく、ビットコイン価格への依存度が高い銘柄です。短期的な値幅取りは狙えるものの、+15%達成には強い追加材料が必要と考えられます。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "ビットコイン価格急落、マクロ環境悪化、52週高値からの大幅乖離による反発の一時性がリスク要因です。",
+      "total_score": 86
+    },
+    {
+      "symbol": "PURR",
+      "company_name": "Hyperliquid Strategies Inc Common Stock",
+      "current_price": 9.390000343322754,
+      "entry_price": 9.390000343322754,
+      "stop_loss": 8.61,
+      "take_profit_1": 9.91,
+      "take_profit_2": 10.8,
+      "expected_return_pct": 15.0,
+      "win_rate": 73,
+      "expected_value": 0.82,
+      "ai_comment": "テクニカル的には強い上昇トレンドと出来高急増が見られるが、RSIの極端な過熱がリスクを高めている。ファンダメンタルズ情報が乏しく、暗号資産関連のセンチメントに大きく依存するため、短期的な急変動に注意が必要。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "RSI過熱、出来高急増後の反落リスク、暗号資産市場依存の高いボラティリティ、財務情報の不足。",
+      "total_score": 73
+    }
+  ],
+  "disclaimer": "※ 勝率・期待値は現時点ではバックテストエンジン未実装のため、総合スコアから導いた暫定値です。投資判断は自己責任で行ってください。本レポートは投資助言ではありません。"
+}
