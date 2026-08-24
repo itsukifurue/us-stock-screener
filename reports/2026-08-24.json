@@ -1,0 +1,54 @@
+{
+  "run_date": "2026-08-24",
+  "top": [
+    {
+      "symbol": "HOOD",
+      "company_name": "Robinhood Markets, Inc.",
+      "current_price": 108.12999725341797,
+      "entry_price": 108.12999725341797,
+      "stop_loss": 100.22,
+      "take_profit_1": 113.41,
+      "take_profit_2": 124.35,
+      "expected_return_pct": 15.0,
+      "win_rate": 87,
+      "expected_value": 13.08,
+      "ai_comment": "テクニカルには強い上昇トレンドと出来高急増が見られ短期的な勢いはあるが、過熱感が高くニュース面での後押しが乏しい。決算自体は良好だが、2週間で+15%を狙うには追加の材料待ちが必要と判断する。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "RSI過熱、52週高値まで約30%の乖離、ニュース材料の欠如が主なリスク。",
+      "total_score": 87
+    },
+    {
+      "symbol": "AIAI",
+      "company_name": "AIAI Holdings Corporation Class A Common Stock",
+      "current_price": 6.619999885559082,
+      "entry_price": 6.619999885559082,
+      "stop_loss": 5.03,
+      "take_profit_1": 7.68,
+      "take_profit_2": 7.61,
+      "expected_return_pct": 15.0,
+      "win_rate": 84,
+      "expected_value": 0.58,
+      "ai_comment": "AIAIは新興のAI関連コングロマリットで、直近の出来高急増と20日高値更新はテクニカル的に注目されますが、ファンダメンタルズやニュースの裏付けが乏しい点が懸念材料です。短期スイングとしては値動きの荒さを念頭に慎重な対応が求められます。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "材料不明の出来高急増による乱高下リスクおよび財務情報の欠如が主なリスク要因です。",
+      "total_score": 84
+    },
+    {
+      "symbol": "SOFI",
+      "company_name": "SoFi Technologies, Inc.",
+      "current_price": 18.90999984741211,
+      "entry_price": 18.90999984741211,
+      "stop_loss": 17.8,
+      "take_profit_1": 19.65,
+      "take_profit_2": 21.75,
+      "expected_return_pct": 15.0,
+      "win_rate": 77,
+      "expected_value": 1.93,
+      "ai_comment": "テクニカル指標は上昇トレンドを示しており短期的な底堅さはあるが、明確な材料が無いため急騰要因に乏しい。決算内容は良好であるものの、2週間で+15%を狙うには追加の触媒が必要と考えられる。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "材料不足による上値の重さ、52週高値からの大幅乖離、金利・信用市場悪化による下落リスク。",
+      "total_score": 77
+    }
+  ],
+  "disclaimer": "※ 勝率・期待値は現時点ではバックテストエンジン未実装のため、総合スコアから導いた暫定値です。投資判断は自己責任で行ってください。本レポートは投資助言ではありません。"
+}
