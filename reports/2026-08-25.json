@@ -1,0 +1,38 @@
+{
+  "run_date": "2026-08-25",
+  "top": [
+    {
+      "symbol": "MSTR",
+      "company_name": "Strategy Inc",
+      "current_price": 122.62999725341797,
+      "entry_price": 122.62999725341797,
+      "stop_loss": 113.04,
+      "take_profit_1": 129.03,
+      "take_profit_2": 141.02,
+      "expected_return_pct": 15.0,
+      "win_rate": 55,
+      "expected_value": 5.8,
+      "ai_comment": "MSTRはビットコイン価格に連動するボラティリティの高い銘柄で、テクニカル的には強い上昇トレンドにあるが過熱感も強い。ニュースや決算の材料が無く、短期的な上昇継続にはBTC相場の追加上昇が不可欠であるため、慎重な判断が求められる。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "ビットコイン価格急落・過熱後の反落・市場全体のリスクオフによる急落リスクがある。",
+      "total_score": 55
+    },
+    {
+      "symbol": "BMNR",
+      "company_name": "Bitmine Immersion Technologies, Inc.",
+      "current_price": 24.139999389648438,
+      "entry_price": 24.139999389648438,
+      "stop_loss": 22.36,
+      "take_profit_1": 25.33,
+      "take_profit_2": 27.76,
+      "expected_return_pct": 15.0,
+      "win_rate": 53,
+      "expected_value": 1.08,
+      "ai_comment": "テクニカル的には強い上昇モメンタムが見られるが、RSIの過熱感が非常に強く短期的な反落リスクが高い。暗号資産関連銘柄としてETH価格動向に大きく依存するため、外部環境の変化に注意が必要。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "RSI過熱、ETH価格変動リスク、52週高値からの大幅な距離による長期トレンド不透明感が主なリスク。",
+      "total_score": 53
+    }
+  ],
+  "disclaimer": "※ 勝率・期待値は現時点ではバックテストエンジン未実装のため、総合スコアから導いた暫定値です。投資判断は自己責任で行ってください。本レポートは投資助言ではありません。"
+}
