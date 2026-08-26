@@ -1,0 +1,54 @@
+{
+  "run_date": "2026-08-26",
+  "top": [
+    {
+      "symbol": "CRML",
+      "company_name": "Critical Metals Corp.",
+      "current_price": 8.100000381469727,
+      "entry_price": 8.100000381469727,
+      "stop_loss": 7.17,
+      "take_profit_1": 8.72,
+      "take_profit_2": 9.32,
+      "expected_return_pct": 15.0,
+      "win_rate": 87,
+      "expected_value": 0.94,
+      "ai_comment": "テクニカル面では強い上昇トレンドと出来高急増が確認できるが、ニュースや決算といったファンダメンタルズの裏付けが無いため、値動きの持続性には不透明感が残る。短期トレードとしては魅力的だが、ボラティリティの高さに注意が必要。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "材料不明の急騰であり、出来高急増後の反落や利益確定売りのリスクがある。",
+      "total_score": 87
+    },
+    {
+      "symbol": "SOFI",
+      "company_name": "SoFi Technologies, Inc.",
+      "current_price": 19.0,
+      "entry_price": 19.0,
+      "stop_loss": 17.86,
+      "take_profit_1": 19.76,
+      "take_profit_2": 21.85,
+      "expected_return_pct": 15.0,
+      "win_rate": 77,
+      "expected_value": 1.93,
+      "ai_comment": "テクニカルには短期トレンドが良好で20日高値更新も見られますが、出来高の乏しさとニュースフローの欠如から2週間で+15%を達成するには力不足感があります。決算自体は堅調ながら、株価を大きく動かす明確なカタリストが見当たらない点がネックです。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "出来高不足による上昇の持続性への疑問、52週高値からの大幅な距離、金利環境や消費者信用リスクへの感応度が高い点。",
+      "total_score": 77
+    },
+    {
+      "symbol": "MARA",
+      "company_name": "Marathon Digital Holdings, Inc.",
+      "current_price": 11.829999923706055,
+      "entry_price": 11.829999923706055,
+      "stop_loss": 10.48,
+      "take_profit_1": 12.73,
+      "take_profit_2": 13.6,
+      "expected_return_pct": 15.0,
+      "win_rate": 66,
+      "expected_value": 0.71,
+      "ai_comment": "テクニカル指標は上昇トレンドを示しており短期的な勢いは良好ですが、ニュースや決算情報が無く判断材料に乏しい点が懸念されます。ビットコイン価格との連動性が高いため、暗号資産市場の動向を注視する必要があります。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "ビットコイン価格の急落、暗号資産市場全体のセンチメント悪化、規制強化などが下落リスクとなる。",
+      "total_score": 66
+    }
+  ],
+  "disclaimer": "※ 勝率・期待値は現時点ではバックテストエンジン未実装のため、総合スコアから導いた暫定値です。投資判断は自己責任で行ってください。本レポートは投資助言ではありません。"
+}
