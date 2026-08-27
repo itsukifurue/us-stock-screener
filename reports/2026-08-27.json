@@ -1,0 +1,54 @@
+{
+  "run_date": "2026-08-27",
+  "top": [
+    {
+      "symbol": "NVDA",
+      "company_name": "NVIDIA Corporation",
+      "current_price": 227.97999572753906,
+      "entry_price": 227.97999572753906,
+      "stop_loss": 218.21,
+      "take_profit_1": 234.49,
+      "take_profit_2": 262.18,
+      "expected_return_pct": 15.0,
+      "win_rate": 82,
+      "expected_value": 26.28,
+      "ai_comment": "NVDAはテクニカル的に非常に強い状態にあり、決算も好調だが、時価総額が突出して大きいため2週間で+15%という急騰は現実的にはハードルが高い。押し目や継続保有向きの銘柄であり、短期急騰狙いのトレードには不向きと判断する。",
+      "news_summary": "特筆すべきニュースなし。",
+      "risk_factors": "超大型時価総額による上値の重さ、AIセクター全体のセンチメント変化、短期的な過熱感による調整リスク。",
+      "total_score": 82
+    },
+    {
+      "symbol": "PLTR",
+      "company_name": "Palantir Technologies Inc.",
+      "current_price": 185.92999267578125,
+      "entry_price": 185.92999267578125,
+      "stop_loss": 175.12,
+      "take_profit_1": 193.14,
+      "take_profit_2": 213.82,
+      "expected_return_pct": 15.0,
+      "win_rate": 78,
+      "expected_value": 19.38,
+      "ai_comment": "PLTRはテクニカル的に堅調な上昇トレンドを維持し、決算も好調だが、材料難と高値圏での過熱感から2週間で+15%を狙うにはやや力不足。中期的な上昇継続を狙うポジションとしては妥当だが、短期急騰を狙うには慎重な判断が必要。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "高値圏での過熱感・材料不足によるボラティリティ拡大・出来高減少によるトレンド持続力の弱さ",
+      "total_score": 78
+    },
+    {
+      "symbol": "CRM",
+      "company_name": "Salesforce, Inc.",
+      "current_price": 252.0500030517578,
+      "entry_price": 252.0500030517578,
+      "stop_loss": 236.43,
+      "take_profit_1": 262.47,
+      "take_profit_2": 289.86,
+      "expected_return_pct": 15.0,
+      "win_rate": 74,
+      "expected_value": 23.92,
+      "ai_comment": "テクニカルには強い上昇トレンドと出来高急増が見られるが、RSIの過熱感が非常に強く短期的な調整局面に入るリスクが高い。ニュースや決算材料が不明なため、ファンダメンタルズ面での裏付けが乏しく、追いかけ買いは慎重を要する。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "RSI過熱・移動平均乖離・出来高急増後の反落リスクが主な懸念材料である。",
+      "total_score": 74
+    }
+  ],
+  "disclaimer": "※ 勝率・期待値は現時点ではバックテストエンジン未実装のため、総合スコアから導いた暫定値です。投資判断は自己責任で行ってください。本レポートは投資助言ではありません。"
+}
