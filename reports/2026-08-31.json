@@ -1,0 +1,54 @@
+{
+  "run_date": "2026-08-31",
+  "top": [
+    {
+      "symbol": "TSLA",
+      "company_name": "Tesla, Inc.",
+      "current_price": 365.8599853515625,
+      "entry_price": 365.8599853515625,
+      "stop_loss": 345.64,
+      "take_profit_1": 379.34,
+      "take_profit_2": 420.74,
+      "expected_return_pct": 15.0,
+      "win_rate": 67,
+      "expected_value": 30.1,
+      "ai_comment": "テクニカル指標は強気を示しているものの、直近決算の収益性は弱く、明確な上昇材料も見当たらない。短期的な上昇トレンドは継続する可能性があるが、+15%という大幅な上昇を2週間で達成するにはカタリスト不足の印象が強い。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "決算の収益性の弱さ、材料不足によるモメンタム失速、ボラティリティの高さによる急反転リスク。",
+      "total_score": 67
+    },
+    {
+      "symbol": "PATH",
+      "company_name": "UiPath Inc.",
+      "current_price": 18.510000228881836,
+      "entry_price": 18.510000228881836,
+      "stop_loss": 17.24,
+      "take_profit_1": 19.36,
+      "take_profit_2": 21.29,
+      "expected_return_pct": 15.0,
+      "win_rate": 56,
+      "expected_value": 1.0,
+      "ai_comment": "テクニカル的には上昇トレンドと20日高値更新が確認できるものの、RSIの過熱感とニュース・決算材料の欠如が懸念点です。短期的な急騰後の調整局面に入る可能性もあり、+15%達成にはさらなる好材料が必要と考えられます。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "RSI過熱による調整リスク、材料不足による上昇持続性の欠如、出来高不足によるトレンド信頼性の低さ",
+      "total_score": 56
+    },
+    {
+      "symbol": "SPCX",
+      "company_name": "Space Exploration Technologies Corp.",
+      "current_price": 142.4600067138672,
+      "entry_price": 142.4600067138672,
+      "stop_loss": 131.71,
+      "take_profit_1": 149.63,
+      "take_profit_2": 163.83,
+      "expected_return_pct": 15.0,
+      "win_rate": 48,
+      "expected_value": 4.67,
+      "ai_comment": "テクニカル面では短期トレンドは良好だが、ニュースや決算材料が無く出来高も細っているため、短期急騰の裏付けに欠ける。2週間で+15%を狙うには追加の材料やボリューム増加が必要と考えられる。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "出来高の低迷、材料不足、52週高値からの大幅乖離による戻り売り圧力がリスク要因。",
+      "total_score": 48
+    }
+  ],
+  "disclaimer": "※ 勝率・期待値は現時点ではバックテストエンジン未実装のため、総合スコアから導いた暫定値です。投資判断は自己責任で行ってください。本レポートは投資助言ではありません。"
+}
