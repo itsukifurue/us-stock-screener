@@ -1,0 +1,54 @@
+{
+  "run_date": "2026-09-01",
+  "top": [
+    {
+      "symbol": "CRK",
+      "company_name": "Comstock Resources, Inc.",
+      "current_price": 15.767200469970703,
+      "entry_price": 15.767200469970703,
+      "stop_loss": 14.78,
+      "take_profit_1": 16.42,
+      "take_profit_2": 18.13,
+      "expected_return_pct": 15.0,
+      "win_rate": 87,
+      "expected_value": 1.93,
+      "ai_comment": "テクニカル面では移動平均線が上向きに揃い、出来高増加を伴う20日高値更新など強い上昇シグナルが見られる。一方でファンダメンタルズ材料が乏しく、天然ガス価格動向次第で急変動しやすい点には注意が必要。短期的な勢いは評価できるが、+15%達成には追加の材料が求められる。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "天然ガス価格変動リスク、材料不足による反落リスク、52週高値からの大幅乖離による戻り売り圧力。",
+      "total_score": 87
+    },
+    {
+      "symbol": "MMED",
+      "company_name": "MiniMed Group, Inc. Common Stock",
+      "current_price": 22.35610008239746,
+      "entry_price": 22.35610008239746,
+      "stop_loss": 20.72,
+      "take_profit_1": 23.44,
+      "take_profit_2": 25.71,
+      "expected_return_pct": 15.0,
+      "win_rate": 67,
+      "expected_value": 1.71,
+      "ai_comment": "MMEDはテクニカル的に強い上昇トレンドにあり52週高値更新も視野に入るが、ファンダメンタルズ材料が乏しく決算・ニュース面での裏付けが不足している。短期的な過熱感もあるため、+15%達成にはさらなる出来高増加や新規材料の出現が鍵となる。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "材料難による反落リスクとRSI過熱感による調整リスクが主な懸念材料である。",
+      "total_score": 67
+    },
+    {
+      "symbol": "AAPL",
+      "company_name": "Apple Inc.",
+      "current_price": 326.1549987792969,
+      "entry_price": 326.1549987792969,
+      "stop_loss": 316.17,
+      "take_profit_1": 332.81,
+      "take_profit_2": 375.08,
+      "expected_return_pct": 15.0,
+      "win_rate": 63,
+      "expected_value": 27.13,
+      "ai_comment": "テクニカルには強いトレンドが続いていますが、RSIの過熱感と出来高の伴わない上昇は短期的な反落リスクを示唆します。2週間で+15%というアグレッシブな目標に対しては、現状のバリュエーションと過熱度から達成確率は低いと考えられます。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "RSI過熱、出来高不足、52週高値接近による上値の重さがリスク要因です。",
+      "total_score": 63
+    }
+  ],
+  "disclaimer": "※ 勝率・期待値は現時点ではバックテストエンジン未実装のため、総合スコアから導いた暫定値です。投資判断は自己責任で行ってください。本レポートは投資助言ではありません。"
+}
