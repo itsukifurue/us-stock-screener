@@ -1,0 +1,54 @@
+{
+  "run_date": "2026-09-02",
+  "top": [
+    {
+      "symbol": "GTLB",
+      "company_name": "GitLab Inc.",
+      "current_price": 51.45000076293945,
+      "entry_price": 51.45000076293945,
+      "stop_loss": 47.74,
+      "take_profit_1": 53.92,
+      "take_profit_2": 59.17,
+      "expected_return_pct": 15.0,
+      "win_rate": 77,
+      "expected_value": 5.09,
+      "ai_comment": "GTLBはテクニカル面で強い上昇トレンドと出来高急増を示しており、短期的なモメンタム投資家の関心を集めている可能性があります。しかし、ニュースや決算などのファンダメンタルズ的な裏付けが無く、RSIの過熱感からの反落リスクも高いため、慎重な判断が求められます。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "RSIの過熱感による反落リスク、材料不透明な状態での急激な出来高増加、ボラティリティの高さ(ATR大)が主なリスク要因です。",
+      "total_score": 77
+    },
+    {
+      "symbol": "NVDA",
+      "company_name": "NVIDIA Corporation",
+      "current_price": 227.1199951171875,
+      "entry_price": 227.1199951171875,
+      "stop_loss": 216.36,
+      "take_profit_1": 234.29,
+      "take_profit_2": 261.19,
+      "expected_return_pct": 15.0,
+      "win_rate": 60,
+      "expected_value": 16.14,
+      "ai_comment": "NVIDIAは決算面で非常に強い実績を示しており、長期的な成長ストーリーは健在だが、直近ニュースフローの欠如と出来高の低さから短期的な急騰の可能性は限定的である。2週間で+15%を狙うには追加の強いカタリストが必要と判断する。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "出来高不足による上昇力の欠如、52週高値接近による利益確定売りリスク、AI関連セクター全体のセンチメント変化リスク。",
+      "total_score": 60
+    },
+    {
+      "symbol": "OABI",
+      "company_name": "OmniAb, Inc.",
+      "current_price": 5.275000095367432,
+      "entry_price": 5.275000095367432,
+      "stop_loss": 4.71,
+      "take_profit_1": 5.65,
+      "take_profit_2": 6.07,
+      "expected_return_pct": 15.0,
+      "win_rate": 53,
+      "expected_value": 0.15,
+      "ai_comment": "テクニカル的には強い上昇トレンドにあるが、ニュースや決算などのファンダメンタルズ材料が確認できず、過熱感も強いため、さらなる大幅高を狙うには不確実性が高い。短期的な調整に警戒しつつ、慎重なポジション管理が望ましい。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "RSI過熱、出来高不足、材料不明の急騰による反落リスク。",
+      "total_score": 53
+    }
+  ],
+  "disclaimer": "※ 勝率・期待値は現時点ではバックテストエンジン未実装のため、総合スコアから導いた暫定値です。投資判断は自己責任で行ってください。本レポートは投資助言ではありません。"
+}
