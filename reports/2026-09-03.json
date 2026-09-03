@@ -1,0 +1,54 @@
+{
+  "run_date": "2026-09-03",
+  "top": [
+    {
+      "symbol": "CHPT",
+      "company_name": "ChargePoint Holdings, Inc.",
+      "current_price": 7.760000228881836,
+      "entry_price": 7.760000228881836,
+      "stop_loss": 6.98,
+      "take_profit_1": 8.28,
+      "take_profit_2": 8.92,
+      "expected_return_pct": 15.0,
+      "win_rate": 70,
+      "expected_value": 0.58,
+      "ai_comment": "テクニカル的には短期モメンタムが強いが、ファンダメンタルズやニュースの裏付けが無いため持続性に疑問が残る。出来高急増の背景を確認できないため、慎重な判断が必要。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "材料不明の出来高急増、高ボラティリティ、52週高値からの距離が大きく戻り待ちの売り圧力がある点がリスク。",
+      "total_score": 70
+    },
+    {
+      "symbol": "TSLA",
+      "company_name": "Tesla, Inc.",
+      "current_price": 382.8550109863281,
+      "entry_price": 382.8550109863281,
+      "stop_loss": 361.75,
+      "take_profit_1": 396.92,
+      "take_profit_2": 440.28,
+      "expected_return_pct": 15.0,
+      "win_rate": 66,
+      "expected_value": 30.73,
+      "ai_comment": "テクニカルには強い上昇基調が見られるものの、ニュースや決算面での明確な後押しが無く、+15%の急騰には追加のカタリストが必要と考えられます。既存の上昇トレンドを慎重にフォローする程度のポジションが妥当でしょう。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "決算の伸び悩みや材料不足による上昇の持続力欠如、短期急騰後の利益確定売りリスクに注意。",
+      "total_score": 66
+    },
+    {
+      "symbol": "ABTC",
+      "company_name": "American Bitcoin Corp",
+      "current_price": 9.270000457763672,
+      "entry_price": 9.270000457763672,
+      "stop_loss": 7.94,
+      "take_profit_1": 10.16,
+      "take_profit_2": 10.66,
+      "expected_return_pct": 15.0,
+      "win_rate": 65,
+      "expected_value": 0.44,
+      "ai_comment": "テクニカル面では短期的な上昇基調が見られるものの、ニュースや決算情報が全くなく判断材料が乏しい。ビットコイン関連銘柄特有のボラティリティの高さもあり、+15%達成の可能性はあるが確度は低いと考えられる。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "ニュース・財務情報の欠如、52週高値からの大幅乖離、出来高の弱さ、ビットコイン価格変動への高い連動性がリスク要因。",
+      "total_score": 65
+    }
+  ],
+  "disclaimer": "※ 勝率・期待値は現時点ではバックテストエンジン未実装のため、総合スコアから導いた暫定値です。投資判断は自己責任で行ってください。本レポートは投資助言ではありません。"
+}
