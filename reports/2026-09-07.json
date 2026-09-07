@@ -1,0 +1,54 @@
+{
+  "run_date": "2026-09-07",
+  "top": [
+    {
+      "symbol": "NVDA",
+      "company_name": "NVIDIA Corporation",
+      "current_price": 230.36000061035156,
+      "entry_price": 230.36000061035156,
+      "stop_loss": 218.93,
+      "take_profit_1": 237.98,
+      "take_profit_2": 264.91,
+      "expected_return_pct": 15.0,
+      "win_rate": 77,
+      "expected_value": 23.98,
+      "ai_comment": "NVIDIAはテクニカル的に堅調な上昇トレンドにあり、決算内容も非常に良好です。ただし、既に高値圏にあり新規材料が乏しいため、2週間で15%の急騰を狙うにはやや条件が厳しいと判断します。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "52週高値接近による利益確定売り、材料不足による上昇の勢い鈍化、時価総額の大きさによる上昇余地の制限などがリスク要因です。",
+      "total_score": 77
+    },
+    {
+      "symbol": "MU",
+      "company_name": "Micron Technology, Inc.",
+      "current_price": 1016.5900268554688,
+      "entry_price": 1016.5900268554688,
+      "stop_loss": 946.57,
+      "take_profit_1": 1063.27,
+      "take_profit_2": 1169.08,
+      "expected_return_pct": 15.0,
+      "win_rate": 68,
+      "expected_value": 81.29,
+      "ai_comment": "MUはテクニカル的に上昇トレンドを継続しており20日高値更新など強い値動きを見せているが、ニュースや決算情報が無いため裏付けに欠ける。短期的な急騰の可能性はあるが、確度は中程度と評価する。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "材料不足による反落リスクとボラティリティの高さ、半導体市況悪化時の急落リスクに注意が必要。",
+      "total_score": 68
+    },
+    {
+      "symbol": "F",
+      "company_name": "Ford Motor Company",
+      "current_price": 14.619999885559082,
+      "entry_price": 14.619999885559082,
+      "stop_loss": 14.04,
+      "take_profit_1": 15.01,
+      "take_profit_2": 16.81,
+      "expected_return_pct": 15.0,
+      "win_rate": 63,
+      "expected_value": 1.17,
+      "ai_comment": "テクニカル指標は上昇トレンドを示しており短期的な地合いは悪くありませんが、赤字決算やニュース材料の欠如から2週間で+15%の急騰を狙うには根拠が弱いといえます。大型自動車株としての値動きの緩やかさも考慮すると、期待値は限定的です。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "赤字決算、時価総額が大きく急騰しにくい、材料不足によるモメンタム持続性の不確実性。",
+      "total_score": 63
+    }
+  ],
+  "disclaimer": "※ 勝率・期待値は現時点ではバックテストエンジン未実装のため、総合スコアから導いた暫定値です。投資判断は自己責任で行ってください。本レポートは投資助言ではありません。"
+}
