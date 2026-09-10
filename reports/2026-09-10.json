@@ -1,0 +1,54 @@
+{
+  "run_date": "2026-09-10",
+  "top": [
+    {
+      "symbol": "AAPL",
+      "company_name": "Apple Inc.",
+      "current_price": 319.8900146484375,
+      "entry_price": 319.8900146484375,
+      "stop_loss": 308.87,
+      "take_profit_1": 327.24,
+      "take_profit_2": 367.87,
+      "expected_return_pct": 15.0,
+      "win_rate": 58,
+      "expected_value": 23.2,
+      "ai_comment": "AAPLは安定した業績とテクニカルの緩やかな上昇基調を示しているが、2週間で+15%という大幅な上昇を後押しする明確な材料は見当たらない。長期保有向きの銘柄特性が強く、短期スイングでの急騰期待は限定的と判断する。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "材料不足による勢い欠如、時価総額の大きさによる急騰の難しさ、出来高低下によるモメンタム不足が主なリスク。",
+      "total_score": 58
+    },
+    {
+      "symbol": "WLTH",
+      "company_name": "Wealthfront Corporation",
+      "current_price": 10.76200008392334,
+      "entry_price": 10.76200008392334,
+      "stop_loss": 10.18,
+      "take_profit_1": 11.15,
+      "take_profit_2": 12.38,
+      "expected_return_pct": 15.0,
+      "win_rate": 53,
+      "expected_value": 0.58,
+      "ai_comment": "テクニカル的には強い上昇トレンドを形成しているが、RSIの過熱感とニュース・決算材料の欠如がリスク要因となる。短期的な急騰後の反落に注意しつつ、慎重な判断が求められる銘柄です。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "RSI過熱による調整リスク、材料難による急落リスク、時価総額に対する流動性リスクが挙げられる。",
+      "total_score": 53
+    },
+    {
+      "symbol": "INTC",
+      "company_name": "Intel Corp.",
+      "current_price": 101.68499755859375,
+      "entry_price": 101.68499755859375,
+      "stop_loss": 94.98,
+      "take_profit_1": 106.15,
+      "take_profit_2": 116.94,
+      "expected_return_pct": 15.0,
+      "win_rate": 49,
+      "expected_value": 4.05,
+      "ai_comment": "テクニカルには短期的な上昇基調が見られるが、直近決算の大幅赤字やニュース材料の欠如を踏まえると、2週間で+15%の上昇は限定的と考えられる。慎重な姿勢が望ましい。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "業績悪化・出来高低迷・材料不足によるモメンタム欠如がリスク要因。",
+      "total_score": 49
+    }
+  ],
+  "disclaimer": "※ 勝率・期待値は現時点ではバックテストエンジン未実装のため、総合スコアから導いた暫定値です。投資判断は自己責任で行ってください。本レポートは投資助言ではありません。"
+}
