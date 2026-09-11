@@ -1,0 +1,54 @@
+{
+  "run_date": "2026-09-11",
+  "top": [
+    {
+      "symbol": "ACVA",
+      "company_name": "ACV Auctions Inc.",
+      "current_price": 10.430000305175781,
+      "entry_price": 10.430000305175781,
+      "stop_loss": 9.56,
+      "take_profit_1": 11.01,
+      "take_profit_2": 11.99,
+      "expected_return_pct": 15.0,
+      "win_rate": 75,
+      "expected_value": 0.95,
+      "ai_comment": "テクニカルには強い上昇モメンタムが見られるが、根拠となるニュースや決算情報が無く、既に52週高値近辺まで買われ過熱感が強い。追随買いよりも過熱解消後の押し目を待つ方が無難と考えられる。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "RSI過熱・材料不明の急騰・出来高急増後の反落リスク",
+      "total_score": 75
+    },
+    {
+      "symbol": "MARA",
+      "company_name": "Marathon Digital Holdings, Inc.",
+      "current_price": 12.114999771118164,
+      "entry_price": 12.114999771118164,
+      "stop_loss": 10.81,
+      "take_profit_1": 12.98,
+      "take_profit_2": 13.93,
+      "expected_return_pct": 15.0,
+      "win_rate": 67,
+      "expected_value": 0.79,
+      "ai_comment": "テクニカル面では短期移動平均線を上回り堅調な値動きを見せているが、材料・出来高ともに乏しく自律的な急騰は期待しにくい。ビットコイン市況が好転すれば連動して急伸する可能性はあるが、現状では+15%達成の確度は高くない。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "出来高不足による上値の重さ、ビットコイン価格変動への高い連動性、52週高値からの大幅な乖離が主なリスク要因である。",
+      "total_score": 67
+    },
+    {
+      "symbol": "HPE",
+      "company_name": "Hewlett Packard Enterprise Company",
+      "current_price": 60.26959991455078,
+      "entry_price": 60.26959991455078,
+      "stop_loss": 55.03,
+      "take_profit_1": 63.76,
+      "take_profit_2": 69.31,
+      "expected_return_pct": 15.0,
+      "win_rate": 67,
+      "expected_value": 4.33,
+      "ai_comment": "HPEはテクニカル的に明確な上昇トレンドにあり、20日高値更新など強気シグナルが見られます。しかし材料に乏しく出来高も伴っていないため、2週間で+15%を狙うには追加の好材料が必要と考えられます。リスク管理をしつつ短期的な押し目や材料待ちのポジションが妥当でしょう。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "出来高の裏付けが弱く、ニュース・決算材料が不足しているため急落リスクや失速リスクがある。",
+      "total_score": 67
+    }
+  ],
+  "disclaimer": "※ 勝率・期待値は現時点ではバックテストエンジン未実装のため、総合スコアから導いた暫定値です。投資判断は自己責任で行ってください。本レポートは投資助言ではありません。"
+}
