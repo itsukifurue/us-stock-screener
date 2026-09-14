@@ -1,0 +1,54 @@
+{
+  "run_date": "2026-09-14",
+  "top": [
+    {
+      "symbol": "ELMT",
+      "company_name": "Elmet Group Co.",
+      "current_price": 21.84000015258789,
+      "entry_price": 21.84000015258789,
+      "stop_loss": 19.59,
+      "take_profit_1": 23.34,
+      "take_profit_2": 25.12,
+      "expected_return_pct": 15.0,
+      "win_rate": 86,
+      "expected_value": 2.5,
+      "ai_comment": "テクニカル的には強いモメンタムが見られるものの、ファンダメンタルズ材料が乏しく急騰の持続性に不透明感が残る。短期的な高値掴みのリスクを考慮し、慎重なポジション管理が推奨される。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "材料不明の急騰であり、過熱感からの反落リスクと出来高急減による流動性低下リスクがある。",
+      "total_score": 86
+    },
+    {
+      "symbol": "CRWD",
+      "company_name": "CrowdStrike Holdings, Inc.",
+      "current_price": 238.66000366210938,
+      "entry_price": 238.66000366210938,
+      "stop_loss": 215.89,
+      "take_profit_1": 253.84,
+      "take_profit_2": 274.46,
+      "expected_return_pct": 15.0,
+      "win_rate": 67,
+      "expected_value": 16.47,
+      "ai_comment": "テクニカル的には非常に強い上昇トレンドにあるが、既に高値圏にあるため短期的な急騰余地は限定的と見られる。ニュースや決算材料が乏しく、モメンタムのみでの15%上昇達成はハードルが高い。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "過熱感によるテクニカル調整リスクおよび材料不足による上値の重さが懸念される。",
+      "total_score": 67
+    },
+    {
+      "symbol": "NTSK",
+      "company_name": "Netskope, Inc. Class A Common Stock",
+      "current_price": 17.084999084472656,
+      "entry_price": 17.084999084472656,
+      "stop_loss": 15.38,
+      "take_profit_1": 18.22,
+      "take_profit_2": 19.65,
+      "expected_return_pct": 15.0,
+      "win_rate": 66,
+      "expected_value": 1.11,
+      "ai_comment": "テクニカル指標は強気を示しており短期トレンドは良好だが、ニュースや決算などのファンダメンタルズ材料が確認できないため、上昇の持続性には不確実性が残る。既に短期的に大きく上昇しているため、押し目待ちも選択肢となる局面と考えられる。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "材料不足での急伸後の反落リスクおよび新規上場銘柄特有の高ボラティリティに注意が必要。",
+      "total_score": 66
+    }
+  ],
+  "disclaimer": "※ 勝率・期待値は現時点ではバックテストエンジン未実装のため、総合スコアから導いた暫定値です。投資判断は自己責任で行ってください。本レポートは投資助言ではありません。"
+}
