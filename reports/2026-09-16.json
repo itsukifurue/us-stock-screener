@@ -1,0 +1,54 @@
+{
+  "run_date": "2026-09-16",
+  "top": [
+    {
+      "symbol": "FPS",
+      "company_name": "Forgent Power Solutions, Inc.",
+      "current_price": 35.29999923706055,
+      "entry_price": 35.29999923706055,
+      "stop_loss": 31.85,
+      "take_profit_1": 37.6,
+      "take_profit_2": 40.59,
+      "expected_return_pct": 15.0,
+      "win_rate": 65,
+      "expected_value": 2.23,
+      "ai_comment": "テクニカル面では20日高値更新や移動平均線上抜けなど強気の兆候が見られるが、ファンダメンタルズ情報が乏しく判断材料が限定的。短期スイングとしては値動きの荒さに注意しつつ、慎重なポジション管理が求められる。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "決算・ニュース情報の欠如による不確実性、52週高値からの大幅な下落状態、出来高倍率が控えめで急伸の裏付けが弱い点がリスク要因。",
+      "total_score": 65
+    },
+    {
+      "symbol": "INTC",
+      "company_name": "Intel Corp.",
+      "current_price": 102.1500015258789,
+      "entry_price": 102.1500015258789,
+      "stop_loss": 94.3,
+      "take_profit_1": 107.39,
+      "take_profit_2": 117.47,
+      "expected_return_pct": 15.0,
+      "win_rate": 49,
+      "expected_value": 3.5,
+      "ai_comment": "テクニカル指標は短期上昇トレンドを示していますが、直近決算が大幅赤字であり、ニュースフローも乏しいためファンダメンタルズの後押しが欠けています。2週間で+15%という高いハードルを達成するには、出来高を伴った強いカタリストが必要と考えられます。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "業績の大幅赤字、出来高不足による上昇力の弱さ、52週高値からの距離が大きく上値の重さが懸念される。",
+      "total_score": 49
+    },
+    {
+      "symbol": "SPCX",
+      "company_name": "Space Exploration Technologies Corp.",
+      "current_price": 150.94000244140625,
+      "entry_price": 150.94000244140625,
+      "stop_loss": 141.03,
+      "take_profit_1": 157.55,
+      "take_profit_2": 173.58,
+      "expected_return_pct": 15.0,
+      "win_rate": 48,
+      "expected_value": 5.71,
+      "ai_comment": "テクニカル面では緩やかな上昇トレンドを維持しているものの、ニュースや決算情報が乏しく、短期間での大幅上昇を後押しする明確な根拠が見当たらない。出来高も低調であり、2週間での+15%達成には慎重な見方が必要である。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "材料不足による上値の重さ、出来高の低迷、非上場株特有の流動性・情報開示リスクが挙げられる。",
+      "total_score": 48
+    }
+  ],
+  "disclaimer": "※ 勝率・期待値は現時点ではバックテストエンジン未実装のため、総合スコアから導いた暫定値です。投資判断は自己責任で行ってください。本レポートは投資助言ではありません。"
+}
