@@ -1,0 +1,54 @@
+{
+  "run_date": "2026-09-17",
+  "top": [
+    {
+      "symbol": "GNRC",
+      "company_name": "Generac Holdings Inc.",
+      "current_price": 212.24000549316406,
+      "entry_price": 212.24000549316406,
+      "stop_loss": 196.36,
+      "take_profit_1": 222.82,
+      "take_profit_2": 244.08,
+      "expected_return_pct": 15.0,
+      "win_rate": 72,
+      "expected_value": 18.48,
+      "ai_comment": "出来高急増と20日高値更新は短期的な強気シグナルだが、ファンダメンタルズ材料が乏しく持続性に疑問が残る。リスク管理を徹底しつつ短期的な値幅取りを狙う戦略が妥当と考える。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "材料不足での急騰は反落リスクが高く、ATRも大きくボラティリティが高い点に注意が必要。",
+      "total_score": 72
+    },
+    {
+      "symbol": "ELMT",
+      "company_name": "Elmet Group Co.",
+      "current_price": 23.1200008392334,
+      "entry_price": 23.1200008392334,
+      "stop_loss": 20.19,
+      "take_profit_1": 25.07,
+      "take_profit_2": 26.59,
+      "expected_return_pct": 15.0,
+      "win_rate": 67,
+      "expected_value": 1.36,
+      "ai_comment": "テクニカル面では明確な上昇トレンドと20日高値更新が確認でき、短期的な強さは評価できます。ただし出来高の伴わない上昇や決算・ニュース材料の欠如はリスク要因であり、急激な+15%上昇には勢いの持続とカタリストの出現が必要です。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "出来高減少による上昇の持続性欠如、RSI過熱による調整リスク、材料不足による材料先行型の反落リスク。",
+      "total_score": 67
+    },
+    {
+      "symbol": "SPCX",
+      "company_name": "Space Exploration Technologies Corp.",
+      "current_price": 154.8350067138672,
+      "entry_price": 154.8350067138672,
+      "stop_loss": 144.65,
+      "take_profit_1": 161.62,
+      "take_profit_2": 178.06,
+      "expected_return_pct": 15.0,
+      "win_rate": 66,
+      "expected_value": 11.87,
+      "ai_comment": "テクニカル指標は上昇トレンドを示していますが、出来高の裏付けが弱く、材料も乏しいため2週間で+15%を達成するにはやや力不足感があります。上昇継続には新たな好材料や出来高増加が必要です。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "出来高不足による上昇持続力の欠如、材料難による反落リスク、52週高値まで約31%の距離があるため達成には強い勢いが必要な点が挙げられます。",
+      "total_score": 66
+    }
+  ],
+  "disclaimer": "※ 勝率・期待値は現時点ではバックテストエンジン未実装のため、総合スコアから導いた暫定値です。投資判断は自己責任で行ってください。本レポートは投資助言ではありません。"
+}
