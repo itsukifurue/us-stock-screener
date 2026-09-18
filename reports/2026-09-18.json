@@ -1,0 +1,54 @@
+{
+  "run_date": "2026-09-18",
+  "top": [
+    {
+      "symbol": "MARA",
+      "company_name": "Marathon Digital Holdings, Inc.",
+      "current_price": 12.6850004196167,
+      "entry_price": 12.6850004196167,
+      "stop_loss": 11.5,
+      "take_profit_1": 13.48,
+      "take_profit_2": 14.59,
+      "expected_return_pct": 15.0,
+      "win_rate": 67,
+      "expected_value": 0.88,
+      "ai_comment": "MARAは短期的にテクニカル面で強さを見せており、20日高値更新やMA上抜けはポジティブなシグナルである。しかし材料に乏しく、ビットコイン価格動向に強く依存するため、2週間以内の大幅上昇には不確実性が残る。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "ビットコイン価格の急落、出来高減少による上昇力低下、暗号資産関連株特有の規制・市場リスクが主な懸念材料。",
+      "total_score": 67
+    },
+    {
+      "symbol": "MSTR",
+      "company_name": "Strategy Inc",
+      "current_price": 148.50999450683594,
+      "entry_price": 148.50999450683594,
+      "stop_loss": 134.45,
+      "take_profit_1": 157.88,
+      "take_profit_2": 170.79,
+      "expected_return_pct": 15.0,
+      "win_rate": 66,
+      "expected_value": 9.92,
+      "ai_comment": "MSTRはビットコイン価格に連動する特殊な値動きを見せる銘柄で、現在はテクニカル的に上昇トレンド入りしているように見えます。ただし直近ニュースや決算材料が無く、上昇の持続性はビットコイン市場次第という側面が強いです。短期的な急騰の可能性はあるものの、確実性は低いと評価します。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "ビットコイン価格急落・出来高減少・材料不足による上昇力欠如がリスク要因。",
+      "total_score": 66
+    },
+    {
+      "symbol": "FWDI",
+      "company_name": "Forward Industries, Inc.",
+      "current_price": 7.375,
+      "entry_price": 7.375,
+      "stop_loss": 6.48,
+      "take_profit_1": 7.97,
+      "take_profit_2": 8.48,
+      "expected_return_pct": 15.0,
+      "win_rate": 66,
+      "expected_value": 0.42,
+      "ai_comment": "FWDIはSolanaを主軸とした暗号資産トレジャリー戦略を掲げる小型株で、テクニカル的には短期上昇トレンドにあるものの、ファンダメンタルズの後押しが乏しい。52週高値からの大きな距離を考えると、リバウンドの範囲を超えた継続的な上昇には慎重な見方が必要である。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "暗号資産(Solana)価格の変動リスク、出来高低下による流動性リスク、長期下落トレンド継続のリスクが挙げられる。",
+      "total_score": 66
+    }
+  ],
+  "disclaimer": "※ 勝率・期待値は現時点ではバックテストエンジン未実装のため、総合スコアから導いた暫定値です。投資判断は自己責任で行ってください。本レポートは投資助言ではありません。"
+}
