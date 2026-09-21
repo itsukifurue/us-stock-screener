@@ -1,0 +1,54 @@
+{
+  "run_date": "2026-09-21",
+  "top": [
+    {
+      "symbol": "CRML",
+      "company_name": "Critical Metals Corp.",
+      "current_price": 9.0649995803833,
+      "entry_price": 9.0649995803833,
+      "stop_loss": 8.08,
+      "take_profit_1": 9.72,
+      "take_profit_2": 10.42,
+      "expected_return_pct": 15.0,
+      "win_rate": 86,
+      "expected_value": 1.03,
+      "ai_comment": "テクニカル指標は非常に強く、出来高急増と20日高値更新はモメンタム系トレーダーにとって魅力的なシグナルである。ただし、ファンダメンタルズ面の情報が皆無であり、投機的な動きに依存している可能性が高いため、リスク管理を徹底した上での短期トレードが推奨される。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "ニュース・決算情報の欠如による材料不明瞭さと、RSI過熱による反落リスクが主な懸念点。",
+      "total_score": 86
+    },
+    {
+      "symbol": "WBD",
+      "company_name": "Warner Bros. Discovery, Inc.",
+      "current_price": 30.875,
+      "entry_price": 30.875,
+      "stop_loss": 30.08,
+      "take_profit_1": 31.4,
+      "take_profit_2": 35.51,
+      "expected_return_pct": 15.0,
+      "win_rate": 76,
+      "expected_value": 3.33,
+      "ai_comment": "テクニカル面では強い上昇トレンドと出来高急増が見られるが、ファンダメンタルズやニュースの裏付けが乏しく過熱感が高い。短期的な急落リスクを考慮し、慎重なポジション管理が望ましい。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "RSI過熱、材料不明の急騰、出来高急増による反落リスクが主な懸念。",
+      "total_score": 76
+    },
+    {
+      "symbol": "NUAI",
+      "company_name": "New Era Energy & Digital, Inc.",
+      "current_price": 7.699999809265137,
+      "entry_price": 7.699999809265137,
+      "stop_loss": 6.75,
+      "take_profit_1": 8.33,
+      "take_profit_2": 8.85,
+      "expected_return_pct": 15.0,
+      "win_rate": 74,
+      "expected_value": 0.61,
+      "ai_comment": "テクニカル的には強い上昇トレンドと出来高急増が見られますが、RSIの過熱感とニュース材料の欠如が懸念されます。短期的な調整リスクを考慮すると、新規エントリーは慎重に判断すべき局面です。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "過熱したRSIによる反落リスクと材料難による急落リスクが主な懸念点です。",
+      "total_score": 74
+    }
+  ],
+  "disclaimer": "※ 勝率・期待値は現時点ではバックテストエンジン未実装のため、総合スコアから導いた暫定値です。投資判断は自己責任で行ってください。本レポートは投資助言ではありません。"
+}
