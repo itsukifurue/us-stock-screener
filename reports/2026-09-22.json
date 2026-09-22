@@ -1,0 +1,54 @@
+{
+  "run_date": "2026-09-22",
+  "top": [
+    {
+      "symbol": "VKTX",
+      "company_name": "Viking Therapeutics, Inc.",
+      "current_price": 39.970001220703125,
+      "entry_price": 39.970001220703125,
+      "stop_loss": 36.7,
+      "take_profit_1": 42.15,
+      "take_profit_2": 45.97,
+      "expected_return_pct": 15.0,
+      "win_rate": 72,
+      "expected_value": 3.4,
+      "ai_comment": "テクニカル的には強い上昇シグナルが出ているが、ニュースや決算情報が乏しく材料の持続性が不透明。短期的な急騰の反動に注意しつつ、モメンタム継続を見極める必要がある。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "出来高急増の背景不明・RSI過熱・臨床段階企業特有の材料依存性が高い点がリスク。",
+      "total_score": 72
+    },
+    {
+      "symbol": "BFLY",
+      "company_name": "Butterfly Network, Inc.",
+      "current_price": 9.555000305175781,
+      "entry_price": 9.555000305175781,
+      "stop_loss": 8.65,
+      "take_profit_1": 10.16,
+      "take_profit_2": 10.99,
+      "expected_return_pct": 15.0,
+      "win_rate": 67,
+      "expected_value": 0.66,
+      "ai_comment": "テクニカル指標は上昇トレンドを示しており短期的な勢いは良好ですが、ニュースや決算などのファンダメンタルズ裏付けが無いため持続性に不安があります。過熱感も見られるため、押し目やブレイクアウトの確認を待つのが無難と考えられます。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "材料不足の中での過熱感による反落リスクおよび小型医療機器株特有のボラティリティリスク。",
+      "total_score": 67
+    },
+    {
+      "symbol": "MARA",
+      "company_name": "Marathon Digital Holdings, Inc.",
+      "current_price": 13.760000228881836,
+      "entry_price": 13.760000228881836,
+      "stop_loss": 12.43,
+      "take_profit_1": 14.65,
+      "take_profit_2": 15.82,
+      "expected_return_pct": 15.0,
+      "win_rate": 56,
+      "expected_value": 0.57,
+      "ai_comment": "テクニカル的には短期上昇トレンドにあるが、過熱感が強く出来高も伴っていないため反落リスクに注意が必要。ビットコイン価格の動向次第で急変動しやすい銘柄であり、ポジションサイズの管理が重要。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "RSI過熱、出来高不足、ビットコイン価格変動への高い連動性がリスク要因。",
+      "total_score": 56
+    }
+  ],
+  "disclaimer": "※ 勝率・期待値は現時点ではバックテストエンジン未実装のため、総合スコアから導いた暫定値です。投資判断は自己責任で行ってください。本レポートは投資助言ではありません。"
+}
