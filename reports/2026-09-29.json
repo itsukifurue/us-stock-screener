@@ -1,0 +1,54 @@
+{
+  "run_date": "2026-09-29",
+  "top": [
+    {
+      "symbol": "CCL",
+      "company_name": "Carnival Corporation & plc",
+      "current_price": 24.875,
+      "entry_price": 24.875,
+      "stop_loss": 23.5,
+      "take_profit_1": 25.79,
+      "take_profit_2": 28.61,
+      "expected_return_pct": 15.0,
+      "win_rate": 90,
+      "expected_value": 3.22,
+      "ai_comment": "テクニカル的には上昇トレンドと出来高増加が好材料だが、ニュースフローが乏しく決算以外の追い風材料が見当たらない。短期的な過熱感もあり、+15%達成にはさらなる材料や出来高の継続が必要と考えられる。",
+      "news_summary": "特筆すべきニュースなし。",
+      "risk_factors": "RSI過熱、材料不足、52週高値からの距離が大きいことによる上値の重さ。",
+      "total_score": 97
+    },
+    {
+      "symbol": "IOVA",
+      "company_name": "Iovance Biotherapeutics, Inc.",
+      "current_price": 14.954999923706055,
+      "entry_price": 14.954999923706055,
+      "stop_loss": 13.62,
+      "take_profit_1": 15.84,
+      "take_profit_2": 17.2,
+      "expected_return_pct": 15.0,
+      "win_rate": 73,
+      "expected_value": 1.28,
+      "ai_comment": "テクニカルには強いモメンタムが見られるが、RSI90超という極端な過熱感から短期的な調整局面に入るリスクが高い。ニュースや決算情報が乏しく、ファンダメンタルズ面での裏付けが不明なため、追撃買いには慎重姿勢が望ましい。",
+      "news_summary": "特筆すべきニュースなし。",
+      "risk_factors": "RSI過熱、出来高急増後の反落リスク、バイオテク特有の治験結果依存によるボラティリティが主なリスク要因である。",
+      "total_score": 73
+    },
+    {
+      "symbol": "PWP",
+      "company_name": "Perella Weinberg Partners",
+      "current_price": 16.584999084472656,
+      "entry_price": 16.584999084472656,
+      "stop_loss": 15.01,
+      "take_profit_1": 17.63,
+      "take_profit_2": 19.07,
+      "expected_return_pct": 15.0,
+      "win_rate": 71,
+      "expected_value": 1.31,
+      "ai_comment": "テクニカル的には短期上昇トレンドと出来高急増が見られ、ポジティブなシグナルと言えます。しかし材料や決算情報が不明であるため、根拠のある強い上昇シナリオを描くには材料不足です。慎重にポジション管理をしながら短期トレードを検討すべき銘柄です。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "材料不明の出来高急増、52週高値からの大幅乖離、財務情報の欠如による不透明感がリスク要因となる。",
+      "total_score": 71
+    }
+  ],
+  "disclaimer": "※ 勝率・期待値は現時点ではバックテストエンジン未実装のため、総合スコアから導いた暫定値です。投資判断は自己責任で行ってください。本レポートは投資助言ではありません。"
+}
