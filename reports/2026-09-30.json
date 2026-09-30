@@ -1,0 +1,54 @@
+{
+  "run_date": "2026-09-30",
+  "top": [
+    {
+      "symbol": "UTHR",
+      "company_name": "United Therapeutics Corporation",
+      "current_price": 543.97998046875,
+      "entry_price": 543.97998046875,
+      "stop_loss": 519.15,
+      "take_profit_1": 560.54,
+      "take_profit_2": 625.58,
+      "expected_return_pct": 15.0,
+      "win_rate": 73,
+      "expected_value": 52.86,
+      "ai_comment": "テクニカル指標は非常に強気で、20日高値更新・出来高急増など短期上昇の勢いを示している。ただし材料面での裏付けが乏しく、過熱感からの反落リスクも考慮する必要がある。ポジションサイズを抑えた短期トレードとして検討する価値はある。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "材料のない急騰は反落しやすく、出来高急増の背景が不明な点がリスク。",
+      "total_score": 73
+    },
+    {
+      "symbol": "NVDA",
+      "company_name": "NVIDIA Corporation",
+      "current_price": 230.3350067138672,
+      "entry_price": 230.3350067138672,
+      "stop_loss": 222.39,
+      "take_profit_1": 235.63,
+      "take_profit_2": 264.89,
+      "expected_return_pct": 15.0,
+      "win_rate": 62,
+      "expected_value": 18.4,
+      "ai_comment": "NVIDIAは好調な決算とAI需要を背景に中長期的な強気材料は揃っているが、既に高値圏にあり2週間で+15%を狙うには新たな強力な材料が必要。現時点ではテクニカルの過熱感もあり、短期的なリスクリワードは限定的と判断する。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "過熱気味のRSI水準と出来高の伴わない上昇による短期反落リスク、AI関連銘柄全体のセンチメント変化リスク。",
+      "total_score": 62
+    },
+    {
+      "symbol": "CAPR",
+      "company_name": "Capricor Therapeutics, Inc.",
+      "current_price": 9.644200325012207,
+      "entry_price": 9.644200325012207,
+      "stop_loss": 8.54,
+      "take_profit_1": 10.38,
+      "take_profit_2": 11.09,
+      "expected_return_pct": 15.0,
+      "win_rate": 56,
+      "expected_value": 0.32,
+      "ai_comment": "テクニカル指標は上昇トレンドと出来高急増を示しており短期的な勢いは強いが、ニュースや決算情報が確認できないため material driver が不明確である。臨床段階バイオテック株特有の急変動リスクを踏まえ、ポジション管理を慎重に行う必要がある。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "材料不明の出来高急増、バイオテック特有の株価変動性、52週高値からの大幅な乖離によるボラティリティリスク。",
+      "total_score": 56
+    }
+  ],
+  "disclaimer": "※ 勝率・期待値は現時点ではバックテストエンジン未実装のため、総合スコアから導いた暫定値です。投資判断は自己責任で行ってください。本レポートは投資助言ではありません。"
+}
