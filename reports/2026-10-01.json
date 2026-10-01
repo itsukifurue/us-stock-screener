@@ -1,0 +1,54 @@
+{
+  "run_date": "2026-10-01",
+  "top": [
+    {
+      "symbol": "NVDA",
+      "company_name": "NVIDIA Corporation",
+      "current_price": 230.25450134277344,
+      "entry_price": 230.25450134277344,
+      "stop_loss": 222.32,
+      "take_profit_1": 235.54,
+      "take_profit_2": 264.79,
+      "expected_return_pct": 15.0,
+      "win_rate": 60,
+      "expected_value": 17.55,
+      "ai_comment": "NVIDIAはファンダメンタルズ面で非常に強固だが、株価は既に高値圏にあり短期間で15%上昇するには新たな強力な材料が必要。現状はニュースフローも乏しく、テクニカル的にも過熱感があるため慎重な判断が望ましい。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "出来高不足による上値の重さ、52週高値接近による利益確定売り、RSI高水準による過熱感が主なリスク。",
+      "total_score": 60
+    },
+    {
+      "symbol": "SNPS",
+      "company_name": "Synopsys, Inc.",
+      "current_price": 491.5799865722656,
+      "entry_price": 491.5799865722656,
+      "stop_loss": 463.2,
+      "take_profit_1": 510.5,
+      "take_profit_2": 565.32,
+      "expected_return_pct": 15.0,
+      "win_rate": 55,
+      "expected_value": 27.79,
+      "ai_comment": "テクニカル的には強い上昇トレンドにあるが、RSIの過熱感と直近ニュースの不在から追随買いが続くか不透明。短期的な利益確定売りに注意しつつ、押し目を待つ戦略が無難と考える。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "RSI過熱、52週高値接近、材料不足での調整リスクが主なリスク要因。",
+      "total_score": 55
+    },
+    {
+      "symbol": "EFOR",
+      "company_name": "Everforth, Inc.",
+      "current_price": 37.125,
+      "entry_price": 37.125,
+      "stop_loss": 34.38,
+      "take_profit_1": 38.96,
+      "take_profit_2": 42.69,
+      "expected_return_pct": 15.0,
+      "win_rate": 54,
+      "expected_value": 1.74,
+      "ai_comment": "テクニカル的には短期上昇トレンドが継続しているものの、RSIの過熱感とニュース・決算材料の不在から、2週間以内に+15%を狙うには不確実性が高い。ポジションを取る場合はタイトなリスク管理が推奨される。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "RSI過熱、材料不足、52週高値からの乖離が大きく急落リスクも内包している点に注意が必要。",
+      "total_score": 54
+    }
+  ],
+  "disclaimer": "※ 勝率・期待値は現時点ではバックテストエンジン未実装のため、総合スコアから導いた暫定値です。投資判断は自己責任で行ってください。本レポートは投資助言ではありません。"
+}
