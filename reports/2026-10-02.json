@@ -1,0 +1,54 @@
+{
+  "run_date": "2026-10-02",
+  "top": [
+    {
+      "symbol": "SYNA",
+      "company_name": "Synaptics Incorporated",
+      "current_price": 120.75,
+      "entry_price": 120.75,
+      "stop_loss": 112.66,
+      "take_profit_1": 126.15,
+      "take_profit_2": 138.86,
+      "expected_return_pct": 15.0,
+      "win_rate": 76,
+      "expected_value": 11.82,
+      "ai_comment": "テクニカル面では強い上昇モメンタムと出来高急増が見られるが、ニュースや決算の裏付けがなく、RSIも過熱水準にあるため持続性に疑問が残る。短期的な反動安のリスクを考慮すると、新規の押し目待ちが望ましいと考えられる。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "RSI過熱、材料不明の出来高急増、ファンダメンタルズ情報の欠如による不透明感が主なリスク要因である。",
+      "total_score": 76
+    },
+    {
+      "symbol": "WOLF",
+      "company_name": "Wolfspeed Inc.",
+      "current_price": 35.0099983215332,
+      "entry_price": 35.0099983215332,
+      "stop_loss": 31.77,
+      "take_profit_1": 37.17,
+      "take_profit_2": 40.26,
+      "expected_return_pct": 15.0,
+      "win_rate": 72,
+      "expected_value": 2.87,
+      "ai_comment": "テクニカル的には短期急騰による過熱感が強く、持続性に疑問が残る。ファンダメンタルズ面での裏付けとなるニュースや決算情報が無いため、慎重な姿勢が望ましい。2週間での大幅上昇を狙うにはリスクが高いと評価する。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "RSI過熱、材料不足、出来高急増後の反落リスクが主なリスク要因である。",
+      "total_score": 72
+    },
+    {
+      "symbol": "XRPN",
+      "company_name": "Armada Acquisition Corp. II",
+      "current_price": 40.35499954223633,
+      "entry_price": 40.35499954223633,
+      "stop_loss": 34.81,
+      "take_profit_1": 44.05,
+      "take_profit_2": 46.41,
+      "expected_return_pct": 15.0,
+      "win_rate": 71,
+      "expected_value": 2.69,
+      "ai_comment": "テクニカル的には短期急騰による強いモメンタムが見られるが、RSIが極限まで過熱しており、SPAC特有の思惑的な値動きである可能性が高い。企業の実態情報やニュースが乏しく、ファンダメンタルズでの裏付けが取れないため、短期的な反落リスクを警戒すべき局面と考える。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "SPACゆえの実態不透明感、極端な過熱(RSI99超)による反落リスク、出来高急増に伴う値動きの荒さが主なリスク。",
+      "total_score": 71
+    }
+  ],
+  "disclaimer": "※ 勝率・期待値は現時点ではバックテストエンジン未実装のため、総合スコアから導いた暫定値です。投資判断は自己責任で行ってください。本レポートは投資助言ではありません。"
+}
