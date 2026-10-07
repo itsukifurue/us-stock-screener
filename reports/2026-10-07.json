@@ -1,0 +1,38 @@
+{
+  "run_date": "2026-10-07",
+  "top": [
+    {
+      "symbol": "PENG",
+      "company_name": "Penguin Solutions, Inc.",
+      "current_price": 72.77050018310547,
+      "entry_price": 72.77050018310547,
+      "stop_loss": 66.74,
+      "take_profit_1": 76.79,
+      "take_profit_2": 83.69,
+      "expected_return_pct": 15.0,
+      "win_rate": 76,
+      "expected_value": 6.85,
+      "ai_comment": "テクニカルには強い上昇モメンタムが見られるが、RSIの極端な過熱とニュース材料の欠如から持続性に疑問が残る。短期的な調整リスクを考慮すると、追随買いは慎重に行うべき局面と判断する。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "RSI過熱、急騰後の反動安、材料不足による持続性の欠如がリスク要因。",
+      "total_score": 76
+    },
+    {
+      "symbol": "SPCX",
+      "company_name": "Space Exploration Technologies Corp.",
+      "current_price": 167.7449951171875,
+      "entry_price": 167.7449951171875,
+      "stop_loss": 157.99,
+      "take_profit_1": 174.25,
+      "take_profit_2": 192.91,
+      "expected_return_pct": 15.0,
+      "win_rate": 48,
+      "expected_value": 7.01,
+      "ai_comment": "テクニカル面では移動平均線上に位置し底堅さは見られるものの、出来高不足とニュース材料の欠如から短期急騰の根拠は弱いです。2週間で+15%を狙うにはカタリスト待ちの状況であり、現時点では様子見が妥当と考えられます。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "出来高減少による流動性リスクと、非公開企業特有の情報開示不足によるボラティリティ拡大リスクが挙げられる。",
+      "total_score": 48
+    }
+  ],
+  "disclaimer": "※ 勝率・期待値は現時点ではバックテストエンジン未実装のため、総合スコアから導いた暫定値です。投資判断は自己責任で行ってください。本レポートは投資助言ではありません。"
+}
