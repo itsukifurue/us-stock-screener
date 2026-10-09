@@ -1,0 +1,54 @@
+{
+  "run_date": "2026-10-09",
+  "top": [
+    {
+      "symbol": "CCI",
+      "company_name": "Crown Castle Inc.",
+      "current_price": 77.94999694824219,
+      "entry_price": 77.94999694824219,
+      "stop_loss": 74.24,
+      "take_profit_1": 80.42,
+      "take_profit_2": 89.64,
+      "expected_return_pct": 15.0,
+      "win_rate": 87,
+      "expected_value": 9.69,
+      "ai_comment": "テクニカル指標は総じて強気であり、短期的な上昇トレンドは継続する可能性が高い。ただし、ニュースや決算などのファンダメンタルズ的な裏付けが無いため、2週間で+15%という大幅な上昇を狙うには材料不足感が否めない。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "金利上昇リスクやニュース材料の欠如による上昇持続性への懸念が挙げられる。",
+      "total_score": 87
+    },
+    {
+      "symbol": "SNAP",
+      "company_name": "Snap Inc.",
+      "current_price": 6.258800029754639,
+      "entry_price": 6.258800029754639,
+      "stop_loss": 5.86,
+      "take_profit_1": 6.52,
+      "take_profit_2": 7.2,
+      "expected_return_pct": 15.0,
+      "win_rate": 66,
+      "expected_value": 0.48,
+      "ai_comment": "テクニカル指標は上昇トレンドと20日高値更新を示し短期的な強さが見られますが、直近決算は赤字でニュースも乏しく、ファンダメンタルズの後押しは期待しにくい状況です。2週間での+15%達成には新たな好材料や出来高急増が必要と考えられます。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "赤字決算・材料不足での急伸は反落リスクを伴う点に注意が必要です。",
+      "total_score": 66
+    },
+    {
+      "symbol": "TSLA",
+      "company_name": "Tesla, Inc.",
+      "current_price": 383.5899963378906,
+      "entry_price": 383.5899963378906,
+      "stop_loss": 367.05,
+      "take_profit_1": 394.62,
+      "take_profit_2": 441.13,
+      "expected_return_pct": 15.0,
+      "win_rate": 66,
+      "expected_value": 32.35,
+      "ai_comment": "テクニカル面では上昇トレンド継続中で短期的な勢いは評価できますが、ファンダメンタルズの弱さとニュース材料の不足がリスクです。2週間で+15%を狙うにはモメンタムの持続とボラティリティの拡大が必要です。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "決算の利益率低下、ニュース材料の欠如、52週高値からの戻り待ち売り圧力が挙げられる。",
+      "total_score": 66
+    }
+  ],
+  "disclaimer": "※ 勝率・期待値は現時点ではバックテストエンジン未実装のため、総合スコアから導いた暫定値です。投資判断は自己責任で行ってください。本レポートは投資助言ではありません。"
+}
