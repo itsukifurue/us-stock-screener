@@ -1,0 +1,54 @@
+{
+  "run_date": "2026-10-13",
+  "top": [
+    {
+      "symbol": "BMBL",
+      "company_name": "Bumble Inc.",
+      "current_price": 5.929999828338623,
+      "entry_price": 5.929999828338623,
+      "stop_loss": 5.41,
+      "take_profit_1": 6.27,
+      "take_profit_2": 6.82,
+      "expected_return_pct": 15.0,
+      "win_rate": 71,
+      "expected_value": 0.48,
+      "ai_comment": "テクニカル的には強い上昇トレンドだが、RSIの極端な過熱と移動平均線からの大幅乖離が示す通り、短期的な反動安リスクが非常に高い。ニュースや決算の裏付けがないため、持続的な上昇は期待しにくい状況である。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "過熱RSIによる反落リスク・急激な出来高増加後の失速リスク・材料不明の急騰による不透明感",
+      "total_score": 71
+    },
+    {
+      "symbol": "SNAP",
+      "company_name": "Snap Inc.",
+      "current_price": 6.605000019073486,
+      "entry_price": 6.605000019073486,
+      "stop_loss": 6.19,
+      "take_profit_1": 6.88,
+      "take_profit_2": 7.6,
+      "expected_return_pct": 15.0,
+      "win_rate": 52,
+      "expected_value": 0.32,
+      "ai_comment": "テクニカル的には強い上昇トレンドだが、RSIの極端な過熱感と業績の赤字が懸念材料であり、短期的な追随買いはリスクが高い。慎重な押し目待ちが望ましい局面と考える。",
+      "news_summary": "特筆すべきニュースなし。",
+      "risk_factors": "過熱したRSI水準による反落リスクと赤字決算というファンダメンタルズの弱さが主なリスク要因。",
+      "total_score": 52
+    },
+    {
+      "symbol": "SPCX",
+      "company_name": "Space Exploration Technologies Corp.",
+      "current_price": 156.72999572753906,
+      "entry_price": 156.72999572753906,
+      "stop_loss": 146.71,
+      "take_profit_1": 163.41,
+      "take_profit_2": 180.24,
+      "expected_return_pct": 15.0,
+      "win_rate": 49,
+      "expected_value": 6.41,
+      "ai_comment": "テクニカル指標自体は中立から やや強気を示していますが、出来高の少なさとニュース・決算情報の欠如が大きな懸念材料です。短期急騰を狙うには材料不足であり、保守的な評価とします。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "出来高低迷による流動性リスク、材料不足によるモメンタム欠如、そもそも非上場企業である可能性による取引実現性の疑問。",
+      "total_score": 49
+    }
+  ],
+  "disclaimer": "※ 勝率・期待値は現時点ではバックテストエンジン未実装のため、総合スコアから導いた暫定値です。投資判断は自己責任で行ってください。本レポートは投資助言ではありません。"
+}
