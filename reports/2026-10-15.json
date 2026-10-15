@@ -1,0 +1,54 @@
+{
+  "run_date": "2026-10-15",
+  "top": [
+    {
+      "symbol": "CCC",
+      "company_name": "CCC Intelligent Solutions Holdings Inc.",
+      "current_price": 7.619999885559082,
+      "entry_price": 7.619999885559082,
+      "stop_loss": 7.18,
+      "take_profit_1": 7.92,
+      "take_profit_2": 8.76,
+      "expected_return_pct": 15.0,
+      "win_rate": 71,
+      "expected_value": 0.68,
+      "ai_comment": "テクニカル指標は上昇トレンドと出来高急増を示しており短期的な勢いは感じられますが、ニュースや決算情報が不足しているため、上昇の背景やその持続性を判断しづらい状況です。2週間で+15%を狙うにはやや材料不足であり、慎重な判断が必要です。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "材料不明の出来高急増、RSI過熱、決算・ニュース情報の欠如による不確実性が主なリスク要因です。",
+      "total_score": 71
+    },
+    {
+      "symbol": "VSTM",
+      "company_name": "Verastem, Inc.",
+      "current_price": 8.6850004196167,
+      "entry_price": 8.6850004196167,
+      "stop_loss": 7.63,
+      "take_profit_1": 9.39,
+      "take_profit_2": 9.99,
+      "expected_return_pct": 15.0,
+      "win_rate": 67,
+      "expected_value": 0.52,
+      "ai_comment": "テクニカル面では上昇トレンドと出来高増加が見られ、短期的な強さを示しています。ただし材料が乏しくバイオテック特有の急変動リスクもあるため、ポジション管理には注意が必要です。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "臨床試験結果やFDA関連の発表など材料次第で急落するリスクがある点に注意が必要です。",
+      "total_score": 67
+    },
+    {
+      "symbol": "REAL",
+      "company_name": "The RealReal, Inc.",
+      "current_price": 10.255000114440918,
+      "entry_price": 10.255000114440918,
+      "stop_loss": 9.59,
+      "take_profit_1": 10.7,
+      "take_profit_2": 11.79,
+      "expected_return_pct": 15.0,
+      "win_rate": 55,
+      "expected_value": 0.55,
+      "ai_comment": "テクニカル的には短期上昇トレンドが継続しているものの、過熱感が強く出来高の裏付けも弱いため、ここからの急騰には慎重な見方が妥当である。ニュースや決算などのカタリストが無い中での+15%達成は難易度が高いと考えられる。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "RSIの過熱感、出来高不足、材料不在による反落リスクが主な懸念材料である。",
+      "total_score": 55
+    }
+  ],
+  "disclaimer": "※ 勝率・期待値は現時点ではバックテストエンジン未実装のため、総合スコアから導いた暫定値です。投資判断は自己責任で行ってください。本レポートは投資助言ではありません。"
+}
