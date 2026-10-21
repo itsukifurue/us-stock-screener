@@ -1,0 +1,38 @@
+{
+  "run_date": "2026-10-21",
+  "top": [
+    {
+      "symbol": "BETR",
+      "company_name": "Better Home & Finance Holding Company",
+      "current_price": 14.800000190734863,
+      "entry_price": 14.800000190734863,
+      "stop_loss": 12.51,
+      "take_profit_1": 16.33,
+      "take_profit_2": 17.02,
+      "expected_return_pct": 15.0,
+      "win_rate": 65,
+      "expected_value": 0.64,
+      "ai_comment": "テクニカル的には短期上昇トレンドにあるが、ファンダメンタルズやニュースの裏付けがなく、長期下落トレンドの中での一時的な反発である可能性が高い。ボラティリティが大きいため、エントリーには慎重な判断が求められる。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "材料不足のまま急騰しており、出来高の裏付けが弱く反落リスクが高い。",
+      "total_score": 65
+    },
+    {
+      "symbol": "TSLA",
+      "company_name": "Tesla, Inc.",
+      "current_price": 387.9049987792969,
+      "entry_price": 387.9049987792969,
+      "stop_loss": 369.28,
+      "take_profit_1": 400.32,
+      "take_profit_2": 446.09,
+      "expected_return_pct": 15.0,
+      "win_rate": 51,
+      "expected_value": 20.55,
+      "ai_comment": "テクニカルには強いトレンドが見られるが、材料難と出来高の弱さが上値を抑える可能性がある。短期的な押し目や過熱感の解消を待つのが無難と考えられる。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "RSI過熱、出来高低迷、EV市場の競争激化や金利動向などマクロ要因が株価を圧迫するリスクがある。",
+      "total_score": 51
+    }
+  ],
+  "disclaimer": "※ 勝率・期待値は現時点ではバックテストエンジン未実装のため、総合スコアから導いた暫定値です。投資判断は自己責任で行ってください。本レポートは投資助言ではありません。"
+}
