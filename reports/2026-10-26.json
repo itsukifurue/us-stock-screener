@@ -1,0 +1,54 @@
+{
+  "run_date": "2026-10-26",
+  "top": [
+    {
+      "symbol": "XNCR",
+      "company_name": "Xencor, Inc.",
+      "current_price": 30.209999084472656,
+      "entry_price": 30.209999084472656,
+      "stop_loss": 27.43,
+      "take_profit_1": 32.07,
+      "take_profit_2": 34.74,
+      "expected_return_pct": 15.0,
+      "win_rate": 75,
+      "expected_value": 2.7,
+      "ai_comment": "出来高急増と20日高値更新は強気材料ですが、裏付けとなるニュースや決算情報がなく、RSIの過熱感も強いため、短期的な調整リスクに注意が必要です。+15%達成にはさらなる材料が求められます。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "RSI過熱によるテクニカル反落リスクおよび材料不透明感による急変動リスク",
+      "total_score": 75
+    },
+    {
+      "symbol": "EAF",
+      "company_name": "GrafTech International Ltd.",
+      "current_price": 10.130000114440918,
+      "entry_price": 10.130000114440918,
+      "stop_loss": 8.84,
+      "take_profit_1": 10.99,
+      "take_profit_2": 11.65,
+      "expected_return_pct": 15.0,
+      "win_rate": 73,
+      "expected_value": 0.76,
+      "ai_comment": "テクニカル面では強い上昇モメンタムと出来高急増が確認でき、短期的な続伸期待は持てる銘柄である。ただしファンダメンタルズの裏付けがなく、材料不在のまま急騰した分、反落リスクにも注意が必要。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "材料不明の急騰による反動安リスクおよび鉄鋼需要に左右される業績変動リスクがある。",
+      "total_score": 73
+    },
+    {
+      "symbol": "SGRY",
+      "company_name": "Surgery Partners, Inc.",
+      "current_price": 23.184999465942383,
+      "entry_price": 23.184999465942383,
+      "stop_loss": 21.58,
+      "take_profit_1": 24.25,
+      "take_profit_2": 26.66,
+      "expected_return_pct": 15.0,
+      "win_rate": 72,
+      "expected_value": 2.06,
+      "ai_comment": "テクニカル的には強い上昇トレンドだが、RSIが極端な過熱水準にあり、ニュースや決算の裏付けもないため持続性に疑問が残る。短期的には調整が入りやすく、追加の大幅上昇よりも利益確定売りによる反落リスクの方が高いと判断する。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "RSI過熱、材料不明の急騰、出来高急増後の反落リスクが主なリスク要因。",
+      "total_score": 72
+    }
+  ],
+  "disclaimer": "※ 勝率・期待値は現時点ではバックテストエンジン未実装のため、総合スコアから導いた暫定値です。投資判断は自己責任で行ってください。本レポートは投資助言ではありません。"
+}
