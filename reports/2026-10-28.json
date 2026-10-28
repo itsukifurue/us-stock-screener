@@ -1,0 +1,54 @@
+{
+  "run_date": "2026-10-28",
+  "top": [
+    {
+      "symbol": "SOFI",
+      "company_name": "SoFi Technologies, Inc.",
+      "current_price": 16.864999771118164,
+      "entry_price": 16.864999771118164,
+      "stop_loss": 15.66,
+      "take_profit_1": 17.67,
+      "take_profit_2": 19.39,
+      "expected_return_pct": 15.0,
+      "win_rate": 76,
+      "expected_value": 1.63,
+      "ai_comment": "SoFiは決算が堅調でテクニカルにも上昇トレンドが確認できるが、材料難から2週間で15%の急騰を狙うには追加のカタリストが必要。短期的には緩やかな上昇は期待できるが、過度な期待は禁物。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "材料不足による上値の重さ、出来高減少による勢いの鈍化、52週高値からの大幅な乖離による戻り売り圧力が主なリスク。",
+      "total_score": 76
+    },
+    {
+      "symbol": "BOOM",
+      "company_name": "DMC Global Inc.",
+      "current_price": 7.40500020980835,
+      "entry_price": 7.40500020980835,
+      "stop_loss": 6.81,
+      "take_profit_1": 7.8,
+      "take_profit_2": 8.52,
+      "expected_return_pct": 15.0,
+      "win_rate": 74,
+      "expected_value": 0.67,
+      "ai_comment": "テクニカル的には強い上昇トレンドと出来高急増が確認できるが、ファンダメンタルズ材料が乏しくRSIも過熱気味であるため、短期的な反落リスクに注意が必要です。2週間での15%上昇には追加の好材料が求められます。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "RSI過熱、材料不明の出来高急増、エネルギー関連セクターの外部環境変化リスク。",
+      "total_score": 74
+    },
+    {
+      "symbol": "AXGN",
+      "company_name": "AxoGen, Inc.",
+      "current_price": 48.31999969482422,
+      "entry_price": 48.31999969482422,
+      "stop_loss": 45.06,
+      "take_profit_1": 50.49,
+      "take_profit_2": 55.57,
+      "expected_return_pct": 15.0,
+      "win_rate": 74,
+      "expected_value": 4.52,
+      "ai_comment": "テクニカル的には強い上昇トレンドと出来高急増が見られるが、過熱感が非常に高く材料面の裏付けもないため、短期的な反落リスクに注意が必要である。2週間での+15%達成には勢いの継続が前提となるが、現状では不確実性が高い。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "RSIの極端な過熱感による反落リスクと、材料不足による持続性の欠如が主なリスク。",
+      "total_score": 74
+    }
+  ],
+  "disclaimer": "※ 勝率・期待値は現時点ではバックテストエンジン未実装のため、総合スコアから導いた暫定値です。投資判断は自己責任で行ってください。本レポートは投資助言ではありません。"
+}
