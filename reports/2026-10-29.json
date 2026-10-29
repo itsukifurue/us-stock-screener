@@ -1,0 +1,54 @@
+{
+  "run_date": "2026-10-29",
+  "top": [
+    {
+      "symbol": "PRCH",
+      "company_name": "Porch Group, Inc.",
+      "current_price": 20.690000534057617,
+      "entry_price": 20.690000534057617,
+      "stop_loss": 18.94,
+      "take_profit_1": 21.86,
+      "take_profit_2": 23.79,
+      "expected_return_pct": 15.0,
+      "win_rate": 86,
+      "expected_value": 2.42,
+      "ai_comment": "テクニカル的には非常に強い上昇トレンドにあり、出来高を伴った高値更新は買いシグナルと言えます。ただし材料面の裏付けが乏しく、既に52週高値付近にあるため、短期的な過熱感と反落リスクには注意が必要です。全体として上昇継続の可能性はあるが、15%の大幅上昇には追加の材料が望まれます。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "ニュース材料の欠如、RSI過熱感、52週高値接近による反落リスクが主な懸念材料です。",
+      "total_score": 86
+    },
+    {
+      "symbol": "NCLH",
+      "company_name": "Norwegian Cruise Line Holdings Ltd.",
+      "current_price": 18.184999465942383,
+      "entry_price": 18.184999465942383,
+      "stop_loss": 17.01,
+      "take_profit_1": 18.97,
+      "take_profit_2": 20.91,
+      "expected_return_pct": 15.0,
+      "win_rate": 76,
+      "expected_value": 1.79,
+      "ai_comment": "テクニカル的には強い上昇トレンドにあるが、RSIの過熱感とニュース材料の欠如から持続性には疑問が残る。短期的な調整リスクを考慮すると、追随買いは慎重になるべき局面。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "RSI過熱、材料なき急騰、出来高急増後の反落リスクが主な懸念材料。",
+      "total_score": 76
+    },
+    {
+      "symbol": "SOFI",
+      "company_name": "SoFi Technologies, Inc.",
+      "current_price": 17.514999389648438,
+      "entry_price": 17.514999389648438,
+      "stop_loss": 16.27,
+      "take_profit_1": 18.34,
+      "take_profit_2": 20.14,
+      "expected_return_pct": 15.0,
+      "win_rate": 76,
+      "expected_value": 1.7,
+      "ai_comment": "SoFiは好決算を背景に短期的な上昇トレンドを形成しており、テクニカル面では底堅さが見られる。ただし材料ニュースの欠如と出来高の伸び悩みから、2週間で+15%を狙うには追加の好材料が必要と考えられる。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "出来高を伴わない上昇や、52週高値からの乖離による戻り売り圧力、材料不足によるモメンタム失速がリスクとなる。",
+      "total_score": 76
+    }
+  ],
+  "disclaimer": "※ 勝率・期待値は現時点ではバックテストエンジン未実装のため、総合スコアから導いた暫定値です。投資判断は自己責任で行ってください。本レポートは投資助言ではありません。"
+}
