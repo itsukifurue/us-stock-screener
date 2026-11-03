@@ -1,0 +1,54 @@
+{
+  "run_date": "2026-11-03",
+  "top": [
+    {
+      "symbol": "SIBN",
+      "company_name": "SI-BONE, Inc.",
+      "current_price": 23.68000030517578,
+      "entry_price": 23.68000030517578,
+      "stop_loss": 21.86,
+      "take_profit_1": 24.89,
+      "take_profit_2": 27.23,
+      "expected_return_pct": 15.0,
+      "win_rate": 76,
+      "expected_value": 2.26,
+      "ai_comment": "テクニカルには強いトレンドと出来高急増が見られ、短期的な上昇余地は残っていますが、既に52週高値付近まで到達しておりRSIも過熱気味です。ファンダメンタルズの裏付けがない中での急騰は反落リスクも伴うため、新規エントリーは慎重さが求められます。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "RSIの過熱感、材料なき急騰による反落リスク、出来高急増の持続性への不透明感。",
+      "total_score": 76
+    },
+    {
+      "symbol": "XMTR",
+      "company_name": "Xometry, Inc.",
+      "current_price": 114.87999725341797,
+      "entry_price": 114.87999725341797,
+      "stop_loss": 102.34,
+      "take_profit_1": 123.24,
+      "take_profit_2": 132.11,
+      "expected_return_pct": 15.0,
+      "win_rate": 68,
+      "expected_value": 7.71,
+      "ai_comment": "XMTRはテクニカル面で明確な上昇トレンドを形成しており、52週高値更新も視野に入る強さを見せている。ただし材料面の後押しが無いため、モメンタムの持続性には注意が必要で、短期的な過熱感からの調整リスクも考慮すべきである。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "材料不足による急な反落リスクとRSI過熱によるの短期調整リスクが存在する。",
+      "total_score": 68
+    },
+    {
+      "symbol": "RKT",
+      "company_name": "Rocket Companies, Inc.",
+      "current_price": 13.8100004196167,
+      "entry_price": 13.8100004196167,
+      "stop_loss": 12.9,
+      "take_profit_1": 14.42,
+      "take_profit_2": 15.88,
+      "expected_return_pct": 15.0,
+      "win_rate": 65,
+      "expected_value": 1.03,
+      "ai_comment": "テクニカル的には強い上昇トレンドにあり、決算も黒字基調で悪くない内容ですが、RSIの過熱感から短期的な反落リスクが無視できません。2週間で+15%を狙うにはやや無理がある水準であり、エントリーには慎重さが求められます。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "RSI14が80超と過熱感が強く、調整局面入りのリスクが高い点が主なリスク要因。",
+      "total_score": 65
+    }
+  ],
+  "disclaimer": "※ 勝率・期待値は現時点ではバックテストエンジン未実装のため、総合スコアから導いた暫定値です。投資判断は自己責任で行ってください。本レポートは投資助言ではありません。"
+}
