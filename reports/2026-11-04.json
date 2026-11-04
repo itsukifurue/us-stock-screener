@@ -1,0 +1,54 @@
+{
+  "run_date": "2026-11-04",
+  "top": [
+    {
+      "symbol": "ARRY",
+      "company_name": "Array Technologies, Inc.",
+      "current_price": 5.239500045776367,
+      "entry_price": 5.239500045776367,
+      "stop_loss": 4.7,
+      "take_profit_1": 5.6,
+      "take_profit_2": 6.03,
+      "expected_return_pct": 15.0,
+      "win_rate": 76,
+      "expected_value": 0.47,
+      "ai_comment": "テクニカル的には強い上昇トレンドと出来高急増が見られるが、ニュースや決算情報が乏しく材料面での裏付けが弱い。RSIの過熱感を考慮すると、短期的な調整を挟みながらの推移が予想され、+15%達成には新たな材料が必要となる。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "RSI過熱、材料不足での反落、出来高急増後の反動売りリスクが主な懸念材料。",
+      "total_score": 76
+    },
+    {
+      "symbol": "CRCT",
+      "company_name": "Cricut, Inc.",
+      "current_price": 8.635000228881836,
+      "entry_price": 8.635000228881836,
+      "stop_loss": 7.97,
+      "take_profit_1": 9.08,
+      "take_profit_2": 9.93,
+      "expected_return_pct": 15.0,
+      "win_rate": 76,
+      "expected_value": 0.82,
+      "ai_comment": "出来高急増と高値更新は短期的な強さを示すが、テクニカル的な過熱感が強く、追加材料がない中でのさらなる上昇は限定的と考えられる。押し目待ちが望ましい局面。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "過熱感の強いRSIと移動平均乖離による急落リスク、材料不足による持続性の欠如。",
+      "total_score": 76
+    },
+    {
+      "symbol": "HELE",
+      "company_name": "Helen of Troy Limited",
+      "current_price": 36.459999084472656,
+      "entry_price": 36.459999084472656,
+      "stop_loss": 33.88,
+      "take_profit_1": 38.18,
+      "take_profit_2": 41.93,
+      "expected_return_pct": 15.0,
+      "win_rate": 75,
+      "expected_value": 3.46,
+      "ai_comment": "テクニカル的には強いモメンタムが見られるものの、RSIの過熱感とファンダメンタルズ材料の欠如から、短期的な過熱調整が入るリスクが高い。2週間での大幅上昇よりも、まず一旦の調整を警戒すべき局面と考えられる。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "RSI過熱、材料不足での急落リスク、出来高急増後の反落リスクが主な懸念材料。",
+      "total_score": 75
+    }
+  ],
+  "disclaimer": "※ 勝率・期待値は現時点ではバックテストエンジン未実装のため、総合スコアから導いた暫定値です。投資判断は自己責任で行ってください。本レポートは投資助言ではありません。"
+}
