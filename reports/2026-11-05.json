@@ -1,0 +1,54 @@
+{
+  "run_date": "2026-11-05",
+  "top": [
+    {
+      "symbol": "ADMA",
+      "company_name": "ADMA Biologics, Inc.",
+      "current_price": 13.234999656677246,
+      "entry_price": 13.234999656677246,
+      "stop_loss": 12.2,
+      "take_profit_1": 13.92,
+      "take_profit_2": 15.22,
+      "expected_return_pct": 15.0,
+      "win_rate": 77,
+      "expected_value": 1.29,
+      "ai_comment": "テクニカル的には強い上昇モメンタムが見られますが、ニュースや決算情報が乏しく、上昇の根拠が不明瞭です。短期的な過熱感もあるため、慎重なエントリーが望まれます。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "RSIの過熱、材料不明のまま出来高急増による反落リスク、業績データ不足による不透明感。",
+      "total_score": 77
+    },
+    {
+      "symbol": "XERS",
+      "company_name": "Xeris Biopharma Holdings, Inc.",
+      "current_price": 13.09000015258789,
+      "entry_price": 13.09000015258789,
+      "stop_loss": 12.05,
+      "take_profit_1": 13.78,
+      "take_profit_2": 15.05,
+      "expected_return_pct": 15.0,
+      "win_rate": 76,
+      "expected_value": 1.24,
+      "ai_comment": "テクニカル的には強い上昇トレンドと出来高急増が見られ、短期的な買いの勢いを示しています。ただし材料が不明でRSIも過熱気味のため、エントリーには慎重さが求められる局面です。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "RSI過熱による反落リスクと、材料不明の出来高急増によるボラティリティ拡大がリスク要因です。",
+      "total_score": 76
+    },
+    {
+      "symbol": "MGNI",
+      "company_name": "Magnite, Inc.",
+      "current_price": 27.704999923706055,
+      "entry_price": 27.704999923706055,
+      "stop_loss": 25.66,
+      "take_profit_1": 29.07,
+      "take_profit_2": 31.86,
+      "expected_return_pct": 15.0,
+      "win_rate": 76,
+      "expected_value": 2.67,
+      "ai_comment": "テクニカル的には強いモメンタムが出ているが、ファンダメンタルズ材料が乏しく、RSIの過熱感から短期的な調整リスクが高い。2週間での大幅上昇を狙うにはやや分が悪く、慎重な判断が求められる。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "RSI過熱、材料不透明、急騰後の反動安リスク",
+      "total_score": 76
+    }
+  ],
+  "disclaimer": "※ 勝率・期待値は現時点ではバックテストエンジン未実装のため、総合スコアから導いた暫定値です。投資判断は自己責任で行ってください。本レポートは投資助言ではありません。"
+}
