@@ -1,0 +1,54 @@
+{
+  "run_date": "2026-11-06",
+  "top": [
+    {
+      "symbol": "RIOT",
+      "company_name": "Riot Platforms, Inc.",
+      "current_price": 17.020000457763672,
+      "entry_price": 17.020000457763672,
+      "stop_loss": 14.78,
+      "take_profit_1": 18.51,
+      "take_profit_2": 19.57,
+      "expected_return_pct": 15.0,
+      "win_rate": 78,
+      "expected_value": 1.5,
+      "ai_comment": "RIOTはテクニカル面で良好な上昇トレンドを示しており、直近決算も黒字化とポジティブだが、ニュースフローが乏しくビットコイン価格動向への依存度が高い点が懸念される。2週間での+15%上昇にはビットコイン相場の追加上昇が不可欠であり、短期トレードとしてはリスク管理を徹底すべき銘柄である。",
+      "news_summary": "特筆すべきニュースなし。",
+      "risk_factors": "ビットコイン価格急落、規制リスク、マイニング業界の競争激化、電力コスト上昇などが株価下押し要因となり得る。",
+      "total_score": 78
+    },
+    {
+      "symbol": "FROG",
+      "company_name": "JFrog Ltd.",
+      "current_price": 100.69999694824219,
+      "entry_price": 100.69999694824219,
+      "stop_loss": 88.45,
+      "take_profit_1": 108.87,
+      "take_profit_2": 115.8,
+      "expected_return_pct": 15.0,
+      "win_rate": 73,
+      "expected_value": 7.72,
+      "ai_comment": "テクニカル指標は強く短期上昇トレンドが継続している銘柄だが、ファンダメンタルズ材料が無いため値動きの持続性は不透明。高値更新中であることからブレイクアウト狙いの短期トレードとしては魅力があるが、過熱感への警戒も必要。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "材料不足のまま急騰しているため、反落時の下落幅が大きくなるリスクがある。",
+      "total_score": 73
+    },
+    {
+      "symbol": "LYNX",
+      "company_name": "Lyntris Inc.",
+      "current_price": 14.194999694824219,
+      "entry_price": 14.194999694824219,
+      "stop_loss": 12.49,
+      "take_profit_1": 15.33,
+      "take_profit_2": 16.32,
+      "expected_return_pct": 15.0,
+      "win_rate": 68,
+      "expected_value": 0.9,
+      "ai_comment": "Lyntrisは防衛技術セクターの成長期待を背景に株価が堅調に推移しており、テクニカル指標も強気を示している。ただし、裏付けとなるニュースや決算情報が無いため、短期的な急騰には限界がある可能性がある。リスク管理をしつつ、出来高増加を伴う上抜けを確認してからのエントリーが望ましい。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "材料不足による反落リスクとボラティリティの高さが主なリスク要因。",
+      "total_score": 68
+    }
+  ],
+  "disclaimer": "※ 勝率・期待値は現時点ではバックテストエンジン未実装のため、総合スコアから導いた暫定値です。投資判断は自己責任で行ってください。本レポートは投資助言ではありません。"
+}
