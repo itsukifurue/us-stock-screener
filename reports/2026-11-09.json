@@ -1,0 +1,54 @@
+{
+  "run_date": "2026-11-09",
+  "top": [
+    {
+      "symbol": "AMZN",
+      "company_name": "Amazon.com, Inc.",
+      "current_price": 266.92999267578125,
+      "entry_price": 266.92999267578125,
+      "stop_loss": 251.1,
+      "take_profit_1": 277.48,
+      "take_profit_2": 306.97,
+      "expected_return_pct": 15.0,
+      "win_rate": 78,
+      "expected_value": 27.75,
+      "ai_comment": "AMZNはテクニカル的に上昇トレンドを維持し決算も良好だが、15%の急騰を正当化する明確な材料が不足している。短期的にはトレンド継続による緩やかな上昇が期待されるが、過度な期待は禁物。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "ニュース材料の欠如と高いボラティリティにより急落リスクがある点に注意が必要。",
+      "total_score": 78
+    },
+    {
+      "symbol": "TTD",
+      "company_name": "The Trade Desk, Inc.",
+      "current_price": 14.930000305175781,
+      "entry_price": 14.930000305175781,
+      "stop_loss": 13.88,
+      "take_profit_1": 15.63,
+      "take_profit_2": 17.17,
+      "expected_return_pct": 15.0,
+      "win_rate": 76,
+      "expected_value": 1.45,
+      "ai_comment": "テクニカル的には強い上昇モメンタムが見られるものの、RSIの過熱感と材料不明の急騰である点から持続性には疑問が残ります。現時点でのエントリーはリスクが高く、押し目を待つのが賢明と考えられます。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "RSI過熱・急騰後の反動安・材料不明による不透明感がリスク要因です。",
+      "total_score": 76
+    },
+    {
+      "symbol": "TLS",
+      "company_name": "Telos Corporation",
+      "current_price": 7.170000076293945,
+      "entry_price": 7.170000076293945,
+      "stop_loss": 6.38,
+      "take_profit_1": 7.7,
+      "take_profit_2": 8.25,
+      "expected_return_pct": 15.0,
+      "win_rate": 74,
+      "expected_value": 0.59,
+      "ai_comment": "テクニカル的には強い上昇トレンドと出来高急増が確認できるが、ファンダメンタルズ材料が乏しく過熱感も高いため、短期的な過熱調整に注意が必要。ポジションを取る場合はリスク管理を徹底すべき局面。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "RSI過熱、材料不足による反落リスク、出来高急増後の持続性への不透明感。",
+      "total_score": 74
+    }
+  ],
+  "disclaimer": "※ 勝率・期待値は現時点ではバックテストエンジン未実装のため、総合スコアから導いた暫定値です。投資判断は自己責任で行ってください。本レポートは投資助言ではありません。"
+}
