@@ -1,0 +1,54 @@
+{
+  "run_date": "2026-11-10",
+  "top": [
+    {
+      "symbol": "ZIP",
+      "company_name": "ZipRecruiter, Inc.",
+      "current_price": 6.110000133514404,
+      "entry_price": 6.110000133514404,
+      "stop_loss": 5.45,
+      "take_profit_1": 6.55,
+      "take_profit_2": 7.03,
+      "expected_return_pct": 15.0,
+      "win_rate": 88,
+      "expected_value": 0.73,
+      "ai_comment": "テクニカル的には強い上昇トレンドと出来高急増が見られ、短期的な勢いは続く可能性がありますが、既に高値圏にあるため追随買いのタイミングには注意が必要です。ニュースや決算情報が無いため、上昇の背景が不明確な点もリスクとなります。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "材料不明の急騰で過熱感が強く、調整や反落のリスクがある点に注意が必要です。",
+      "total_score": 88
+    },
+    {
+      "symbol": "TTD",
+      "company_name": "The Trade Desk, Inc.",
+      "current_price": 15.40999984741211,
+      "entry_price": 15.40999984741211,
+      "stop_loss": 14.23,
+      "take_profit_1": 16.2,
+      "take_profit_2": 17.72,
+      "expected_return_pct": 15.0,
+      "win_rate": 76,
+      "expected_value": 1.47,
+      "ai_comment": "テクニカル的には短期上昇トレンドが明確で出来高も伴っているが、過熱感が強くニュース・決算材料が乏しいため持続性に不安が残る。2週間で+15%を狙うにはやや高めのハードルと言える。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "RSIの過熱、52週高値からの大幅乖離、材料不足による反落リスクが挙げられる。",
+      "total_score": 76
+    },
+    {
+      "symbol": "AMRC",
+      "company_name": "Ameresco, Inc.",
+      "current_price": 26.8700008392334,
+      "entry_price": 26.8700008392334,
+      "stop_loss": 23.98,
+      "take_profit_1": 28.8,
+      "take_profit_2": 30.9,
+      "expected_return_pct": 15.0,
+      "win_rate": 67,
+      "expected_value": 1.75,
+      "ai_comment": "テクニカル的には強い上昇トレンドにあるものの、ニュースや決算の裏付けが無く、過熱感も強いため持続性には不安が残る。短期的な利益確定売りのリスクを考慮すると、リスク管理を徹底したスイングトレードが望ましい。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "RSI過熱、材料不足での急騰、52週高値まで約28%の乖離による反落リスク。",
+      "total_score": 67
+    }
+  ],
+  "disclaimer": "※ 勝率・期待値は現時点ではバックテストエンジン未実装のため、総合スコアから導いた暫定値です。投資判断は自己責任で行ってください。本レポートは投資助言ではありません。"
+}
