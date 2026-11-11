@@ -1,0 +1,54 @@
+{
+  "run_date": "2026-11-11",
+  "top": [
+    {
+      "symbol": "FOSL",
+      "company_name": "Fossil Group, Inc.",
+      "current_price": 9.960000038146973,
+      "entry_price": 9.960000038146973,
+      "stop_loss": 9.03,
+      "take_profit_1": 10.58,
+      "take_profit_2": 11.45,
+      "expected_return_pct": 15.0,
+      "win_rate": 72,
+      "expected_value": 0.82,
+      "ai_comment": "テクニカル的には強い上昇トレンドと出来高急増が見られるが、ファンダメンタルズの裏付けがなく過熱感が極めて高い。短期的な勢いに乗る戦略は有効だが、反転リスクも大きいため厳格な損切り設定が必須。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "RSI過熱、材料なき急騰、出来高急増後の反落リスク。",
+      "total_score": 72
+    },
+    {
+      "symbol": "AZTA",
+      "company_name": "Azenta, Inc.",
+      "current_price": 49.959999084472656,
+      "entry_price": 49.959999084472656,
+      "stop_loss": 45.84,
+      "take_profit_1": 52.7,
+      "take_profit_2": 57.45,
+      "expected_return_pct": 15.0,
+      "win_rate": 55,
+      "expected_value": 2.27,
+      "ai_comment": "テクニカル的には強い上昇トレンドにあるが、過熱感が強くニュースや決算の裏付けもないため、短期的な反落リスクを警戒すべき局面と考えられる。追加上昇余地は限定的と判断する。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "RSI過熱、材料不足での急騰、52週高値接近による利益確定売りの可能性。",
+      "total_score": 55
+    },
+    {
+      "symbol": "AAL",
+      "company_name": "American Airlines Group Inc.",
+      "current_price": 14.100000381469727,
+      "entry_price": 14.100000381469727,
+      "stop_loss": 13.19,
+      "take_profit_1": 14.7,
+      "take_profit_2": 16.22,
+      "expected_return_pct": 15.0,
+      "win_rate": 50,
+      "expected_value": 0.6,
+      "ai_comment": "テクニカル面では短期的な上昇トレンドが継続しているものの、ファンダメンタルズは赤字決算で弱く、材料面での後押しも乏しい。2週間で+15%を狙うには出来高増加や新たな好材料が必要であり、現状では慎重姿勢が妥当。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "赤字決算、出来高の伴わない上昇、航空業界特有の燃料費・需要変動リスク。",
+      "total_score": 50
+    }
+  ],
+  "disclaimer": "※ 勝率・期待値は現時点ではバックテストエンジン未実装のため、総合スコアから導いた暫定値です。投資判断は自己責任で行ってください。本レポートは投資助言ではありません。"
+}
