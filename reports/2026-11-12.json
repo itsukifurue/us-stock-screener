@@ -1,0 +1,54 @@
+{
+  "run_date": "2026-11-12",
+  "top": [
+    {
+      "symbol": "AMD",
+      "company_name": "Advanced Micro Devices, Inc.",
+      "current_price": 583.0399780273438,
+      "entry_price": 583.0399780273438,
+      "stop_loss": 516.12,
+      "take_profit_1": 627.65,
+      "take_profit_2": 670.5,
+      "expected_return_pct": 15.0,
+      "win_rate": 78,
+      "expected_value": 53.49,
+      "ai_comment": "AMDは決算堅調・テクニカルも上昇基調と良好な地合いだが、材料不足のため2週間で+15%を狙うには追加の好材料(新製品発表や業界全体の強い需要観測など)が必要。現状はホールド継続か、押し目を待つスタンスが妥当と考える。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "ニュース材料の欠如、半導体セクターのボラティリティ、52週高値更新に伴う利益確定売りの可能性。",
+      "total_score": 78
+    },
+    {
+      "symbol": "MBGL",
+      "company_name": "Mobility Global Inc",
+      "current_price": 22.940000534057617,
+      "entry_price": 22.940000534057617,
+      "stop_loss": 21.74,
+      "take_profit_1": 23.74,
+      "take_profit_2": 26.38,
+      "expected_return_pct": 15.0,
+      "win_rate": 54,
+      "expected_value": 1.3,
+      "ai_comment": "テクニカル的には強いトレンドが続いていますが、過熱感が非常に強く、短期的な反落リスクが高い状況です。ニュースや決算の裏付けがないため、慎重な判断が求められます。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "RSIの過熱感による反落リスクおよび材料不足による不透明感が主なリスク要因です。",
+      "total_score": 54
+    },
+    {
+      "symbol": "AAL",
+      "company_name": "American Airlines Group Inc.",
+      "current_price": 13.399999618530273,
+      "entry_price": 13.399999618530273,
+      "stop_loss": 12.5,
+      "take_profit_1": 14.0,
+      "take_profit_2": 15.41,
+      "expected_return_pct": 15.0,
+      "win_rate": 50,
+      "expected_value": 0.56,
+      "ai_comment": "AALはテクニカル的に短期反発の兆しがあるものの、決算が赤字でニュース材料も乏しく、2週間で+15%を狙うには根拠が弱い。保有するにはリスク管理を徹底する必要がある。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "赤字決算継続によるファンダメンタルズ悪化と、燃料費・需要変動によるセクター全体のリスク。",
+      "total_score": 50
+    }
+  ],
+  "disclaimer": "※ 勝率・期待値は現時点ではバックテストエンジン未実装のため、総合スコアから導いた暫定値です。投資判断は自己責任で行ってください。本レポートは投資助言ではありません。"
+}
