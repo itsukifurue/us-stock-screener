@@ -1,0 +1,54 @@
+{
+  "run_date": "2026-11-13",
+  "top": [
+    {
+      "symbol": "NMAX",
+      "company_name": "Newsmax, Inc.",
+      "current_price": 9.265000343322754,
+      "entry_price": 9.265000343322754,
+      "stop_loss": 8.41,
+      "take_profit_1": 9.84,
+      "take_profit_2": 10.65,
+      "expected_return_pct": 15.0,
+      "win_rate": 86,
+      "expected_value": 1.08,
+      "ai_comment": "テクニカル指標は非常に強気のシグナルを示しているが、裏付けとなるニュースや決算情報が無く、持続的な上昇かどうかの判断が難しい。短期的な値幅取りを狙う場合はリスク管理を徹底すべき銘柄である。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "材料不明の出来高急増、高ボラティリティ、過熱気味のRSIによる反落リスクが挙げられる。",
+      "total_score": 86
+    },
+    {
+      "symbol": "HAWK",
+      "company_name": "HawkEye 360, Inc.",
+      "current_price": 17.649999618530273,
+      "entry_price": 17.649999618530273,
+      "stop_loss": 15.83,
+      "take_profit_1": 18.87,
+      "take_profit_2": 20.3,
+      "expected_return_pct": 15.0,
+      "win_rate": 76,
+      "expected_value": 1.57,
+      "ai_comment": "テクニカル的には強い上昇モメンタムが見られるものの、裏付けとなるニュースや決算情報が無く、過熱感も高いため追随買いにはリスクが伴います。短期的な反落や調整を警戒しつつ、材料待ちの慎重なスタンスが望ましいでしょう。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "RSI過熱、材料不明の出来高急増、業績データ欠如による不透明感がリスク要因です。",
+      "total_score": 76
+    },
+    {
+      "symbol": "LFTO",
+      "company_name": "Liftoff Mobile, Inc. Common Stock",
+      "current_price": 23.030000686645508,
+      "entry_price": 23.030000686645508,
+      "stop_loss": 20.66,
+      "take_profit_1": 24.61,
+      "take_profit_2": 26.48,
+      "expected_return_pct": 15.0,
+      "win_rate": 75,
+      "expected_value": 2.0,
+      "ai_comment": "テクニカル的には強い上昇トレンドと出来高急増が確認できますが、過熱感も強く、ニュースや決算の裏付けがない点が懸念材料です。短期的な調整リスクを考慮しつつ慎重にエントリーを検討すべき銘柄です。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "RSI過熱、材料不足での急落リスク、出来高急増後の反動安リスクに注意が必要です。",
+      "total_score": 75
+    }
+  ],
+  "disclaimer": "※ 勝率・期待値は現時点ではバックテストエンジン未実装のため、総合スコアから導いた暫定値です。投資判断は自己責任で行ってください。本レポートは投資助言ではありません。"
+}
