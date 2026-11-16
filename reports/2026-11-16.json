@@ -1,0 +1,38 @@
+{
+  "run_date": "2026-11-16",
+  "top": [
+    {
+      "symbol": "CGON",
+      "company_name": "CG Oncology Inc.",
+      "current_price": 84.77999877929688,
+      "entry_price": 84.77999877929688,
+      "stop_loss": 75.62,
+      "take_profit_1": 90.88,
+      "take_profit_2": 97.5,
+      "expected_return_pct": 15.0,
+      "win_rate": 76,
+      "expected_value": 7.47,
+      "ai_comment": "テクニカル的には非常に強いが、明確な材料が確認できないため急騰の持続性に不透明感が残る。短期的な過熱感を踏まえると、押し目を待つか慎重なエントリーが望ましい。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "RSI過熱、材料不明の出来高急増、バイオテック特有の臨床試験結果依存によるボラティリティが主なリスク。",
+      "total_score": 76
+    },
+    {
+      "symbol": "AAL",
+      "company_name": "American Airlines Group Inc.",
+      "current_price": 13.239999771118164,
+      "entry_price": 13.239999771118164,
+      "stop_loss": 12.32,
+      "take_profit_1": 13.85,
+      "take_profit_2": 15.23,
+      "expected_return_pct": 15.0,
+      "win_rate": 49,
+      "expected_value": 0.5,
+      "ai_comment": "テクニカルには短期上昇トレンドが見られるものの、ファンダメンタルズの弱さと材料不足から急騰の根拠に乏しい。2週間で+15%の達成は現状では期待薄であり、慎重な姿勢が望ましい。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "赤字決算・燃料費高騰・景気減速による航空需要の下振れリスクがある。",
+      "total_score": 49
+    }
+  ],
+  "disclaimer": "※ 勝率・期待値は現時点ではバックテストエンジン未実装のため、総合スコアから導いた暫定値です。投資判断は自己責任で行ってください。本レポートは投資助言ではありません。"
+}
