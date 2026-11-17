@@ -1,0 +1,38 @@
+{
+  "run_date": "2026-11-17",
+  "top": [
+    {
+      "symbol": "SLS",
+      "company_name": "SELLAS Life Sciences Group, Inc.",
+      "current_price": 18.84000015258789,
+      "entry_price": 18.84000015258789,
+      "stop_loss": 15.64,
+      "take_profit_1": 20.97,
+      "take_profit_2": 21.67,
+      "expected_return_pct": 15.0,
+      "win_rate": 72,
+      "expected_value": 1.14,
+      "ai_comment": "出来高急増と20日高値更新は強いシグナルですが、ニュースや決算の裏付けがなく、RSIの過熱感から短期的な調整が入りやすい局面です。エントリーする場合はリスク管理を徹底し、急落に備えた戦略が必要です。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "材料不明の急騰によるテクニカル的な過熱感と反動安リスク、バイオテック特有のボラティリティの高さ。",
+      "total_score": 72
+    },
+    {
+      "symbol": "AAL",
+      "company_name": "American Airlines Group Inc.",
+      "current_price": 12.984999656677246,
+      "entry_price": 12.984999656677246,
+      "stop_loss": 12.04,
+      "take_profit_1": 13.62,
+      "take_profit_2": 14.93,
+      "expected_return_pct": 15.0,
+      "win_rate": 49,
+      "expected_value": 0.47,
+      "ai_comment": "AALは直近決算で純損失を計上し、ファンダメンタルズに力強さが欠ける。テクニカルは中立圏で推移しているが、明確な上昇トリガーが乏しく、2週間での大幅上昇は期待しにくい。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "赤字決算、出来高不足、燃料費や景気動向に左右されやすい航空セクターのボラティリティがリスク要因。",
+      "total_score": 49
+    }
+  ],
+  "disclaimer": "※ 勝率・期待値は現時点ではバックテストエンジン未実装のため、総合スコアから導いた暫定値です。投資判断は自己責任で行ってください。本レポートは投資助言ではありません。"
+}
