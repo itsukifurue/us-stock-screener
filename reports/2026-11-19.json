@@ -1,0 +1,38 @@
+{
+  "run_date": "2026-11-19",
+  "top": [
+    {
+      "symbol": "INSM",
+      "company_name": "Insmed Incorporated",
+      "current_price": 144.77999877929688,
+      "entry_price": 144.77999877929688,
+      "stop_loss": 134.58,
+      "take_profit_1": 151.58,
+      "take_profit_2": 166.5,
+      "expected_return_pct": 15.0,
+      "win_rate": 76,
+      "expected_value": 14.06,
+      "ai_comment": "テクニカル的には強い上昇トレンドにあるが、RSIの過熱感と材料不足から短期的な反動リスクが懸念される。2週間で+15%の追加上昇を狙うにはやや無理がある水準と判断する。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "RSI過熱、出来高急増後の反落リスク、材料不明な株価上昇による不確実性が主なリスク。",
+      "total_score": 76
+    },
+    {
+      "symbol": "SPCX",
+      "company_name": "Space Exploration Technologies Corp.",
+      "current_price": 137.11500549316406,
+      "entry_price": 137.11500549316406,
+      "stop_loss": 124.91,
+      "take_profit_1": 145.25,
+      "take_profit_2": 157.68,
+      "expected_return_pct": 15.0,
+      "win_rate": 32,
+      "expected_value": -1.71,
+      "ai_comment": "SPCXは非上場企業であるSpaceXに関連する銘柄とされているが、公式な取引実態や財務情報が乏しく分析の信頼性が低い。テクニカルも明確な上昇シグナルを欠いており、短期間での大幅上昇は期待しにくい状況である。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "情報の透明性欠如、出来高低下、下降トレンド継続のリスクがある。",
+      "total_score": 32
+    }
+  ],
+  "disclaimer": "※ 勝率・期待値は現時点ではバックテストエンジン未実装のため、総合スコアから導いた暫定値です。投資判断は自己責任で行ってください。本レポートは投資助言ではありません。"
+}
