@@ -1,0 +1,38 @@
+{
+  "run_date": "2026-11-23",
+  "top": [
+    {
+      "symbol": "AAPL",
+      "company_name": "Apple Inc.",
+      "current_price": 349.0799865722656,
+      "entry_price": 349.0799865722656,
+      "stop_loss": 335.35,
+      "take_profit_1": 358.24,
+      "take_profit_2": 401.44,
+      "expected_return_pct": 15.0,
+      "win_rate": 59,
+      "expected_value": 25.26,
+      "ai_comment": "業績・テクニカルともに悪くないが、直近2週間で+15%という急騰を正当化する材料は現状見当たりません。長期保有やコアポジションとしては魅力的ですが、短期スイングとしての期待値は控えめです。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "材料不足による上値の重さと大型株特有の値動きの小ささが主なリスク。",
+      "total_score": 59
+    },
+    {
+      "symbol": "NVDA",
+      "company_name": "NVIDIA Corporation",
+      "current_price": 165.0500030517578,
+      "entry_price": 165.0500030517578,
+      "stop_loss": 141.62,
+      "take_profit_1": 180.67,
+      "take_profit_2": 189.81,
+      "expected_return_pct": 15.0,
+      "win_rate": 39,
+      "expected_value": -4.64,
+      "ai_comment": "NVIDIAは財務面では引き続き強固な業績を示しているが、株価は中期的な下降トレンドにあり、短期的な反発はあっても+15%の急騰には明確な材料が不足している。出来高増加は注目点だが、トレンドフォロー型の戻り待ちが妥当と考えられる。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "下降トレンド継続、半導体セクター全体のセンチメント悪化、材料不足による反発力の弱さがリスク要因である。",
+      "total_score": 39
+    }
+  ],
+  "disclaimer": "※ 勝率・期待値は現時点ではバックテストエンジン未実装のため、総合スコアから導いた暫定値です。投資判断は自己責任で行ってください。本レポートは投資助言ではありません。"
+}
