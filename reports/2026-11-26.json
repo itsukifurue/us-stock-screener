@@ -1,0 +1,38 @@
+{
+  "run_date": "2026-11-26",
+  "top": [
+    {
+      "symbol": "RKT",
+      "company_name": "Rocket Companies, Inc.",
+      "current_price": 15.300000190734863,
+      "entry_price": 15.300000190734863,
+      "stop_loss": 14.34,
+      "take_profit_1": 15.94,
+      "take_profit_2": 17.6,
+      "expected_return_pct": 15.0,
+      "win_rate": 61,
+      "expected_value": 1.02,
+      "ai_comment": "テクニカル面では短期的な上昇トレンドが明確で、決算も黒字と悪くないが、具体的な好材料ニュースが無く15%の急騰を狙うには根拠が弱い。モメンタムは継続しているため小幅な上昇は期待できるが、大幅高には追加の材料が必要と考えられる。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "材料不足による上値の重さと、52週高値からの大幅な乖離による戻り売り圧力がリスク要因。",
+      "total_score": 61
+    },
+    {
+      "symbol": "AAPL",
+      "company_name": "Apple Inc.",
+      "current_price": 355.5799865722656,
+      "entry_price": 355.5799865722656,
+      "stop_loss": 343.54,
+      "take_profit_1": 363.61,
+      "take_profit_2": 408.92,
+      "expected_return_pct": 15.0,
+      "win_rate": 44,
+      "expected_value": 16.72,
+      "ai_comment": "AAPLはテクニカル的に安定した上昇基調にあるが、2週間で+15%を狙うには材料不足感が否めない。決算は堅調だが株価への新たな刺激材料が乏しく、短期急騰よりも緩やかな上昇が想定される。",
+      "news_summary": "特筆すべきニュースなし",
+      "risk_factors": "明確な好材料がない中での高値圏推移による反落リスクと、時価総額が大きいため短期急騰が起きにくい点が挙げられる。",
+      "total_score": 44
+    }
+  ],
+  "disclaimer": "※ 勝率・期待値は現時点ではバックテストエンジン未実装のため、総合スコアから導いた暫定値です。投資判断は自己責任で行ってください。本レポートは投資助言ではありません。"
+}
